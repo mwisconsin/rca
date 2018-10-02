@@ -1,0 +1,28 @@
+body {
+	font-size: .7em;
+	margin: 0;
+}
+table {
+	border-spacing: 0px;
+}
+td {
+	vertical-align: top;
+}
+tr {
+	page-break-inside:auto;
+}/*page-break-inside:avoid;*/
+table .PaymentSlip {
+	page-break-inside:auto;
+}/*page-break-inside:avoid;*/
+
+
+tr.table_da_title_row th {
+  border-bottom:1px solid black;
+}
+tr.table_da_row td {
+  font-size:10px;
+}
+tr.table_da_row_alt td {
+  background-color:#eeeeee; 
+  font-size:10px;
+}

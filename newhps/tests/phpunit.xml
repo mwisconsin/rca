@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true" bootstrap="./setup.php">
+    <php>
+        <ini name="zend.enable_gc" value="0" />
+        <ini name="memory_limit" value="-1" />
+        <!-- error_reporting(E_ALL); -->
+        <ini name="error_reporting" value="32767" />
+    </php>
+
+    <testsuites>
+        <testsuite name="unit">
+            <directory>./unit/</directory>
+        </testsuite>
+        <testsuite name="integration">
+            <directory>./integration/</directory>
+        </testsuite>
+        <testsuite name="fluent">
+            <directory>./integration/Fluent/</directory>
+        </testsuite>
+        <testsuite name="gateway-alt-paypal">
+        </testsuite>
+        <testsuite name="gateway-check">
+            <directory>./integration/Gateway/Check/</directory>
+        </testsuite>
+        <testsuite name="gateway-credit">
+            <directory>./integration/Gateway/Credit/</directory>
+        </testsuite>
+        <testsuite name="gateway-debit">
+            <directory>./integration/Gateway/Debit/</directory>
+        </testsuite>
+        <testsuite name="gateway-giftcard">
+            <directory>./integration/Gateway/GiftCard/</directory>
+        </testsuite>
+        <testsuite name="gateway-token">
+            <directory>./integration/Gateway/Token/</directory>
+        </testsuite>
+        <testsuite  name="gateway-payplan">
+            <directory>./integration/Gateway/PayPlan/</directory>
+        </testsuite>
+        <testsuite name="general">
+            <file>./integration/GeneralTest.php</file>
+        </testsuite>
+        <testsuite name="certification">
+            <directory>./integration/CertificationTests/</directory>
+        </testsuite>
+        <testsuite name="attachments">
+            <directory>./integration/Attachment/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>../src/</directory>
+            <exclude>
+                <directory>./</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
