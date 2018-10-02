@@ -5,6 +5,7 @@ require_once('classes/user.php');
 
 echo 'Hello';
 
+echo "Another Hello!!!!";
 
 
 
