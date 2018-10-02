@@ -5,6 +5,13 @@ require_once('classes/user.php');
 
 echo 'Hello';
 
+
+
+
+
+exit();
+
+
 $_SESSION['UserID'] = 657;
 $_SESSION['AffectedUserID'] = 553;
 $_SESSION['UserFranchiseID'] = 2;
