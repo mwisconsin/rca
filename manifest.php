@@ -1073,7 +1073,8 @@ Rides are grouped by the "Index/path" column. To select one of the groups of rid
 If you aren't sure that the rides will work in your schedule, you can click the checkbox for a ride grouping and click "Try Above"
 <br><br><form method=POST>
 <input type=submit name=button_try_above id=button_try_above value="Try Above">&nbsp;&nbsp&nbsp;
-<input type=submit name=button_take_rides id=button_take_rides value="Take Rides">
+<input type=submit name=button_take_rides id=button_take_rides value="Take Rides">&nbsp;&nbsp&nbsp;
+<?php if(current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise_id, "Franchisee")) { ?><input type=submit name=button_email_drivers id=button_email_drivers value="Admin: Email Drivers About These Rides"><?php } ?>
 <br>
 <table border=1 class=manifest>
 	<tr>
