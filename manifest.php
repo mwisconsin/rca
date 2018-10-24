@@ -217,7 +217,7 @@ if($_POST['ReleaseDriver'] != null){
 			$subject = "Riders Club: Need $num_rides Driver".($num_rides > 1 ? "s" : "")." for ".date('m/d/Y',strtotime($date));
 			$body = "There ".($num_rides > 1 ? "are $num_rides rides" : "is 1 ride")." for ".date('m/d/Y',strtotime($date))." where we could use your help.
 
-To view these driving opportunities, log in to the Riders Club site and navigate to your manifest page for Tuesday, October 23rd. At the bottom of the page there will be a list of remaining rides as well as instructions on how to assign those to yourself. 
+To view these driving opportunities, log in to the Riders Club site and navigate to your manifest page for ".date('l, F jS',strtotime($date)).". At the bottom of the page there will be a list of remaining rides as well as instructions on how to assign those to yourself. 
 
 If you have any questions, please call the office number at 319-365-1511 and the on call person will help you, or get you in touch with someone who can.
 
