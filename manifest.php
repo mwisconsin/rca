@@ -214,14 +214,14 @@ if($_POST['ReleaseDriver'] != null){
 			#$to = $rs["EmailAddress"];
 			$to = "mysterywisconsin@gmail.com";
 			$from = "admin@myridersclub.com";
-			$subject = "Riders Club: Need $num_riders Drivers for $date";
-			$body = "There are $num_rides rides for $date where we could use your help.
+			$subject = "Riders Club: Need $num_rides Drivers for ".date('m/d/Y',strtotime($date));
+			$body = "There are $num_rides rides for ".date('m/d/Y',strtotime($date))." where we could use your help.
 
-				To view these driving opportunities, log in to the Riders Club site and navigate to your manifest page for Tuesday, October 23rd. At the bottom of the page there will be a list of remaining rides as well as instructions on how to assign those to yourself. 
-				
-				If you have any questions, please call the office number at 319-365-1511 and the on call person will help you, or get you in touch with someone who can.
-				
-				Thank you for using Riders Club of Cedar Rapids!";	
+To view these driving opportunities, log in to the Riders Club site and navigate to your manifest page for Tuesday, October 23rd. At the bottom of the page there will be a list of remaining rides as well as instructions on how to assign those to yourself. 
+
+If you have any questions, please call the office number at 319-365-1511 and the on call person will help you, or get you in touch with someone who can.
+
+Thank you for using Riders Club of Cedar Rapids!";	
 			mail( $to, $subject, $body, "From: $from" );			
 			$i++;
 			if($i == 1) break;
