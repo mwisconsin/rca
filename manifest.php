@@ -214,8 +214,8 @@ if($_POST['ReleaseDriver'] != null){
 			#$to = $rs["EmailAddress"];
 			$to = "mysterywisconsin@gmail.com";
 			$from = "admin@myridersclub.com";
-			$subject = "Riders Club: Need $num_rides Drivers for ".date('m/d/Y',strtotime($date));
-			$body = "There are $num_rides rides for ".date('m/d/Y',strtotime($date))." where we could use your help.
+			$subject = "Riders Club: Need $num_rides Driver".($num_rides > 1 ? "s" : "")." for ".date('m/d/Y',strtotime($date));
+			$body = "There ".($num_rides > 1 ? "are $num_rides rides" : "is 1 ride")." for ".date('m/d/Y',strtotime($date))." where we could use your help.
 
 To view these driving opportunities, log in to the Riders Club site and navigate to your manifest page for Tuesday, October 23rd. At the bottom of the page there will be a list of remaining rides as well as instructions on how to assign those to yourself. 
 
