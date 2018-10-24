@@ -196,6 +196,38 @@ if($_POST['ReleaseDriver'] != null){
 	</style>
 	";
 	
+	$pk = array_keys($_POST);
+	for($i = 0; $i < count($pk); $i++) if(strstr($pk[$i],"button_email_drivers")) {
+		$num_rides = str_replace("button_email_drivers_","",$pk[$i]);
+		$sql = "select * from user_role
+			natural join users
+			natural join driver
+			natural join email
+			natural join person_name
+			where
+			user_role.franchiseID = 2
+			and driver.DriverStatus = 'Active'
+			and user_role.Role = 'Driver'";
+		$r = mysql_query($sql);
+		$i = 0;
+		while($rs = mysql_fetch_array($r)) {
+			#$to = $rs["EmailAddress"];
+			$to = "mysterywisconsin@gmail.com";
+			$from = "admin@myridersclub.com";
+			$subject = "Riders Club: Need $num_riders Drivers for $date";
+			$body = "There are $num_rides rides for $date where we could use your help.
+
+				To view these driving opportunities, log in to the Riders Club site and navigate to your manifest page for Tuesday, October 23rd. At the bottom of the page there will be a list of remaining rides as well as instructions on how to assign those to yourself. 
+				
+				If you have any questions, please call the office number at 319-365-1511 and the on call person will help you, or get you in touch with someone who can.
+				
+				Thank you for using Riders Club of Cedar Rapids!";	
+			mail( $to, $subject, $body, "From: $from" );			
+			$i++;
+			if($i == 1) break;
+		}
+	}
+	
 	if($_POST["button_take_rides"] && isset($_POST["SelectIndexPath"]) && count($_POST["SelectIndexPath"]) > 0) {
 		
 		$sql = "select CustomTransitionID from link where IndexPath in ('".join("','",array_keys($_POST["SelectIndexPath"]))."')";
@@ -1074,7 +1106,7 @@ If you aren't sure that the rides will work in your schedule, you can click the 
 <br><br><form method=POST>
 <input type=submit name=button_try_above id=button_try_above value="Try Above">&nbsp;&nbsp&nbsp;
 <input type=submit name=button_take_rides id=button_take_rides value="Take Rides">&nbsp;&nbsp&nbsp;
-<?php if(current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise_id, "Franchisee")) { ?><input type=submit name=button_email_drivers id=button_email_drivers value="Admin: Email Drivers About These Rides"><?php } ?>
+<?php if(current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise_id, "Franchisee")) { ?><input type=submit name=button_email_drivers_<?php echo count($links); ?> id=button_email_drivers value="Admin: Email Drivers About These Rides"><?php } ?>
 <br>
 <table border=1 class=manifest>
 	<tr>
