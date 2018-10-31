@@ -597,7 +597,7 @@ var supportList = {
 
 window.addEvent('domready', supportList.init);
 
-jQuery(function($) { $('YesButton').focus(); });
+jQuery(function($) { $('#YesButton').focus(); });
 </script>
 
 <?php
