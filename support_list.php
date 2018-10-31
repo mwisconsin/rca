@@ -285,7 +285,7 @@ You may add a rider to your support list by selecting this <a href="request_to_s
 if ($show_checkbox) { ?>
 <input type="submit" name="SubmitPreference" value="Submit Driver Month-End Preference" /> &nbsp;
 <?php }
-?><input type="button" name="SubmitDollars" value="Submit Dollars as Allocated Above"/></p>
+?><input type="submit" name="SubmitDollars" value="Submit Dollars as Allocated Above"/></p>
 </form>
 
 <script>
