@@ -154,7 +154,7 @@ function get_name_fields_from_post($form_name_prefix = '', $required_fields = ar
 
 function get_displayable_person_name_string($person_name, $prefix = "") {
 		$name = "";
-    if (isset($person_name[$prefix . 'Title'])) {
+    if (isset($person_name[$prefix . 'Title']) && $person_name[$prefix . 'Title']) != '') {
         $name = $person_name[$prefix . 'Title'] . ' ';
     } 
 
@@ -163,13 +163,14 @@ function get_displayable_person_name_string($person_name, $prefix = "") {
     if(isset($person_name[$prefix . 'NickName']) && $person_name[$prefix . 'NickName'] != '')
     	$name .= '(<B>'.$person_name[$prefix . 'NickName'].'</B>) ';
     
-    if (isset($person_name[$prefix . 'MiddleInitial']) && !strstr($name,'(')) {
+    if (isset($person_name[$prefix . 'MiddleInitial']) && $person_name[$prefix . 'MiddleInitial'] != ''
+    			&& !strstr($name,'(')) {
         $name .= $person_name[$prefix . 'MiddleInitial'] . ' ';
     }
 
     $name .= $person_name[$prefix . 'LastName'];
 
-    if (isset($person_name[$prefix . 'Suffix'])) {
+    if (isset($person_name[$prefix . 'Suffix']) && $person_name[$prefix . 'Suffix'] != '') {
         $name .= ' ' . $person_name[$prefix . 'Suffix'];
     }
     return $name;
