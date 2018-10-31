@@ -179,9 +179,9 @@ openCharityPopup();
             }
 
             $dollar_amount = (is_numeric($_POST['Dollars'][$charity['CharityID']])) ? 
-                                         $_POST['Dollars'][$charity['CharityID']] : 0;
+                                         $_POST['Dollars'][$charity['CharityID']] : '';
 
-            $dollars = "<input type=\"text\" size=\"3\" name=\"Dollars[{$charity['CharityID']}]\" id=\"Dollars[{$charity['CharityID']}]\" value=\"{$dollar_amount}\" />";
+            $dollars = "<input type=\"text\" size=\"3\" name=\"Dollars[{$charity['CharityID']}]\" id=\"Dollars[{$charity['CharityID']}]\" value=\"{$dollar_amount}\" placeholder=0/>";
 			if($charity['Approved'] == 'Y')
             	echo "<tr>{$checkbox}<td>\${$dollars}.00</td><td>{$charity['CharityName']}</td><td>{$ytd_amount}</td></tr>";
 			else
