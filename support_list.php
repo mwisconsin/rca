@@ -499,7 +499,7 @@ function display_charity_contribution_confirmation($user_id, $charities, $charit
 <?
 
 ?>
-<input type="Submit" name="ConfirmDollars" value="Yes" /> <input type="Submit" name="CancelConfirm" value="No" />
+<input type="Submit" name="ConfirmDollars" value="Yes" id="YesButton"/> <input type="Submit" name="CancelConfirm" value="No" />
 <?php
     if (is_array($_POST['Dollars'])) {
         foreach ($_POST['Dollars'] as $charity_id => $dollar_amount) {
@@ -596,6 +596,8 @@ var supportList = {
 }
 
 window.addEvent('domready', supportList.init);
+
+jQuery(function($) { $('YesButton').focus(); });
 </script>
 
 <?php
