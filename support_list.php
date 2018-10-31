@@ -292,7 +292,7 @@ if ($show_checkbox) { ?>
 <script>
 function confirmSubmission(f) {
 	$outstring = 'Please confirm the following:<ul>';
-	jQuery.each('table_charities.input[name^="Dollars"]',function(k,v) {
+	jQuery.each('#table_charities input[name^="Dollars"]',function(k,v) {
 		if(parseInt(jQuery(v).val(),10) > 0) {
 			$outstring += '<li>$'+jQuery(v).val()+' to '+jQuery(v).parent('td').next('td').text()+'</li>'
 		}
