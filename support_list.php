@@ -181,7 +181,7 @@ openCharityPopup();
             $dollar_amount = (is_numeric($_POST['Dollars'][$charity['CharityID']])) ? 
                                          $_POST['Dollars'][$charity['CharityID']] : '';
 
-            $dollars = "<input type=\"text\" size=\"3\" name=\"Dollars[{$charity['CharityID']}]\" id=\"Dollars[{$charity['CharityID']}]\" value=\"{$dollar_amount}\" placeholder=0/>";
+            $dollars = "<input type=\"text\" size=\"3\" name=\"Dollars[{$charity['CharityID']}]\" id=\"Dollars[{$charity['CharityID']}]\" value=\"{$dollar_amount}\" placeholder=\"0\"/>";
 			if($charity['Approved'] == 'Y')
             	echo "<tr>{$checkbox}<td>\${$dollars}.00</td><td>{$charity['CharityName']}</td><td>{$ytd_amount}</td></tr>";
 			else
@@ -259,9 +259,9 @@ You may add a rider to your support list by selecting this <a href="request_to_s
 
 
             $dollar_amount = (is_numeric($_POST['Dollars'][$non_charity['UserID']])) ? 
-                                         $_POST['Dollars'][$non_charity['UserID']] : 0;
+                                         $_POST['Dollars'][$non_charity['UserID']] : '';
 
-            $dollars = "<input type=\"text\" size=\"3\" name=\"RiderDollars[{$non_charity['UserID']}]\" id=\"RiderDollars[{$non_charity['UserID']}]\" value=\"{$dollar_amount}\" />";
+            $dollars = "<input type=\"text\" size=\"3\" name=\"RiderDollars[{$non_charity['UserID']}]\" id=\"RiderDollars[{$non_charity['UserID']}]\" value=\"{$dollar_amount}\" placeholder=\"0\" />";
 
             echo "<tr>{$checkbox}<td>\${$dollars}.00</td><td>{$disp_name}</td><td>{$available_balance}</td><td>{$ytd_amount}</td><td>{$ytd_amount2}</td><td>{$ytd_amount3}</td></tr>";
         }
