@@ -509,6 +509,15 @@ function display_charity_contribution_confirmation($user_id, $charities, $charit
         }
     }
 ?>
+<script>
+jQuery(function() { window.setTimeout(function() { jQuery('#YesButton').focus(); }, 2000); });
+</script>
+<style>
+input#YesButton:focus {
+    border: 3px solid blue;
+    color: red;
+}	
+</style>
 
 </form>
 
@@ -596,15 +605,8 @@ var supportList = {
 }
 
 window.addEvent('domready', supportList.init);
-
-jQuery(function() { window.setTimeout(function() { jQuery('#YesButton').focus(); }, 2000); });
 </script>
-<style>
-input#YesButton:focus {
-    border: 3px solid blue;
-    color: red;
-}	
-</style>
+
 <?php
 function merge_non_charities($charity1, $charity2, $charity3) {
   for ($i=0; $i<sizeof($charity1); $i++) {
