@@ -160,7 +160,16 @@ openCharityPopup();
 <?php /* TODO
    (TODO:  Add charity to support List)*/ ?>
     </p>
-<table border="1">
+<style>
+.btable {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.btable td {
+	border: 1px solid #333;
+}	
+</style>
+<table class=btable id=table_charities>
 <tr><?php
     if ($show_checkbox) { echo '<th>Preference</th>'; } 
     ?><th>Gift (in dollars)</th><th>To</th><th>YTD Amount</th></tr>
@@ -197,7 +206,7 @@ openCharityPopup();
 <p>Non-Charitable Funds (may not be deducted from taxes)<p>
 You may add a rider to your support list by selecting this <a href="request_to_support_rider.php">Add a Rider to my Support List</a> link.
 <br />
-<table border="1">
+<table class=btable id=table_riders>
 <tr><?php 
     if ($show_checkbox) { echo '<th>&nbsp;</th>'; } 
 ?><th>Gift (in dollars)</th><th>to</th><th>Current $ available for rides</th><th>YTD Amounts</th><th><?php echo date('Y', strtotime('last year')); ?> Amounts</th><th><?php echo date('Y', strtotime('2 years ago')); ?> Amounts</th></tr>
@@ -276,10 +285,21 @@ You may add a rider to your support list by selecting this <a href="request_to_s
 if ($show_checkbox) { ?>
 <input type="submit" name="SubmitPreference" value="Submit Driver Month-End Preference" /> &nbsp;
 <?php }
-?><input type="submit" name="SubmitDollars" value="Submit Dollars as Allocated Above" /></p>
+?><input type="button" name="SubmitDollars" value="Submit Dollars as Allocated Above" onClick="confirmSubmission(this.form);"/></p>
 
 </form>
 
+<script>
+function confirmSubmission(f) {
+	$outstring = 'Please confirm the following:<ul>';
+	jQuery.each('table_charities.input[name^="Dollars"]',function(k,v) {
+		if(parseInt(jQuery(v).val(),10) > 0) {
+			$outstring += '<li>$'+jQuery(v).val()+' to '+jQuery(v).parent('td').next('td').text()+'</li>'
+		}
+	});
+	console.log($outstring);
+}	
+</script>
 <div style="clear:both">&nbsp;</div>
 
 <?php
@@ -404,7 +424,16 @@ function display_charity_contribution_confirmation($user_id, $charities, $charit
 <input type="hidden" name="balance" id="balance_cents" value="<?php echo $user_balance ?>" />
 <?php // TODO:  Iterate through POSTED fields and include hidden for each ?>
 <p>You have indicated you want to contribute to the following funds:</p>
-<table border="1">
+<style>
+.btable {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.btable td {
+	border: 1px solid #333;
+}	
+</style>
+<table class=btable id=table_charities>
 <tr><th>Gift (in dollars)</th><th>To</th></tr>
 <?php 
     if ($charities) {
