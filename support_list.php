@@ -510,7 +510,7 @@ function display_charity_contribution_confirmation($user_id, $charities, $charit
     }
 ?>
 <script>
-jQuery(function() { window.setTimeout(function() { jQuery('#YesButton').focus(); }, 2000); });
+jQuery(function() { jQuery('#YesButton').focus(); });
 </script>
 <style>
 input#YesButton:focus {
