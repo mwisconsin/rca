@@ -285,7 +285,8 @@ You may add a rider to your support list by selecting this <a href="request_to_s
 if ($show_checkbox) { ?>
 <input type="submit" name="SubmitPreference" value="Submit Driver Month-End Preference" /> &nbsp;
 <?php }
-?><input type="button" name="SubmitDollars" value="Submit Dollars as Allocated Above" onClick="confirmSubmission(this.form);"/></p>
+?><input type="button" name="SubmitDollarsButton" value="Submit Dollars as Allocated Above" onSubmit="confirmSubmission(this.form);"/></p>
+<input type="submit" name="SubmitDollars" id=SubmitDollarsButton value="Submit Dollars as Allocated Above" style='display: none;'>
 
 </form>
 
@@ -318,7 +319,7 @@ function confirmSubmission(f) {
 			modal: true,
 			width: '400px',
 			buttons: [
-				{ text: 'Ok', click: function() { $d.dialog('close'); f.submit(); } },
+				{ text: 'Ok', click: function() { $d.dialog('close'); jQuery('#SubmitDollarsButton').click(); } },
 				{ text: 'Cancel', click: function() { $d.dialog('close'); } }
 			]
 		});
