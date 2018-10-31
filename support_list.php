@@ -291,13 +291,38 @@ if ($show_checkbox) { ?>
 
 <script>
 function confirmSubmission(f) {
-	$outstring = 'Please confirm the following:<ul>';
-	jQuery.each('#table_charities input[name^="Dollars"]',function(k,v) {
-		if(parseInt(jQuery(v).val(),10) > 0) {
-			$outstring += '<li>$'+jQuery(v).val()+' to '+jQuery(v).parent('td').next('td').text()+'</li>'
-		}
-	});
-	console.log($outstring);
+	$outstring = '';
+	if(jQuery('#table_charities input[name^="Dollars"]').length > 0) {
+		jQuery('#table_charities input[name^="Dollars"]').each(function(k,v) {
+			if($outstring.indexOf('Charitable') == -1)
+				$outstring += 'Please confirm the Charitable Funds:<ul>';
+			if(parseInt(jQuery(v).val(),10) > 0) {
+				$outstring += '<li>$'+jQuery(v).val()+' to '+jQuery(v).parent('td').next('td').text()+'</li>'
+			}
+		});
+		if($outstring.indexOf('<li>') > -1) 
+			$outstring += "</ul>";
+	}
+	if(jQuery('#table_riders input[name^="RiderDollars"]').length > 0) {
+		jQuery('#table_riders input[name^="RiderDollars"]').each(function(k,v) {
+			if(parseInt(jQuery(v).val(),10) > 0) {
+				if($outstring.indexOf('Non-Charitable') == -1)
+					$outstring += 'Please confirm the Non-Charitable Funds:<ul>';
+				$outstring += '<li>$'+jQuery(v).val()+' to '+jQuery(v).parent('td').next('td').text()+'</li>'
+			}
+		});
+		$outstring += "</ul>";
+	}
+	if($outstring != '') {
+		$d = jQuery('<div>'+$outstring+'</div>').dialog({
+			modal: true,
+			width: '400px',
+			buttons: [
+				{ text: 'Ok', click: function() { $d.dialog('close'); f.submit(); } },
+				{ text: 'Cancel', click: function() { $d.dialog('close'); } }
+			]
+		});
+	}
 }	
 </script>
 <div style="clear:both">&nbsp;</div>
