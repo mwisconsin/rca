@@ -205,9 +205,12 @@ if($_POST['ReleaseDriver'] != null){
 			natural join email
 			natural join person_name
 			where
-			user_role.franchiseID = 2
+			user_role.franchiseID = $franchise_id
 			and driver.DriverStatus = 'Active'
-			and user_role.Role = 'Driver'";
+			and user_role.Role = 'Driver'
+			and not exists(select * from driver_vacation where driver_vacation.UserID = users.UserID and '".date('m/d/Y',strtotime($date))."' between StartDate and EndDate)
+			and DriverApprovalDate < DATE_ADD(NOW(),INTERVAL -30 DAY)
+			";
 		$r = mysql_query($sql);
 		$i = 0;
 		while($rs = mysql_fetch_array($r)) {
@@ -223,7 +226,6 @@ If you have any questions, please call the office number at 319-365-1511 and the
 Thank you for using Riders Club of Cedar Rapids!";	
 			mail( $to, $subject, $body, "From: $from" );			
 			$i++;
-			if($i == 1) break;
 		}
 	}
 	
