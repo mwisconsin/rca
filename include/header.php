@@ -54,6 +54,7 @@ set_franchise_timezone(2);  // TODO:  Per-user/franchise TZ
     <script>
     jQuery(function($) {
     	$('.jq_datepicker').datepicker({
+    		language: "en",
     		showOtherMonths: true,
       	selectOtherMonths: true,
       	numberOfMonths: 2,
