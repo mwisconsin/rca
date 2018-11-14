@@ -619,6 +619,7 @@ $href = '';
 		 jQuery(function($) {
 		 	var dp = $('#TravelDate').datepicker().data('datepicker');
 		 	dp.update('minDate',new Date('<?php echo join('/',array($selected_month,$selected_day,$selected_year)); ?>'));
+		 	dp.selectDate(new Date('<?php echo join('/',array($selected_month,$selected_day,$selected_year)); ?>'));
 		 	
 		 	var s = $('#TravelDate').val().split('/');
 	 		$('input[name="TravelMonth"]').val( s[0] );
