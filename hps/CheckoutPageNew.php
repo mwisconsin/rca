@@ -162,7 +162,7 @@ if(mysql_num_rows($r) > 0) {
 	<select id=mNickname name=mNickname size=1>
 		<option value=""></option>
 <?php 
-mysql_data_seek($r,0); 
+mysqli_data_seek($r,0); 
 while($rs = mysql_fetch_array($r)) echo "<option value='$rs[muToken]'>$rs[Nickname]</option>";
 ?>
 </select>

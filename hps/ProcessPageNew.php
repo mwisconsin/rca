@@ -395,7 +395,7 @@ if (is_string($response)) {
 
 <?php
 	exit;
-//}
+}
         
 function chargeToken($chargeService, $suToken, $validCardHolder)
 {
