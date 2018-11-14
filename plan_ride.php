@@ -617,6 +617,9 @@ $href = '';
 		 <td><input type=text size=10 name=TravelDate value="<?php echo join('/',array($selected_month,$selected_day,$selected_year)); ?>" class="jq_datepicker" id="TravelDate"></td>
 		 <script>
 		 jQuery(function($) {
+		 	var dp = $('#TravelDate').datepicker().data('datepicker');
+		 	dp.update('minDate','<?php echo join('/',array($selected_month,$selected_day,$selected_year)); ?>');
+		 	
 		 	var s = $('#TravelDate').val().split('/');
 	 		$('input[name="TravelMonth"]').val( s[0] );
 	 		$('input[name="TravelDay"]').val( s[1] );
