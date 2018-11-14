@@ -618,7 +618,9 @@ $href = '';
 		 <script>
 		 jQuery(function($) {
 		 	var dp = $('#TravelDate').datepicker().data('datepicker');
+		 	<?php if(!current_user_has_role(1, 'FullAdmin') && !current_user_has_role($franchise_id, 'Franchisee')) { ?>
 		 	dp.update('minDate',new Date('<?php echo join('/',array($selected_month,$selected_day,$selected_year)); ?>'));
+			<?php } ?>
 		 	dp.selectDate(new Date('<?php echo join('/',array($selected_month,$selected_day,$selected_year)); ?>'));
 		 	
 		 	var s = $('#TravelDate').val().split('/');
