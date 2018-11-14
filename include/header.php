@@ -65,6 +65,8 @@ set_franchise_timezone(2);  // TODO:  Per-user/franchise TZ
 		<script src="/js/mootools-more.js" type="text/javascript"></script>
 		<script src="/js/js-cookie.js" type="text/javascript"></script>
 		<script src="/js/general-functions.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="/css/air-datepicker/datepicker.min.css" />
+		<script src="/js/air-datepicker/datepicker.min.js" type="text/javascript"></script>
 <?php if (is_logged_in() && (current_user_has_role($franchise_id,'FullAdmin') || current_user_has_role($franchise_id,'Franchisee'))) { ?>
         <script src="/js/user_redirect.js" type="text/javascript"></script>
 <?php } ?>
