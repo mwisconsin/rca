@@ -134,98 +134,98 @@ session_commit();
         
 require_once "newhps/Hps.php";
 
-//$config = new HpsServicesConfig();
-//$config->secretApiKey = $__HPS_SECRET_KEY;
-//
-//// the following variables will be provided to you during certificaiton.
-//$config->versionNumber = '2290';
-//$config->developerId = '002914';
-//
-//$chargeService = new HpsCreditService($config);
-//
-//$address = new HpsAddress();
-//$address->address = $arr_address['Address1'];
-//$address->city = $arr_address['City'];
-//$address->state = $arr_address['State'];
-//$address->zip = $arr_address['Zip5'];
-//$address->country = "United States";
-//
-//$validCardHolder = new HpsCardHolder();
-//$validCardHolder->firstName = $strCustomerFirstName;
-//$validCardHolder->lastName = $strCustomerLastName;
-//$validCardHolder->address = $address;
-//#$validCardHolder->phoneNumber = preg_replace('/[^0-9]/', '', $phone['PhoneNumber']);
-//
-//$suToken = new HpsTokenData();
-//
-//
-//if(isset($_POST['token_value']) && $_POST['token_value'] != "" 
-//	&& (!isset($_POST["card_number"]) || $_POST["card_number"] == "")) {
-//	$suToken->tokenValue = $_POST['token_value'];
-//	rc_log(PEAR_LOG_INFO,"Using Token Value: ".$_POST['token_value']);
-//} else {
-//	$validCard = new HpsCreditCard();
-//	$validCard->number = $_POST["card_number"];
-//	$validCard->cvv = $_POST["card_cvc"];
-//	$validCard->expMonth = $_POST["exp_month"];
-//	$validCard->expYear = $_POST["exp_year"];
-//	try {
-//		rc_log(PEAR_LOG_INFO,"Attempting to Verify Card");
-//		$response = $chargeService->verify($validCard, $validCardHolder,true );
-//	} catch (CardException $e) {
-//  		rc_log(PEAR_LOG_ERR,"Verify Error: ".$e->getMessage());
-//      echo 'Verify Failure: ' . $e->getMessage();
-//	} catch (Exception $e) {
-//  		rc_log(PEAR_LOG_ERR,"Verify Error: ".$e->getMessage());
-//      echo 'Verify Failure: ' . $e->getMessage();
-//  }
-//
-//	$suTokenValue = $response->tokenData->tokenValue;
-//	$response = $chargeService->updateTokenExpiration($suTokenValue, $_POST["exp_month"], $_POST["exp_year"]);	
-//	$suToken->tokenValue = $suTokenValue;
-//
-//}
-//
-//$response = chargeToken($chargeService, $suToken, $validCardHolder);
+$config = new HpsServicesConfig();
+$config->secretApiKey = $__HPS_SECRET_KEY;
+
+// the following variables will be provided to you during certificaiton.
+$config->versionNumber = '2290';
+$config->developerId = '002914';
+
+$chargeService = new HpsCreditService($config);
+
+$address = new HpsAddress();
+$address->address = $arr_address['Address1'];
+$address->city = $arr_address['City'];
+$address->state = $arr_address['State'];
+$address->zip = $arr_address['Zip5'];
+$address->country = "United States";
+
+$validCardHolder = new HpsCardHolder();
+$validCardHolder->firstName = $strCustomerFirstName;
+$validCardHolder->lastName = $strCustomerLastName;
+$validCardHolder->address = $address;
+#$validCardHolder->phoneNumber = preg_replace('/[^0-9]/', '', $phone['PhoneNumber']);
+
+$suToken = new HpsTokenData();
+
+
+if(isset($_POST['token_value']) && $_POST['token_value'] != "" 
+	&& (!isset($_POST["card_number"]) || $_POST["card_number"] == "")) {
+	$suToken->tokenValue = $_POST['token_value'];
+	rc_log(PEAR_LOG_INFO,"Using Token Value: ".$_POST['token_value']);
+} else {
+	$validCard = new HpsCreditCard();
+	$validCard->number = $_POST["card_number"];
+	$validCard->cvv = $_POST["card_cvc"];
+	$validCard->expMonth = $_POST["exp_month"];
+	$validCard->expYear = $_POST["exp_year"];
+	try {
+		rc_log(PEAR_LOG_INFO,"Attempting to Verify Card");
+		$response = $chargeService->verify($validCard, $validCardHolder,true );
+	} catch (CardException $e) {
+  		rc_log(PEAR_LOG_ERR,"Verify Error: ".$e->getMessage());
+      echo 'Verify Failure: ' . $e->getMessage();
+	} catch (Exception $e) {
+  		rc_log(PEAR_LOG_ERR,"Verify Error: ".$e->getMessage());
+      echo 'Verify Failure: ' . $e->getMessage();
+  }
+
+	$suTokenValue = $response->tokenData->tokenValue;
+	$response = $chargeService->updateTokenExpiration($suTokenValue, $_POST["exp_month"], $_POST["exp_year"]);	
+	$suToken->tokenValue = $suTokenValue;
+
+}
+
+$response = chargeToken($chargeService, $suToken, $validCardHolder);
 ?>
 <html>
 <body>
 <?php
 
-//if (is_string($response)) {
-//		rc_log(PEAR_LOG_ERR, $response);
-//    echo "error: " . $response;
-//    exit;
-//} else {
-//
-//	if(!isset($_POST["token_value"]) || $_POST["token_value"] == "") {
-//		$sql = "insert into hps_mutokens (UserID, muToken, Nickname) values ($user_id, '{$suToken->tokenValue}', '{$_POST[Nickname]}')";
-//		$strNickname = $_POST["Nickname"];
-//		mysql_query($sql);
-//		rc_log(PEAR_LOG_INFO, "New Nickname $strNickname: $sql");
-//	}	else {
-//		#echo $_POST[token_value]."<BR>";
-//		$sql = "select Nickname from hps_mutokens where muToken = '{$_POST[token_value]}'";
-//		$rs = mysql_fetch_array(mysql_query($sql));
-//		rc_log(PEAR_LOG_INFO,"Get Nickname $rs[Nickname]");
-//		$strNickname = $rs["Nickname"];
-//	}
-//	$strReferenceNumber = $response->referenceNumber;
-//	$strTransNum = $response->transactionId;
-//	$strAuthorizationCode = $response->authorizationCode;
-//	$strInvoiceNum = $response->invoiceNumber;
-//	$strCardType = $response->cardType;
-//	$strUsedAttempts = 1;
-//	$intResultNum = 0;
-//	
-//  $result_stored = store_hps_transaction_result( $strVerifyNum,
-//                             $strTransNum, $strReferenceNumber, 
-//                             $strAuthorizationCode, $strTransNum, 
-//                             $transaction_cents );	
-//  mail_admin_for_transaction($user_id, get_displayable_person_name_string($user_person_name), 
-//  	$strTransNum, $strReferenceNumber, $strAuthorizationCode, $intResultNum, 
-//  	$strUsedAttempts, $strCardType, $strNickname, 
-//  	$strInvoiceNum, $transaction_cents);	
+if (is_string($response)) {
+		rc_log(PEAR_LOG_ERR, $response);
+    echo "error: " . $response;
+    exit;
+} else {
+
+	if(!isset($_POST["token_value"]) || $_POST["token_value"] == "") {
+		$sql = "insert into hps_mutokens (UserID, muToken, Nickname) values ($user_id, '{$suToken->tokenValue}', '{$_POST[Nickname]}')";
+		$strNickname = $_POST["Nickname"];
+		mysql_query($sql);
+		rc_log(PEAR_LOG_INFO, "New Nickname $strNickname: $sql");
+	}	else {
+		#echo $_POST[token_value]."<BR>";
+		$sql = "select Nickname from hps_mutokens where muToken = '{$_POST[token_value]}'";
+		$rs = mysql_fetch_array(mysql_query($sql));
+		rc_log(PEAR_LOG_INFO,"Get Nickname $rs[Nickname]");
+		$strNickname = $rs["Nickname"];
+	}
+	$strReferenceNumber = $response->referenceNumber;
+	$strTransNum = $response->transactionId;
+	$strAuthorizationCode = $response->authorizationCode;
+	$strInvoiceNum = $response->invoiceNumber;
+	$strCardType = $response->cardType;
+	$strUsedAttempts = 1;
+	$intResultNum = 0;
+	
+  $result_stored = store_hps_transaction_result( $strVerifyNum,
+                             $strTransNum, $strReferenceNumber, 
+                             $strAuthorizationCode, $strTransNum, 
+                             $transaction_cents );	
+  mail_admin_for_transaction($user_id, get_displayable_person_name_string($user_person_name), 
+  	$strTransNum, $strReferenceNumber, $strAuthorizationCode, $intResultNum, 
+  	$strUsedAttempts, $strCardType, $strNickname, 
+  	$strInvoiceNum, $transaction_cents);	
   
   $description = "Added to account using {$strNickname}; HPS Web Portal; " .
                  date('Y-m-d h:i:s');    
