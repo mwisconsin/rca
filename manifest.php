@@ -1073,8 +1073,9 @@ if(count($links) > 0 && !$foundRide) {
 				) continue;
 			}
 			
-      if ($mylinks[$j]['LinkStatus'] == 'CANCELEDEARLY')
+      if (strstr($mylinks[$j]['LinkStatus'],'CANCEL'))
           continue;
+
       
       if($mylinks[$j]['DriverConfirmed'] == 'No' && !current_user_has_role(1, 'FullAdmin') && !current_user_has_role($franchise_id, "Franchisee"))
       	continue;
