@@ -53,12 +53,16 @@ set_franchise_timezone(2);  // TODO:  Per-user/franchise TZ
     <script>jQuery.noConflict();</script>
     <script>
     jQuery(function($) {
-    	$('.jq_datepicker').datepicker({
-    		language: "en",
-    		showOtherMonths: true,
-      	selectOtherMonths: true,
-      	numberOfMonths: 2,
-      	showCurrentAtPos: 0
+    	$('.jq_datepicker').filter(function() {
+    		$(this).datepicker({
+	    		language: "en",
+	    		showOtherMonths: true,
+	      	selectOtherMonths: true,
+	      	numberOfMonths: 2,
+	      	showCurrentAtPos: 0    			
+    		});
+    		var dp = $(this).datepicker().data('datepicker');
+    		if($(this).val() !== '') dp.selectDate(new Date($(this).val()));
     	});
     });	
     </script>

@@ -333,6 +333,7 @@ Last Updated: <?php if($date = get_last_vacation_update_date($driver_id))echo fo
             $selected_month = date('m');
             $selected_day = date('j');
             $selected_year = date('Y');
+            $selected_date = "{$selected_month}/".str_pad($selected_day,2,"0",STR_PAD_LEFT)."/{$selected_year}";
 
             if ($vacations[$idx]) {
                 $date_parts = explode('-', $vacations[$idx][$prefix . 'Date']);
@@ -348,10 +349,11 @@ Last Updated: <?php if($date = get_last_vacation_update_date($driver_id))echo fo
             echo "<input type=hidden name=\"{$prefix}Month[$idx]\" value=\"$selected_month\">";
             echo "<input type=hidden name=\"{$prefix}Day[$idx]\" value=\"$selected_day\">";
             echo "<input type=hidden name=\"{$prefix}Year[$idx]\" value=\"$selected_year\">";
-            echo "<input style='text-align: center;' type=text size=20 name=\"{$prefix}Date[$idx]\" id=\"{$prefix}Date{$idx}\" class=\"jq_datepicker\" value=\"{$selected_month}/".str_pad($selected_day,2,"0",STR_PAD_LEFT)."/{$selected_year}\">";
+           	
+            echo "<input style='text-align: center;' type=text size=20 name=\"{$prefix}Date[$idx]\" id=\"{$prefix}Date{$idx}\" class=\"jq_datepicker\" value=\"{$selected_date}\">";
        			echo "<script>
 		 jQuery(function($) { 	
-		 	$('#{$prefix}Date{$idx}').datepicker(\"option\",\"onSelect\",function(dtext,ob) {
+		 	 $('#{$prefix}Date{$idx}').datepicker(\"option\",\"onSelect\",function(dtext,ob) {
 		 		$('#Enabled_chk{$idx}').prop('checked',true);
 		 		$('#Enabled_chk{$idx}').attr('checked',true);
 		 		var s = dtext.split('/');
@@ -364,7 +366,8 @@ Last Updated: <?php if($date = get_last_vacation_update_date($driver_id))echo fo
 		 		$('input[name=\"EndDay[$idx]\"]').val( s[1] );
 		 		$('input[name=\"EndYear[$idx]\"]').val( s[2] );
 		 			$('#EndDate{$idx}').val($('#{$prefix}Date{$idx}').val());
-		 			$('#EndDate{$idx}').datepicker(\"option\",\"minDate\",$('#{$prefix}Date{$idx}').val());
+		 			var db = $('#EndDate{$idx}').datepicker().data('datepicker');
+		 			db.update('minDate',new Date($('#{$prefix}Date{$idx}').val()));
 		 		}
 		 	});	
 		 });
