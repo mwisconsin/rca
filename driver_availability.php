@@ -369,6 +369,7 @@ Last Updated: <?php if($date = get_last_vacation_update_date($driver_id))echo fo
 				 		$('input[name=\"EndYear[$idx]\"]').val( s[2] );
 				 			$('#EndDate{$idx}').val($('#{$prefix}Date{$idx}').val());
 				 			var db = $('#EndDate{$idx}').datepicker().data('datepicker');
+				 			db.selectDate(new Date($('#{$prefix}Date{$idx}').val()));
 				 			db.update('minDate',new Date($('#{$prefix}Date{$idx}').val()));
 				 		}
 				 	}	
