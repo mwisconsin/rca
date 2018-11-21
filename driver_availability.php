@@ -339,6 +339,7 @@ Last Updated: <?php if($date = get_last_vacation_update_date($driver_id))echo fo
                 $date_parts = explode('-', $vacations[$idx][$prefix . 'Date']);
                 if (count($date_parts) >= 3) {
                     list($selected_year, $selected_month, $selected_day) = $date_parts;
+                    $selected_date = "{$selected_month}/".str_pad($selected_day,2,"0",STR_PAD_LEFT)."/{$selected_year}";
                 }
             }
 						/*
