@@ -632,6 +632,7 @@ $href = '';
 		 		$('input[name="TravelMonth"]').val( s[0] );
 		 		$('input[name="TravelDay"]').val( s[1] );
 		 		$('input[name="TravelYear"]').val( s[2] );
+		 		dp.hide();
 		 	});	
 		 });	
 		 	
