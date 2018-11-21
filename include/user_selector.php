@@ -10,7 +10,7 @@ $tomm_arr = getdate(time()+86400);
 ?>
 <div style="position:relative;z-index:10" class="noprint">
 <button type="button" id="User_Selector_Button_Find_Drivers" onclick="document.location = 'admin_driver_links.php'">Find Drivers</button>
-<input type=hidden id=Datepicker_hidden1 class=Datepicker_hidden value="">
+<input type=button id=Datepicker_hidden1 class=Datepicker_hidden value="+">
 <?php if(count(get_user_franchises(get_current_user_id())) > 1){ ?>
 <button type="button" id="User_Selector_Button_Select_Franchise" onclick="document.location = 'select_club.php'">Select Club</button>
 
@@ -33,7 +33,7 @@ $tomm_arr = getdate(time()+86400);
 	<?php
 		echo "<button type=\"button\" id=\"User_Selector_Button_Reset\">Work As Self</button>";
 		echo "<button type=\"button\" id=\"User_Selector_Button_Find_Drivers2\" onclick=\"document.location = 'admin_driver_links.php'\">Find Drivers</button>";
-		echo "<input type=hidden id=Datepicker_hidden2 class=Datepicker_hidden value=\"\">";
+		echo "<input type=button id=Datepicker_hidden2 class=Datepicker_hidden value=\"+\">";
 		#echo "<button type=\"button\" id=\"User_Selector_button_Find_Drivers_Tomorrow2\" onclick=\"document.location = 'admin_driver_links.php?Year=".$tomm_arr['year']."&Month=".$tomm_arr['mon']."&Day=".$tomm_arr['mday']."'\">+</button>";
 		  ?>
           
