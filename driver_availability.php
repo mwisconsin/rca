@@ -353,23 +353,26 @@ Last Updated: <?php if($date = get_last_vacation_update_date($driver_id))echo fo
             echo "<input style='text-align: center;' type=text size=20 name=\"{$prefix}Date[$idx]\" id=\"{$prefix}Date{$idx}\" class=\"jq_datepicker\" value=\"{$selected_date}\">";
        			echo "<script>
 		 jQuery(function($) { 	
-		 	 $('#{$prefix}Date{$idx}').datepicker(\"option\",\"onSelect\",function(dtext,ob) {
-		 		$('#Enabled_chk{$idx}').prop('checked',true);
-		 		$('#Enabled_chk{$idx}').attr('checked',true);
-		 		var s = dtext.split('/');
-		 		$('input[name=\"{$prefix}Month[$idx]\"]').val( s[0] );
-		 		$('input[name=\"{$prefix}Day[$idx]\"]').val( s[1] );
-		 		$('input[name=\"{$prefix}Year[$idx]\"]').val( s[2] );
-		 		
-		 		if(\"$prefix\" == \"Start\") {
-		 		$('input[name=\"EndMonth[$idx]\"]').val( s[0] );
-		 		$('input[name=\"EndDay[$idx]\"]').val( s[1] );
-		 		$('input[name=\"EndYear[$idx]\"]').val( s[2] );
-		 			$('#EndDate{$idx}').val($('#{$prefix}Date{$idx}').val());
-		 			var db = $('#EndDate{$idx}').datepicker().data('datepicker');
-		 			db.update('minDate',new Date($('#{$prefix}Date{$idx}').val()));
-		 		}
-		 	});	
+		 		var picker = $('#{$prefix}Date{$idx}').datepicker().data('datepicker');
+		 		picker.update({
+		 			onSelect: function(dtext,ob) {
+				 		$('#Enabled_chk{$idx}').prop('checked',true);
+				 		$('#Enabled_chk{$idx}').attr('checked',true);
+				 		var s = dtext.split('/');
+				 		$('input[name=\"{$prefix}Month[$idx]\"]').val( s[0] );
+				 		$('input[name=\"{$prefix}Day[$idx]\"]').val( s[1] );
+				 		$('input[name=\"{$prefix}Year[$idx]\"]').val( s[2] );
+				 		
+				 		if(\"$prefix\" == \"Start\") {
+				 		$('input[name=\"EndMonth[$idx]\"]').val( s[0] );
+				 		$('input[name=\"EndDay[$idx]\"]').val( s[1] );
+				 		$('input[name=\"EndYear[$idx]\"]').val( s[2] );
+				 			$('#EndDate{$idx}').val($('#{$prefix}Date{$idx}').val());
+				 			var db = $('#EndDate{$idx}').datepicker().data('datepicker');
+				 			db.update('minDate',new Date($('#{$prefix}Date{$idx}').val()));
+				 		}
+				 	}	
+		 		});	
 		 });
 		 			</script>";
         }
