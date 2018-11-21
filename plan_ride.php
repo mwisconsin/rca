@@ -626,8 +626,8 @@ $href = '';
 		 	var s = $('#TravelDate').val().split('/');
 	 		$('input[name="TravelMonth"]').val( s[0] );
 	 		$('input[name="TravelDay"]').val( s[1] );
-	 		$('input[name="TravelYear"]').val( s[2] );		 	
-		 	$('#TravelDate').datepicker("option","onSelect",function(dtext,ob) {
+	 		$('input[name="TravelYear"]').val( s[2] );	
+	 		dp.update('onSelect',function(dtext,ob) {
 		 		var s = dtext.split('/');
 		 		$('input[name="TravelMonth"]').val( s[0] );
 		 		$('input[name="TravelDay"]').val( s[1] );
