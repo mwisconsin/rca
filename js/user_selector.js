@@ -257,18 +257,16 @@ jQuery(function($) {
 	});
 	
 	$('#Datepicker_hidden1').datepicker({
-    showOn: 'button',
-    buttonText: '+',
     language: "en",
+    position: 'left top',
     onSelect: function(dt,ob) {
     	var ds = new Date(dt);
     	document.location = 'admin_driver_links.php?Year='+ds.getFullYear()+'&Month='+(ds.getMonth()+1)+'&Day='+ds.getDate();
     }
     });
 	$('#Datepicker_hidden2').datepicker({
-    showOn: 'button',
-    buttonText: '+',
     language: "en",
+    position: 'left top',
     onSelect: function(dt,ob) {
     	var ds = new Date(dt);
     	document.location = 'admin_driver_links.php?Year='+ds.getFullYear()+'&Month='+(ds.getMonth()+1)+'&Day='+ds.getDate();
