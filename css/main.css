@@ -411,7 +411,7 @@ img.LinkNoteBlank {
 }
 
 #User_Selector_button_Find_Drivers_Tomorrow,
-#Datepicker_hidden1 + .ui-datepicker-trigger {
+#Datepicker_hidden1,#Datepicker_hidden1 + .ui-datepicker-trigger {
 	position: absolute;
 	right: 4px;
 	top: 35px;
@@ -555,7 +555,7 @@ a.tab_button_selected {
    text-align:right;
 }
 
-#User_Selector_Button_Find_Drivers2 + .Datepicker_hidden + .ui-datepicker-trigger {
+#User_Selector_Button_Find_Drivers2 + .Datepicker_hidden,#User_Selector_Button_Find_Drivers2 + .Datepicker_hidden + .ui-datepicker-trigger {
 	position: absolute;
 
   top: 44px;
