@@ -1073,6 +1073,13 @@ if(count($links) > 0 && !$foundRide) {
 				) continue;
 			}
 			
+			$sql = "select WillHelpWithPackage from driver_settings where UserID = $auid";
+			$r = mysql_query($sql);
+			if(mysql_num_rows($r) > 0) {
+				$rs = mysql_fetch_array($r);
+				if(@$rider_prefs['NeedsPackageHelp'] == 'Yes' && $rs["WillHelpWithPackage"] == 'No') continue;
+			}
+			
       if (strstr($mylinks[$j]['LinkStatus'],'CANCEL'))
           continue;
 
