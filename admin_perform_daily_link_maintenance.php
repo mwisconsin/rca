@@ -52,7 +52,7 @@
 		});	
 		</script>
     <form method="post">
-    To begin the process of doing link maintenance thru an arbitrary date, select the date: <input type="text" class="datepicker" size=10 name="SelectedDate"> and <input type="submit" value="Click Here" name="SelectedDateButton">
+    To begin the process of doing link maintenance thru an arbitrary date, select the date: <input type="text" class="jq_datepicker" size=10 name="SelectedDate"> and <input type="submit" value="Click Here" name="SelectedDateButton">
     </br>  
     To begin the process of doing link maintenance thru yesterday <input type="submit" value="Click Here" name="StartYesterday">
     </br>  
