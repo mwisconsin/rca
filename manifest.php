@@ -1110,7 +1110,7 @@ if(count($links) > 0 && !$foundRide) {
 		}
 	}
 	
-	$links = array_filter($links,function($link) { return !in_array($link['IndexPath'],$filtered); });
+	$links = array_filter($links,function($link) { global $filtered; return !in_array($link['IndexPath'],$filtered); });
 	
 	usort($links,function($a,$b) {
 		$retval = strcmp($a['IndexPath'],$b['IndexPath']);
