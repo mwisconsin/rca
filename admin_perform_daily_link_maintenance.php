@@ -43,14 +43,6 @@
 	?><br><br>
 		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-		<script>
-		jQuery(function($) {
-			$('.datepicker').datepicker({
-				dateFormat: "yy-mm-dd",
-				maxDate: "-1d"
-			});
-		});	
-		</script>
     <form method="post">
     To begin the process of doing link maintenance thru an arbitrary date, select the date: <input type="text" class="jq_datepicker" size=10 name="SelectedDate"> and <input type="submit" value="Click Here" name="SelectedDateButton">
     </br>  
