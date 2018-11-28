@@ -1035,17 +1035,24 @@ if(count($links) > 0 && !$foundRide) {
 	$auid = get_affected_user_id();
 	
 	$links = [];
+	$filtered = [];
 	for($i = 0; $i < count($ids); $i++) {
 		if($ids[$i] == $auid) continue;
 		$mylinks = get_all_driver_history_and_active_links($ids[$i],$date);
 		for($j = 0; $j < count($mylinks); $j++) { 
 			$a_time = get_link_departure_time($mylinks[$j]);
 			/* only show rides that are further out than now + 1 hour */
-			if($a_time['time_t'] <= time() + 3600) continue;
+			if($a_time['time_t'] <= time() + 3600) {
+				if($mylinks[$j]['IndexPath'] != '') $filtered[] = $mylinks[$j]['IndexPath'];
+				continue;
+			}
 			
 			$sql = "select * from rider_driver_match where other_UserID = $auid and user_type = 'rider' and self_UserID = ".$mylinks[$j]['RiderUserID']." and rating < -1";
 			$r = mysql_query($sql);
-			if(mysql_num_rows($r) > 0) continue;
+			if(mysql_num_rows($r) > 0) {
+				if($mylinks[$j]['IndexPath'] != '') $filtered[] = $mylinks[$j]['IndexPath'];
+				continue;
+			}
 
 			$rider_prefs = [];
       if ($lf_rider_info = get_large_facility_rider_info_for_link($mylinks[$j]['LinkID'])) {
@@ -1070,7 +1077,10 @@ if(count($links) > 0 && !$foundRide) {
 					(@$rider_prefs['HighVehicleOK'] == 'No' && $rs["VehicleHeight"] == 'HIGH') ||
 					(@$rider_prefs['MediumVehicleOK'] == 'No' && $rs["VehicleHeight"] == 'MEDIUM') ||
 					(@$rider_prefs['LowVehicleOK'] == 'No' && $rs["VehicleHeight"] == 'LOW')
-				) continue;
+				) {
+				if($mylinks[$j]['IndexPath'] != '') $filtered[] = $mylinks[$j]['IndexPath'];
+				continue;
+			}
 			}
 			
 			$sql = "select WillHelpWithPackage from driver_settings where UserID = $auid";
@@ -1081,14 +1091,20 @@ if(count($links) > 0 && !$foundRide) {
 			}
 			
       if (strstr($mylinks[$j]['LinkStatus'],'CANCEL'))
-          continue;
+          {
+				if($mylinks[$j]['IndexPath'] != '') $filtered[] = $mylinks[$j]['IndexPath'];
+				continue;
+			}
 
       
       if($mylinks[$j]['DriverConfirmed'] == 'No' && !current_user_has_role(1, 'FullAdmin') && !current_user_has_role($franchise_id, "Franchisee"))
-      	continue;
+      	{
+				if($mylinks[$j]['IndexPath'] != '') $filtered[] = $mylinks[$j]['IndexPath'];
+				continue;
+			}
       	
       	
-			if($mylinks[$j]['IndexPath'] != '') $links[] = $mylinks[$j];
+			if($mylinks[$j]['IndexPath'] != '' && !in_array($mylinks[$j]['IndexPath'],$filtered)) $links[] = $mylinks[$j];
 		}
 	}
 	
