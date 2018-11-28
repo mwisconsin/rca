@@ -8,7 +8,7 @@
 	
 	$franchise = get_current_user_franchise();
 	
-	if(current_user_has_role(1, "FullAdmin") || current_user_has_role($franchise, "Franchisee")){
+	if(!current_user_has_role(1, "FullAdmin") && !current_user_has_role($franchise, "Franchisee")){
 		header("Location: home.php");
 		die();
 	}
