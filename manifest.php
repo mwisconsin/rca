@@ -1078,9 +1078,9 @@ if(count($links) > 0 && !$foundRide) {
 					(@$rider_prefs['MediumVehicleOK'] == 'No' && $rs["VehicleHeight"] == 'MEDIUM') ||
 					(@$rider_prefs['LowVehicleOK'] == 'No' && $rs["VehicleHeight"] == 'LOW')
 				) {
-				if($mylinks[$j]['IndexPath'] != '') $filtered[] = $mylinks[$j]['IndexPath'];
-				continue;
-			}
+					if($mylinks[$j]['IndexPath'] != '') $filtered[] = $mylinks[$j]['IndexPath'];
+					continue;
+				}
 			}
 			
 			$sql = "select WillHelpWithPackage from driver_settings where UserID = $auid";
@@ -1088,28 +1088,29 @@ if(count($links) > 0 && !$foundRide) {
 			if(mysql_num_rows($r) > 0) {
 				$rs = mysql_fetch_array($r);
 				if(@$rider_prefs['NeedsPackageHelp'] == 'Yes' && $rs["WillHelpWithPackage"] == 'No') {
-				if($mylinks[$j]['IndexPath'] != '') $filtered[] = $mylinks[$j]['IndexPath'];
-				continue;
-			}
+					if($mylinks[$j]['IndexPath'] != '') $filtered[] = $mylinks[$j]['IndexPath'];
+					continue;
+				}
 			}
 			
-      if (strstr($mylinks[$j]['LinkStatus'],'CANCEL'))
-          {
-				if($mylinks[$j]['IndexPath'] != '') $filtered[] = $mylinks[$j]['IndexPath'];
-				continue;
-			}
+      if (strstr($mylinks[$j]['LinkStatus'],'CANCEL')) {
+					if($mylinks[$j]['IndexPath'] != '') $filtered[] = $mylinks[$j]['IndexPath'];
+					continue;
+				}
 
       
-      if($mylinks[$j]['DriverConfirmed'] == 'No' && !current_user_has_role(1, 'FullAdmin') && !current_user_has_role($franchise_id, "Franchisee"))
-      	{
-				if($mylinks[$j]['IndexPath'] != '') $filtered[] = $mylinks[$j]['IndexPath'];
-				continue;
-			}
+      if($mylinks[$j]['DriverConfirmed'] == 'No' 
+      	&& !current_user_has_role(1, 'FullAdmin') && !current_user_has_role($franchise_id, "Franchisee")) {
+					if($mylinks[$j]['IndexPath'] != '') $filtered[] = $mylinks[$j]['IndexPath'];
+					continue;
+				}
       	
       	
-			if($mylinks[$j]['IndexPath'] != '' && !in_array($mylinks[$j]['IndexPath'],$filtered)) $links[] = $mylinks[$j];
+			if($mylinks[$j]['IndexPath'] != '') $links[] = $mylinks[$j];
 		}
 	}
+	
+	$links = array_filter($links,function($link) { return !in_array($link['IndexPath'],$filtered)});
 	
 	usort($links,function($a,$b) {
 		$retval = strcmp($a['IndexPath'],$b['IndexPath']);
