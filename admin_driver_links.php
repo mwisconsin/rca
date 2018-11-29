@@ -429,11 +429,10 @@ if (isset($past_links)) { ?>
 							return false;
 						}
 						jQuery('input[name="transition_date_from"]').val( 
-							var datepicker = jQuery('#popTransitionQueryCalFrom').datepicker().data('datepicker');
 							jQuery.datepicker.formatDate( 'mm/dd/yy',	datepicker.selectedDates[0] )
 						);
+						var datepicker = jQuery('#popTransitionQueryCalTo').datepicker().data('datepicker')
 						jQuery('input[name="transition_date_to"]').val( 
-							var datepicker = jQuery('#popTransitionQueryCalTo').datepicker().data('datepicker')
 							jQuery.datepicker.formatDate( 'mm/dd/yy',	datepicker.selectedDates[0] )
 						);
 						$d.dialog('close');
