@@ -423,15 +423,18 @@ if (isset($past_links)) { ?>
 				{
 					text: 'Ok',
 					click: function() {
-						if(jQuery('#popTransitionQueryCalFrom').datepicker( "getDate" ) == null) {
+						var datepicker = jQuery('#popTransitionQueryCalFrom').datepicker().data('datepicker');
+						if(datepicker.selectedDates[0] == null) {
 							jQuery('#popQueryMess').css('color','red');
 							return false;
 						}
 						jQuery('input[name="transition_date_from"]').val( 
-							jQuery.datepicker.formatDate( 'mm/dd/yy',	jQuery('#popTransitionQueryCalFrom').datepicker( "getDate" ) )
+							var datepicker = jQuery('#popTransitionQueryCalFrom').datepicker().data('datepicker');
+							jQuery.datepicker.formatDate( 'mm/dd/yy',	datepicker.selectedDates[0] )
 						);
 						jQuery('input[name="transition_date_to"]').val( 
-							jQuery.datepicker.formatDate( 'mm/dd/yy',	jQuery('#popTransitionQueryCalTo').datepicker( "getDate" ) )
+							var datepicker = jQuery('#popTransitionQueryCalTo').datepicker().data('datepicker')
+							jQuery.datepicker.formatDate( 'mm/dd/yy',	datepicker.selectedDates[0] )
 						);
 						$d.dialog('close');
 						jQuery('#CTM').trigger('click');
@@ -450,6 +453,9 @@ if (isset($past_links)) { ?>
 	      	dateFormat: 'mm/dd/yy',
 	      	startDate: new Date('<?php echo $selected_date; ?>')
 				});
+				var datepicker = jQuery('#popTransitionQueryCalFrom').datepicker().data('datepicker');
+				datepicker.selectDate = new Date('<?php echo $selected_date; ?>');
+				jQuery('#popTransitionQueryCalFrom').val('<?php echo $selected_date; ?>');
 				//jQuery('#popTransitionQueryCalFrom').datepicker('setDate', new Date( '<?php echo $selected_date; ?>' ));
 				jQuery('#popTransitionQueryCalTo').datepicker({
 					language: 'en',
@@ -461,6 +467,9 @@ if (isset($past_links)) { ?>
 	      	startDate: new Date('<?php echo $selected_date; ?>')
 				});
 				//jQuery('#popTransitionQueryCalTo').datepicker('setDate', new Date( '<?php echo $selected_date; ?>' ));
+				var datepicker = jQuery('#popTransitionQueryCalTo').datepicker().data('datepicker');
+				datepicker.selectDate = new Date('<?php echo $selected_date; ?>');	
+				jQuery('#popTransitionQueryCalTo').val('<?php echo $selected_date; ?>');			
 			},
 			onSelect: function() {
 				jQuery('#popQueryMess').css('color','black');
