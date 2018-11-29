@@ -443,23 +443,24 @@ if (isset($past_links)) { ?>
 			},
 			open: function() {
 				jQuery('#popTransitionQueryCalFrom').datepicker({
-	    		showOtherMonths: true,
+					language: 'en',
 	      	selectOtherMonths: true,
 	      	numberOfMonths: 1,
 	      	showCurrentAtPos: 0,
 	      	dateFormat: 'mm/dd/yy',
-	      	defaultDate: '<?php echo $selected_date; ?>'
+	      	startDate: new Date('<?php echo $selected_date; ?>')
 				});
-				jQuery('#popTransitionQueryCalFrom').datepicker('setDate', new Date( '<?php echo $selected_date; ?>' ));
+				//jQuery('#popTransitionQueryCalFrom').datepicker('setDate', new Date( '<?php echo $selected_date; ?>' ));
 				jQuery('#popTransitionQueryCalTo').datepicker({
+					language: 'en',
 	    		showOtherMonths: true,
 	      	selectOtherMonths: true,
 	      	numberOfMonths: 1,
 	      	showCurrentAtPos: 0,
 	      	dateFormat: 'mm/dd/yy',
-	      	defaultDate: '<?php echo $selected_date; ?>'
+	      	startDate: new Date('<?php echo $selected_date; ?>')
 				});
-				jQuery('#popTransitionQueryCalTo').datepicker('setDate', new Date( '<?php echo $selected_date; ?>' ));
+				//jQuery('#popTransitionQueryCalTo').datepicker('setDate', new Date( '<?php echo $selected_date; ?>' ));
 			},
 			onSelect: function() {
 				jQuery('#popQueryMess').css('color','black');
