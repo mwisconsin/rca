@@ -51,11 +51,10 @@
    $franchise = get_current_user_franchise();
    
 // ADMIN ONLY (Full or Club)CAN view report information
-   
-   if(current_user_has_role(1, "FullAdmin") || current_user_has_role($franchise, "Franchisee")){
-      header("Location: home.php");
-      die();   
-   }
+	if(!current_user_has_role(1 , "FullAdmin") && !current_user_has_role($franchise, "Franchisee"))
+		{
+		header("Location: home.php"); die();	
+		}
    
 //DATE RANGE being reviewed, start with today  *** CHANGE TO CURRENT MONTH 
    
