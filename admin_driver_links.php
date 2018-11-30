@@ -411,7 +411,7 @@ if (isset($past_links)) { ?>
 	function popTransitionQuery() {
 		$d = jQuery('<div><b id=popQueryMess style="text-align:center;">Process for the following range:</b><BR><input type=text id=popTransitionQueryCalFrom style="width:100px;"> <input type=text id=popTransitionQueryCalTo style="width:100px;"></div>').dialog({
 			modal: true,
-			title: 'Process Date Range',
+			title: 'Create Transition Miles',
 			width: '300px',
 			buttons: [
 				{
