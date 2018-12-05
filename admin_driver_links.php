@@ -453,7 +453,7 @@ if (isset($past_links)) { ?>
 	      	startDate: new Date('<?php echo $selected_date; ?>')
 				});
 				var datepicker = jQuery('#popTransitionQueryCalFrom').datepicker().data('datepicker');
-				datepicker.selectDate = new Date('<?php echo $selected_date; ?>');
+				datepicker.selectDate(new Date('<?php echo $selected_date; ?>'));
 				jQuery('#popTransitionQueryCalFrom').val('<?php echo $selected_date; ?>');
 				//jQuery('#popTransitionQueryCalFrom').datepicker('setDate', new Date( '<?php echo $selected_date; ?>' ));
 				jQuery('#popTransitionQueryCalTo').datepicker({
@@ -467,7 +467,7 @@ if (isset($past_links)) { ?>
 				});
 				//jQuery('#popTransitionQueryCalTo').datepicker('setDate', new Date( '<?php echo $selected_date; ?>' ));
 				var datepicker = jQuery('#popTransitionQueryCalTo').datepicker().data('datepicker');
-				datepicker.selectDate = new Date('<?php echo $selected_date; ?>');	
+				datepicker.selectDate(new Date('<?php echo $selected_date; ?>'));	
 				jQuery('#popTransitionQueryCalTo').val('<?php echo $selected_date; ?>');			
 			},
 			onSelect: function() {
