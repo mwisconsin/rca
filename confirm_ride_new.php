@@ -531,9 +531,9 @@ JS;
 		echo "<div id='threshwarn'>";
 		echo "After this ride is scheduled, your rider account will have <b>".format_dollars($available_balance - $grand_total)."</b> available for future rides.<BR><BR>";
 		echo "This is below your threshold of <b>".format_dollars($recharge_threshold)."</b>.<BR><BR>";
-		$sql = "select * from supporter_rider left join users on SupporterUserID = UserID natural join person_name where RechargePaymentType = 'ContactSupporter' and RiderUserID = ".get_affected_user_id();
+		$sql = "select * from supporter_rider left join users on SupporterUserID = UserID natural join person_name where RiderUserID = ".get_affected_user_id();
 		$r = mysql_query($sql);
-		if(mysql_num_rows($r) > 0) {
+		if(mysql_num_rows($r) > 0 && $rider_info['RechargePaymentType'] == 'ContactSupporter') {
 			
 			$friends = array();
 			while($rs = mysql_fetch_array($r)) $friends[] = rtrim($rs["FirstName"]." ".$rs["LastName"]);	
