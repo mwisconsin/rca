@@ -56,7 +56,7 @@ div.datePicker
         /* Or, if you prefer a pixel precision */
         /* font:900 12px/12px Verdana, sans-serif; */
         
-        background:transparent;
+        background:#fff;
 
         /* Mozilla & Webkit extensions to stop text-selection. */
         -moz-user-select:none;
