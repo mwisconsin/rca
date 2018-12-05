@@ -59,8 +59,10 @@ function create_transition_miles($franchise_id, $date, $to_date = '') {
             }
         }
     } else {
-        echo "No past links?";
-        return NULL;
+        echo "No past links on $date ?";
+        #fixing for dates that may have no rides (i.e. holidays, etc)
+        #return NULL;
+        continue;
     }
 
     if (count($driver_links) > 0) {
