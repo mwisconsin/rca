@@ -21,6 +21,7 @@
     require_once('include/franchise.php');
     require_once('include/link_price.php');
     require_once 'include/driver_rate_card.php';
+    require_once 'include/driver_link.php';
     require_once('include/deadhead.php');	
 
     include_once 'include/header.php';
