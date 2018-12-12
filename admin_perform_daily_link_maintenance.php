@@ -21,7 +21,7 @@
     require_once('include/franchise.php');
     require_once('include/link_price.php');
     require_once 'include/driver_rate_card.php';
-	
+    require_once('include/deadhead.php');	
 
     include_once 'include/header.php';
 
@@ -54,6 +54,31 @@
 		require_once 'include/footer.php';
 		die();
 	}
+	
+  if (isset($_POST['CreateTransitionMiles']) && $_POST['CreateTransitionMiles'] == 'Create Transition Miles') {
+		if($_POST['transition_date_from'] != '') {
+      $transition_success = create_transition_miles($franchise_id,
+                                                    date('Y-m-d',strtotime($_POST['transition_date_from'])),
+                                                    date('Y-m-d',strtotime($_POST['transition_date_to']))
+                                                    );    			
+		} else $transition_success = create_transition_miles($franchise_id, date('Y-m-d'));
+		
+    if($transition_success)
+    	$transition_alloc_confirmation .= "<div class=\"reminder\">You have successfully created transtion miles</div>";
+   	else if($transition_success === NULL)
+   		$transition_alloc_confirmation .= "<div class=\"reminder\">No transitions found. All up to date.</div>";
+   	else
+   		$transition_alloc_confirmation .= "<div class=\"reminder\">Transitions failed to create.</div>";
+	}
+	
+	echo "
+	<div style='border: 1px solid black; padding: 10px; width: 300px; margin: 0 auto;'>
+	<form method=POST>
+		<input type=submit id=CreateTransitionMiles value='CreateTransitionMiles'><br>
+		<b>Optional:</b> From: <input type=text class=jq_datepicker size=10 id=transition_date_from> To: <input type=text class=jq_datepicker size=10 id=transition_date_to>
+	</form>
+	</div>
+	";
 	
    if($_POST['StartYesterday'])
     $past_links = get_past_links($franchise, $tz_offset_hours,true);
