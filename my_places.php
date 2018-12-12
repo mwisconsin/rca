@@ -207,7 +207,9 @@
 <?php } 
 ?>
 		<tr valign=top>
-			<td>Share This Location <input type="checkbox"<?php if ($place['IsPublic'] == 'Yes') echo ' Checked="true"'; ?> name="Public">
+			<td><?php if($place['Name'] != 'Default Home') { ?>
+				Share This Location <input type="checkbox"<?php if ($place['IsPublic'] == 'Yes') echo ' Checked="true"'; ?> name="Public">
+				<?php } ?>
 				<?php
 					if($_GET['action'] == 'edit') {
 						echo "<br>Is In Local Area? <input type=checkbox name=is_local_area ".( !is_zip_out_of_area( $franchise, $db_address['ZIP5'] ) || $place['is_local_area_override'] == TRUE ? 'checked' : '' ).">";
