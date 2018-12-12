@@ -72,10 +72,10 @@
 	}
 	
 	echo "
-	<div style='border: 1px solid black; padding: 10px; width: 350px; margin: 20 auto;'>
+	<div style='border: 1px solid black; padding: 10px; width: 350px; margin: 20px auto;'>
 	<form method=POST>
-		<input type=submit id=CreateTransitionMiles value='CreateTransitionMiles'><br>
-		<b>Optional:</b><br>From: <input type=text class=jq_datepicker size=10 id=transition_date_from> To: <input type=text class=jq_datepicker size=10 id=transition_date_to>
+		<input type=submit id=CreateTransitionMiles value='CreateTransitionMiles'><br><br>
+		<b>Optional:</b><br><br>From: <input type=text class=jq_datepicker size=10 id=transition_date_from> To: <input type=text class=jq_datepicker size=10 id=transition_date_to>
 	</form>
 	</div>
 	";
