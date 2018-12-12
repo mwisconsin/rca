@@ -27,34 +27,6 @@
 
     global $link_status_payment_matrix; // from completed_link_transitions.php
 	
-	
-	
-    $tz_offset_hours = timezone_offset_get(new DateTimeZone(date_default_timezone_get()), new DateTime('now'))/60/60;
-	$status_past_tense = array('UNKNOWN' => 'completed',
-        'COMPLETE' => 'completed',
-        'DRIVERNOSHOW' => 'driver no show',
-        'CANCELEDLATE' => 'canceled late',
-        'CANCELEDEARLY' => 'canceled early',
-        'NOTSCHEDULED' => 'not scheduled',
-        'WEATHERCANCEL' => 'weather canceled',
-        'DESTINATIONCANCEL' => 'destination canceled',
-        'HOSPITALCANCEL' => 'hospital canceled' );
-	if(!$_POST['StartProcess'] &&!$_POST['StartYesterday'] &&!$_POST["SelectedDateButton"]){
-	?><br><br>
-		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
-		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-    <form method="post">
-    To begin the process of doing link maintenance thru an arbitrary date, select the date: <input type="text" class="jq_datepicker" size=10 name="SelectedDate"> and <input type="submit" value="Click Here" name="SelectedDateButton">
-    </br>  
-    To begin the process of doing link maintenance thru yesterday <input type="submit" value="Click Here" name="StartYesterday">
-    </br>  
-    To begin the process of doing link maintenance thru now <input type="submit" value="Click Here" name="StartProcess">
-    </form>
-    <?php
-		require_once 'include/footer.php';
-		die();
-	}
-	
   if (isset($_POST['CreateTransitionMiles']) && $_POST['CreateTransitionMiles'] == 'Create Transition Miles') {
 		if($_POST['transition_date_from'] != '') {
       $transition_success = create_transition_miles($franchise_id,
@@ -70,6 +42,36 @@
    	else
    		$transition_alloc_confirmation .= "<div class=\"reminder\">Transitions failed to create.</div>";
 	}
+		
+	
+    $tz_offset_hours = timezone_offset_get(new DateTimeZone(date_default_timezone_get()), new DateTime('now'))/60/60;
+	$status_past_tense = array('UNKNOWN' => 'completed',
+        'COMPLETE' => 'completed',
+        'DRIVERNOSHOW' => 'driver no show',
+        'CANCELEDLATE' => 'canceled late',
+        'CANCELEDEARLY' => 'canceled early',
+        'NOTSCHEDULED' => 'not scheduled',
+        'WEATHERCANCEL' => 'weather canceled',
+        'DESTINATIONCANCEL' => 'destination canceled',
+        'HOSPITALCANCEL' => 'hospital canceled' );
+	if(!$_POST['StartProcess'] &&!$_POST['StartYesterday'] &&!$_POST["SelectedDateButton"]){
+	?><br><br>
+		<?php if($transition_alloc_confirmation != '') echo "Creation Transition Miles Result: <B>$transition_alloc_confirmation</B><BR><BR>"; ?>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <form method="post">
+    To begin the process of doing link maintenance thru an arbitrary date, select the date: <input type="text" class="jq_datepicker" size=10 name="SelectedDate"> and <input type="submit" value="Click Here" name="SelectedDateButton">
+    </br>  
+    To begin the process of doing link maintenance thru yesterday <input type="submit" value="Click Here" name="StartYesterday">
+    </br>  
+    To begin the process of doing link maintenance thru now <input type="submit" value="Click Here" name="StartProcess">
+    </form>
+    <?php
+		require_once 'include/footer.php';
+		die();
+	}
+	
+
 	
 	echo "
 	<div style='border: 1px solid black; padding: 10px; width: 350px; margin: 20px auto;'>
