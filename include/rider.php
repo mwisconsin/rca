@@ -785,7 +785,7 @@ function create_rider_default_home( $rider_user_id ){
 			if($result && mysql_num_rows($result) == 1){
 				$address = mysql_fetch_array($result);
 				$rider = get_user_rider_info($rider_user_id);
-				$sql2 = "SELECT phone.PhoneNumber FROM (phone LEFT JOIN user_phone ON user_phone.PhoneID = phone.PhoneID) WHERE phone.PhoneType = 'HOME' AND user_phone.UserID = $safe_rider_user_id LIMIT 1;";
+				$sql2 = "SELECT phone.PhoneNumber FROM (phone LEFT JOIN user_phone ON user_phone.PhoneID = phone.PhoneID) WHERE user_phone.UserID = $safe_rider_user_id LIMIT 1;";
 				$result2 = mysql_query($sql2) or die(mysql_error());
 				$phone = (mysql_num_rows($result2) >= 1) ? mysql_fetch_array($result2) : array('PhoneNumber' => NULL);
 				
