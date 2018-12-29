@@ -111,7 +111,7 @@
 <?php } ?>
 
 <h2>Schedule This Ride</h2>
-
+<form method=POST>
 <table border="1">
     <tr>
         <th>Ride ID</th>
@@ -171,6 +171,7 @@
     </tr>
 
 </table>
+</form>
 <p>
 <?php 
 
