@@ -17,7 +17,14 @@
 		die();
     }
 
-
+		if(isset($_POST["IndexPathSubmit"])) {
+			foreach($_POST["IndexPath"] as $id => $v) {
+				$sql = "update link set IndexPath = '$v' where LinkID = $id";
+				mysql_query($sql);
+			}
+			$links = get_driver_active_links( $driver_id, 'FUTURE' );
+		}
+	
 		$_REQUEST['ShowAllDrivers'] = 1;
 		
     set_franchise_timezone(2);  // TODO:  Per-user/franchise TZ
@@ -122,6 +129,7 @@
         <th>Total Dest Left Today</th>
         <th>Remain Rider Time</th>
         <th># Riders</th>
+        <th>Index Path</th>
     </tr>
     <tr>
 <?php 
@@ -157,6 +165,9 @@
         <td><?php echo $rider_dest_left ?></td>
         <td><?php echo $remain_rider_time ?> min</td>
         <td><?php echo $link['NumberOfRiders'] ?></td>
+     		<td class=noprint>
+     			<input type=text size=4 name="IndexPath[<?php echo $link['LinkID']; ?>]" value="<?php echo $link['IndexPath']; ?>"><input type=submit name=IndexPathSubmit value="Upd">
+     		</td>
     </tr>
 
 </table>
