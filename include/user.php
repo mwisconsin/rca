@@ -516,8 +516,12 @@ function user_string( $user_id, $reset = FALSE ){
 		WHERE user_address.UserID = $user_id AND user_address.AddressType = 'Physical' 
 		AND user_address.AddressID = address.AddressID LIMIT 1;";
 	$address = mysql_fetch_array( mysql_query( $sql ) );
-	$_SESSION['UserString'][$user_id] = "{$name['FirstName']} ".(trim($name['NickName']) != '' ? "(<b>{$name['NickName']}</b>)" : "")." {$name['LastName']}, {$phone['PhoneType']} {$phone['PhoneNumber']}".($phone['Ext'] != '' ? " x".$phone['Ext'] : '')
-		.", ".@$email['EmailAddress'].", {$address['Address1']} {$address['Address2']}, {$address['City']} {$address['State']} {$address['ZIP5']}-{$address['ZIP4']}";
+	$_SESSION['UserString'][$user_id] = "{$name['FirstName']} "
+		.(trim($name['NickName']) != '' ? "(<b>{$name['NickName']}</b>)" : "")
+		." {$name['LastName']}, {$phone['PhoneType']} {$phone['PhoneNumber']}".($phone['Ext'] != '' ? " x".$phone['Ext'] : '')
+		.", ".@$email['EmailAddress'].", {$address['Address1']} "
+		.(trim(@$address['Address2']) != '' ? "{$address['Address2']}, " : "")
+		."{$address['City']}, {$address['State']} {$address['ZIP5']}-{$address['ZIP4']}";
 	
 	$r = mysql_query(	"select * from rider where UserID = $user_id" );
 	if(mysql_num_rows($r))
