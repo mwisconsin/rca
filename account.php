@@ -70,6 +70,7 @@ function CloneUser() {
 				click: function() {
 					$d.find('form').append('<input type=hidden name=UserID value='+jQuery('#UserID').html()+'>');
 					jQuery.post('/xhr/clone_user.php', $d.find('form').serialize(), function(data) {
+						if(data != '') console.log(data);
 						$d.dialog('close');
 					});
 				}
