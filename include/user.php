@@ -519,7 +519,7 @@ function user_string( $user_id, $reset = FALSE ){
 	$_SESSION['UserString'][$user_id] = "{$name['FirstName']} "
 		.(trim($name['NickName']) != '' ? "(<b>{$name['NickName']}</b>)" : "")
 		." {$name['LastName']}, {$phone['PhoneType']} {$phone['PhoneNumber']}".($phone['Ext'] != '' ? " x".$phone['Ext'] : '')
-		.", ".@$email['EmailAddress'].", {$address['Address1']} "
+		.", ".@$email['EmailAddress'].", {$address['Address1']}, "
 		.(trim(@$address['Address2']) != '' ? "{$address['Address2']}, " : "")
 		."{$address['City']}, {$address['State']} {$address['ZIP5']}-{$address['ZIP4']}";
 	
