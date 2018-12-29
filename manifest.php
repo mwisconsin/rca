@@ -208,7 +208,7 @@ if($_POST['ReleaseDriver'] != null){
 			user_role.franchiseID = $franchise_id
 			and driver.DriverStatus = 'Active'
 			and user_role.Role = 'Driver'
-			and not exists(select * from driver_vacation where driver_vacation.UserID = users.UserID and '".date('m/d/Y',strtotime($date))."' between StartDate and EndDate)
+			and not exists(select * from driver_vacation where driver_vacation.UserID = users.UserID and '".date('Y-m-d',strtotime($date))."' between StartDate and EndDate)
 			and DriverApprovalDate < DATE_ADD(NOW(),INTERVAL -30 DAY)
 			";
 		$r = mysql_query($sql);
