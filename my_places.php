@@ -111,7 +111,7 @@
 ?>
 <?php
     if (current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise_id, "Franchisee")) { ?>
-    	<script src="https://open.mapquestapi.com/sdk/js/v7.0.s/mqa.toolkit.js?key=<?php echo MAPQUEST_API_KEY; ?>"></script>
+    	<script src="https://open.mapquestapi.com/sdk/js/v7.2.s/mqa.toolkit.js?key=<?php echo MAPQUEST_API_KEY; ?>"></script>
 <?php
     }
 ?>
