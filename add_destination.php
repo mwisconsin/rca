@@ -1,7 +1,8 @@
 <?php
 	include_once 'include/user.php';
     include_once 'include/address.php';
-	
+	include_once 'include/destinations.php';
+	include_once 'include/public_destination_selector.php';	
 	redirect_if_not_logged_in();
 	
 	$franchise = get_current_user_franchise();
@@ -30,6 +31,23 @@
 				Destination Details<br>
 				<input type="text" name="DestinationDetail" value="<?php echo $_POST['DestinationDetail']; ?>" style="width:250px;">
 			</td>
+		</tr>
+		<tr>
+			<td style="padding-left:4px;" colspan="2">
+				Destination Type<br>
+				<select name="DestinationGroup" size=1>
+					<option value=-1></option>
+				<?php
+				$sql = "select DestinationGroupID, Name from destination_group order by Name";
+				$r = mysql_query($sql);
+				while($rs = mysql_fetch_array($r))
+					echo "<option value=$rs[DestinationGroupID] "
+						.($place["DestinationGroupID"] == $rs["DestinationGroupID"] ? "selected" : "")
+						.">$rs[Name]</option>\n";
+				
+				?>	
+				</select>
+			</td>			
 		</tr>
 		<tr>
 			<td style="padding-left:4px;" colspan="2">

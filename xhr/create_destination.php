@@ -36,8 +36,8 @@ chdir('..');
             $franchise_id = get_current_user_franchise(false);
 			
 			$new_destination = create_new_destination($_POST['Destination'], $address, $franchise_id,
-                                                      $_POST['Public'], NULL, NULL, $_POST['DestinationPhone'], 
-                                                      $_POST['DestinationDetail'], $_POST['DestinationPhoneExt']);
+                                                $_POST['Public'], NULL, $_POST['DestinationGroup'], $_POST['DestinationPhone'], 
+                                                $_POST['DestinationDetail'], $_POST['DestinationPhoneExt']);
 			add_destination_for_rider($affected_user_id,$new_destination);
 			$destination = get_destination($new_destination);
 			
