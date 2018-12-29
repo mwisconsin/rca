@@ -293,14 +293,14 @@ function clone_rider( $currentid, $username, $email, $qualifications ) {
 	global $db_connection_link;
 	
 	$sql = "insert into email (EmailAddress,IsVerified) values ('$email','Yes')";
-	echo $sql."\n";
+	#echo $sql."\n";
 	$r = mysql_query($sql);
 	$emailid = mysql_insert_id($db_connection_link);
 	
 	$sql = "insert into person_name (Title, Firstname, MiddleInitial, LastName, Suffix)
 		select Title, Firstname, MiddleInitial, case when LOCATE(' (',LastName) then SUBSTRING(LastName,1,LOCATE(' (',LastName)) else LastName end, Suffix
 		from users, person_name where users.PersonNameID = person_name.PersonNameID and UserId = $currentid";
-	echo $sql."\n";
+	#echo $sql."\n";
 	$r = mysql_query($sql);
 	if(!$r) echo mysql_error();
 	$personnameid = mysql_insert_id($db_connection_link);	
@@ -309,35 +309,44 @@ function clone_rider( $currentid, $username, $email, $qualifications ) {
 		`BackgroundCheck`, `ApplicationDate`, `ApprovalDate`, `Texting`, `OldID`)
 	SELECT '$username', `Password`, `Salt`, `Status`, $emailid, $personnameid, `DefaultFranchiseID`, `HasFelony`, `FelonyDescription`, `ApplicationStatus`, 
 		`BackgroundCheck`, `ApplicationDate`, `ApprovalDate`, `Texting`, `OldID` FROM `users` WHERE UserID = $currentid";
-	echo $sql."\n";
+	#echo $sql."\n";
 	$r = mysql_query($sql);
 	if(!$r) echo mysql_error();
 	$newuserid = mysql_insert_id($db_connection_link);	
 	
 	$sql = "insert into user_role (UserID, Role, FranchiseID) 
 		select $newuserid, 'Rider', FranchiseID from user_role where UserID = $currentid limit 0,1";
-	mysql_query($sql);
+	$r = mysql_query($sql);
+	if(!$r) echo mysql_error();
 	
 	$r = mysql_query("select AddressID from user_address where UserID = $currentid");
 	while($rs = mysql_fetch_assoc($r)) {
 		$sql = "insert into address (`Address1`, `Address2`, `City`, `State`, `ZIP5`, `ZIP4`, `Latitude`, `Longitude`, `IsVerified`, `VerifySource`)
 		SELECT `Address1`, `Address2`, `City`, `State`, `ZIP5`, `ZIP4`, `Latitude`, `Longitude`, `IsVerified`, `VerifySource` FROM `address` where AddressID = $rs[AddressID]";
-		echo $sql."\n";
-		mysql_query($sql);
+		#echo $sql."\n";
+		$r = mysql_query($sql);
+		if(!$r) echo mysql_error();
+		
 		$newaddressid = mysql_insert_id($db_connection_link);
 		$sql = "insert into user_address (UserID, AddressID, AddressType) select $newuserid, $newaddressid, AddressType from user_address where AddressID = $rs[AddressID]";
-		echo $sql."\n";
-		mysql_query($sql);
+		# echo $sql."\n";
+		$r = mysql_query($sql);
+		if(!$r) echo mysql_error();
 	}
 	$r = mysql_query("select PhoneID from user_phone where UserID = $currentid");
+	if(!$r) echo mysql_error();
+	
 	while($rs = mysql_fetch_assoc($r)) {
 		$sql = "insert into phone (`PhoneType`, `PhoneNumber`, `canSMS`, `ProviderID`) select `PhoneType`, `PhoneNumber`, `canSMS`, `ProviderID` from phone where PhoneID = $rs[PhoneID]";
-		echo $sql."\n";
-		mysql_query($sql);
+		#echo $sql."\n";
+		$r = mysql_query($sql);
+		if(!$r) echo mysql_error();
+		
 		$newphoneid = mysql_insert_id($db_connection_link);
 		$sql = "insert into user_phone (UserID, PhoneID, IsPrimary) select $newuserid, $newphoneid, IsPrimary from user_phone where PhoneID = $rs[PhoneID]";
-		echo $sql."\n";
-		mysql_query($sql);
+		#echo $sql."\n";
+		$r = mysql_query($sql);
+		if(!$r) echo mysql_error();
 	}
 	
 	$sql = "insert into `rider` (UserID, `RiderStatus`, `EmergencyContactID`, `EmergencyContactRelationship`, 
@@ -350,8 +359,9 @@ function clone_rider( $currentid, $username, $email, $qualifications ) {
 		`ADAQualified`, `AnnualFeePaymentDate`, `DateOfBirth`, 
 		`WelcomePackageSentDate`, `FirstRideDate`, `FirstRideFollowupDate`, 
 		`RiderWaiverReceived`, `RiderPictureWaiver` FROM `rider` WHERE UserID = $currentid";
-	echo $sql."\n";
-	mysql_query($sql);
+	#echo $sql."\n";
+	$r = mysql_query($sql);
+	if(!$r) echo mysql_error();
 		
 	$sql = "insert into rider_preferences (UserID, `HighVehicleOK`, `MediumVehicleOK`, `LowVehicleOK`, `FelonDriverOK`, `DriverStays`, 
 			`HasWalker`, `HasWheelchair`, `HasCane`, `NeedsPackageHelp`, `NeedsHelpToCar`, `EnterDriverSide`, 
@@ -361,8 +371,9 @@ function clone_rider( $currentid, $username, $email, $qualifications ) {
 			`HasWalker`, `HasWheelchair`, `HasCane`, `NeedsPackageHelp`, `NeedsHelpToCar`, `EnterDriverSide`, 
 			`EnterPassengerSide`, `HasCaretaker`, `CaretakerID`, `CaretakerBirthday`, `CaretakerBackgroundCheck`, `SensitiveToSmells`, 
 			`SmokerOrPerfumeUser`, `HasMemoryLoss`, `OtherNotes` FROM `rider_preferences` where UserID = $currentid";
-	echo $sql."\n";
-	mysql_query($sql);
+	# echo $sql."\n";
+	$r = mysql_query($sql);
+	if(!$r) echo mysql_error();
 	
 	$sql = "insert into rider_survey (UserID, `MaritalStatus`, `LivingSituation`, `Housing`, `DriveOwnCar`, `CityBus`, `Taxi`, `Walk`, `FamilyOrFriend`, 
 		`OtherTransport`, `RotaryMember`, `KiwanisMember`, `LionsMember`, `ElksMember`, `EaglesMember`, `AAAMember`, `AARPMember`, 
@@ -372,8 +383,9 @@ function clone_rider( $currentid, $username, $email, $qualifications ) {
 		`OtherTransport`, `RotaryMember`, `KiwanisMember`, `LionsMember`, `ElksMember`, `EaglesMember`, `AAAMember`, `AARPMember`, 
 		`FratSororityMember`, `KofCMember`, `MasonsMember`, `OtherMembership`, `OthersDriveAlways`, `OthersDriveAtNight`, `OthersDriveHighTraffic`, 
 		`OthersDriveUnfamiliar`, `OthersDriveHighway`, `OthersDriveBadWeather` FROM `rider_survey` WHERE UserID = $currentid";
-	echo $sql."\n";
-	mysql_query($sql);
+	# echo $sql."\n";
+	$r = mysql_query($sql);
+	if(!$r) echo mysql_error();
 	
 	$homeid = get_rider_default_home_destination( $currentid );
 	$sql = "select AddressID, PhoneID from destination where DestinationID = $homeid";
@@ -382,27 +394,35 @@ function clone_rider( $currentid, $username, $email, $qualifications ) {
 	$phoneid = $rs["PhoneID"];
 	$sql = "insert into address (Address1, Address2, City, State, ZIP5, ZIP4, Latitude, Longitude, IsVerified, VerifySource)
 		select Address1, Address2, City, State, ZIP5, ZIP4, Latitude, Longitude, IsVerified, VerifySource from address where AddressID = $addressid";
-	echo $sql."\n";
-	mysql_query($sql);
+	# echo $sql."\n";
+	$r = mysql_query($sql);
+	if(!$r) echo mysql_error();
+	
 	$newaddressid = mysql_insert_id($db_connection_link);
 	$sql = "insert into phone (PhoneType, PhoneNumber, canSMS, ProviderID, Ext)
 		select PhoneType, PhoneNumber, canSMS, ProviderID, Ext from phone where PhoneID = $phoneid";
-	echo $sql."\n";
-	mysql_query($sql);
+	# echo $sql."\n";
+	$r = mysql_query($sql);
+	if(!$r) echo mysql_error();
+	
 	$newphoneid = mysql_insert_id($db_connection_link);
 	$sql = "insert into destination (DestinationGroupID, Name, AddressID, IsPublic, IsPublicApproved, FranchiseID, PhoneID, DestinationDetail)
 		select DestinationGroupID, Name, $newaddressid, IsPublic, IsPublicApproved, FranchiseID, $newphoneid, DestinationDetail
 		from destination where DestinationID = $homeid";
-	echo $sql."\n";
-	mysql_query($sql);
+	# echo $sql."\n";
+	$r = mysql_query($sql);
+	if(!$r) echo mysql_error();
+	
 	$newhomeid = mysql_insert_id($db_connection_link);
 	
 	$sql = "insert into rider_destination (UserID, DestinationID)
 		select $newuserid, DestinationID from rider_destination where UserID = $currentid and not DestinationID = $homeid";
-	mysql_query($sql);
+	$r = mysql_query($sql);
+	if(!$r) echo mysql_error();
 
 	$sql = "insert into rider_destination (UserID, DestinationID) values ($newuserid, $newhomeid)";
-	mysql_query($sql);
+	$r = mysql_query($sql);
+	if(!$r) echo mysql_error();
 		
 	return $newuserid;
 }
