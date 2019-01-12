@@ -51,6 +51,22 @@ function rc_log($level, $message, $filename = 'rc_log.log') {
 //  }
 }
 
+function debug_string_backtrace() { 
+    ob_start(); 
+    debug_print_backtrace(); 
+    $trace = ob_get_contents(); 
+    ob_end_clean(); 
+
+    // Remove first item from backtrace as it's this function which 
+    // is redundant. 
+    $trace = preg_replace ('/^#0\s+' . __FUNCTION__ . "[^\n]*\n/", '', $trace, 1); 
+
+    // Renumber backtrace items. 
+    $trace = preg_replace ('/^#(\d+)/me', '\'#\' . ($1 - 1)', $trace); 
+
+    return $trace; 
+} 
+
 /**
  * Logs a database error to the db_error_log.log file.
  * Levels are the same as for rc_sys_log.
@@ -62,7 +78,8 @@ function rc_log($level, $message, $filename = 'rc_log.log') {
  */
 function rc_log_db_error($level, $db_error, $extra_info, $sql = 'no sql') {
 //  if (DEPLOYMENT_ENVIRONMENT=='PRODUCTION') {
-    $message = "[$extra_info] [$db_error] [$sql]";
+    $message = "[$extra_info] [$db_error] [$sql]\n";
+    $message .= debug_string_backtrace();
     rc_log($level, $message, 'db_error_log.log');
 //  }
 }
