@@ -66,8 +66,9 @@
                                                       NULL, $_POST["DestinationGroup"], $_POST['DestinationPhone'], 
                                                       $_POST['DestinationDetail'], $_POST['DestinationPhoneExt']);
 			add_destination_for_rider($rider_id,$new_destination);
+			$destination = get_destination($new_destination);
       if ($should_geocode) {
-          update_address($new_destination['AddressID'], $address, FALSE, TRUE);
+          update_address($destination['AddressID'], $address, FALSE, TRUE);
       }
 		}
 	}
