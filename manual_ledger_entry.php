@@ -208,9 +208,11 @@ function confirmThis(f) {
             });
         
         jQuery(function($) {
-        	$('#effective_date').datepicker("option","onSelect",function() {
-        		Cookies.set('manual_ledger_entry_effective_date',$(this).val(),{ expires: 1 });
-        	});
+        	$('#effective_date').datepicker({
+        			onSelect: function(formattedDate, date, inst) {
+        				Cookies.set('manual_ledger_entry_effective_date',formattedDate,{ expires: 1 });
+        			}
+        		});
         	if(Cookies.get('manual_ledger_entry_effective_date') != ''
         		&& typeof Cookies.get('manual_ledger_entry_effective_date') != 'undefined')
         		$('#effective_date').val(Cookies.get('manual_ledger_entry_effective_date'));
