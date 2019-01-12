@@ -17,8 +17,8 @@
 	if(count($_POST) > 0)
 		for($i = 0; $i < count(array_keys($_POST)); $i++)
 			if(strstr(array_keys($_POST)[$i],'reactivate_')) {
-				( $r, $k ) = explode(array_keys($_POST)[$i]);
-				$sql = "UPDATE care_facility set CareFacilityStatus = 'Active' where CareFacilityID = $k"
+				( $r, $k ) = explode("_",array_keys($_POST)[$i]);
+				$sql = "UPDATE care_facility set CareFacilityStatus = 'Active' where CareFacilityID = $k";
 				mysql_query($sql);
 			}
 			
