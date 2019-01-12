@@ -13,7 +13,15 @@
 	
 	
     include_once 'include/header.php';
-	
+
+	if(count($_POST) > 0)
+		for($i = 0; $i < count(array_keys($_POST)); $i++)
+			if(strstr(array_keys($_POST)[$i],'reactivate_')) {
+				( $r, $k ) = explode(array_keys($_POST)[$i]);
+				$sql = "UPDATE care_facility set CareFacilityStatus = 'Active' where CareFacilityID = $k"
+				mysql_query($sql);
+			}
+			
 	$sql = "SELECT * FROM `care_facility` where FranchiseID=".(int)$franchise." and CareFacilityStatus = 'Active'";
 	$result = mysql_query($sql) or die("failed to get care facilities");
 	
@@ -60,6 +68,7 @@
 	$result = mysql_query($sql) or die("failed to get care facilities");
 	
 ?>
+<form method=POST>
 <center><h2><u>Inactive</u> Care Facilities</h2></center>
 <table border="1" style="margin:auto; width:100%;">
 	<tr>
@@ -88,12 +97,14 @@
 					<a href="care_facility_invoice.php?id=<?php echo $row['CareFacilityID']; ?>">Invoice</a>
 					<a href="edit_care_facility.php?action=delete&id=<?php echo $row['CareFacilityID']; ?>">Delete Account</a> 
 					-->
+					<input type=submit name=reactivate_<?php echo $row["CareFacilityID"]; ?> value="Reactivate">
 				</td>
 			</tr>
 			<?php
 		}
 	?>
 </table>
+</form>
 <?php
 	include_once 'include/footer.php';
 ?>
