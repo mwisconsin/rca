@@ -238,7 +238,7 @@ function user_has_role($user_id, $franchise, $role) {
 	
     $sql = "SELECT COUNT(UserID) AS HasRole FROM user_role WHERE UserID = $safe_uid AND Role = '$safe_role'$safe_franchise";
   
-	$result = mysql_query($sql) or die(mysql_error());
+	$result = mysql_query($sql);
     if ($result) {
         $row = mysql_fetch_assoc($result);
 
