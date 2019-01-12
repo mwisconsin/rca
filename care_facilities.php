@@ -52,7 +52,7 @@
 					<a href="edit_care_facility.php?action=edit_balance&id=<?php echo $row['CareFacilityID']; ?>">Manual Ledger Entry</a>
 					<a href="cf_ledger.php?id=<?php echo $row['CareFacilityID']; ?>">Ledger</a>
 					<a href="care_facility_invoice.php?id=<?php echo $row['CareFacilityID']; ?>">Invoice</a>
-					<a href="edit_care_facility.php?action=delete&id=<?php echo $row['CareFacilityID']; ?>">Delete Account</a> 
+					<a href="edit_care_facility.php?action=delete&id=<?php echo $row['CareFacilityID']; ?>">Deactivate Account</a> 
 				</td>
 			</tr>
 			<?php
