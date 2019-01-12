@@ -193,8 +193,8 @@
 		?>
 		<form method="post" action="<?php echo site_url() . 'edit_care_facility.php?action=delete&id=' . $_GET['id']; ?>">
 			<center>
-				<h2>Delete Care Facility</h2>
-				Are You sure you want to delete this care facility?
+				<h2>Deactivate Care Facility</h2>
+				Are You sure you want to deactivate this care facility?
 			</center>
 			<br>
 			<table style="margin:auto;">
@@ -206,7 +206,7 @@
 				</tr>
 				<tr>
 					<td><input type="button" value="Cancel" onclick="document.location = '<?php echo site_url() . "care_facilities.php"; ?>';" /></td>
-					<td class="alignright" colspan="2"><input type="submit" name="Delete" value="Delete" /></td>
+					<td class="alignright" colspan="2"><input type="submit" name="Delete" value="Deactivate" /></td>
 				</tr>
 			</table>
 		</form>
