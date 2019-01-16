@@ -19,6 +19,8 @@
 	$r = mysql_query($sql);
 	$rs = mysql_fetch_array($r);
 	$deadhead_plus = $rs["deadhead_plus"];
+	
+	include_once 'include/header.php';
 ?>
 <form method=POST>
 <h1>Deadhead Plus</h1>
