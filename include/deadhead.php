@@ -100,7 +100,7 @@ function create_transition_miles($franchise_id, $date, $to_date = '') {
                     //echo " - $link_distance miles = $driver_credit_cents cents<br />";
                     
                     // determine time delta between FROM and TO rides
-                    $totalDeltaMinutes = (strtotime("-5 minute",strtotime($to['DesiredArrivalTime'])) - strtotime($from["DesiredDepartureTime"])) / 60;
+                    $totalDeltaMinutes = (strtotime($to["DesiredDepartureTime"]) - strtotime("-5 minute",strtotime($from['DesiredArrivalTime']))) / 60;
                     
                     // subtract total transition minutes
                     $deltaMinutes = $totalDeltaMinutes - ($distance_and_time['time']/60);
