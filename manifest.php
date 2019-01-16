@@ -964,7 +964,7 @@ if($foundRide)
          	<?php } ?>
          		<?php if((user_has_role(get_current_user_id(), 1, 'FullAdmin') || user_has_role(get_current_user_id(), $franchise_id, 'Franchisee'))&& $link['LinkID'] != 0){ ?>
          		<td class=noprint>
-         		<input type=text size=4 name="IndexPath[<?php echo $link['LinkID']; ?>]" value="<?php echo $link['IndexPath']; ?>"><input type=submit name=IndexPathSubmit value="Upd"><label class=IndexPathUrgentLabel>U</label><input class=IndexPathUrgen type=checkbox name=IndexPathUrgent[<?php echo $link['LinkID']; ?>] <?php if($link["IndexPathUrgent"]) echo "checked"; ?>>
+         		<input type=text size=4 name="IndexPath[<?php echo $link['LinkID']; ?>]" value="<?php echo $link['IndexPath']; ?>"><input type=submit name=IndexPathSubmit value="Upd"><label class=IndexPathUrgentLabel>Urgent</label><input class=IndexPathUrgent type=checkbox name=IndexPathUrgent[<?php echo $link['LinkID']; ?>] <?php if($link["IndexPathUrgent"]) echo "checked"; ?>>
          		</td>
          		<?php } ?>
          <?php }
