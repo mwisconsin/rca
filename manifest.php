@@ -1225,7 +1225,7 @@ If you aren't sure that the rides will work in your schedule, you can click the 
 	    		.">";
 	    	echo "</td>";
 	    	echo "<td rowspan={$rowspan} valign=middle>";
-	    	echo $link["IndexPath"];
+	    	echo $link["IndexPath"].($link["IndexPathUrgent"] == 1 ? " <b style='color: red;'>Urgent!</b>" : "");
 	    	echo "</td>";           
 	    }
     	$lastIndexPath = $link["IndexPath"];
