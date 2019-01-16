@@ -377,7 +377,7 @@ function get_all_driver_history_and_active_links( $driver_user_id, $date = 'ALLD
                    T_Address.VerifySource as T_VerifySource,
                    T_Address.Latitude as T_Latitude,
                    T_Address.Longitude as T_Longitude,
-                   'HISTORY' AS IsHistory, IndexPath
+                   'HISTORY' AS IsHistory, IndexPath, IndexPathUrgent
             FROM link_history, destination AS F_Dest, destination AS T_Dest, 
                  address AS F_Address, address AS T_Address
             WHERE link_history.DriverUserID = $safe_driver_user_id AND
