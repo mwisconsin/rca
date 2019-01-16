@@ -790,7 +790,9 @@ function display_approaching_annual_fee_popup() {
 	$r = mysql_query($sql);
 	if(mysql_num_rows($r) > 0) {
 		$rs = mysql_fetch_assoc($r);
-	echo '
+		$sql = "select * from ach_to_process where status = 1 and paytype = 'ANNUAL_FEE' and userid = ".get_affected_user_id()." and dts > now()";
+		$r = mysql_query($sql);
+		if(mysql_num_rows($r) == 0)	echo '
 		<script>
 		jQuery(function($) {
 			if(Cookies.get("seen_annual_fee_popup") !== "true")
