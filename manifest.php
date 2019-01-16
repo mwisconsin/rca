@@ -125,7 +125,9 @@ if($_POST['ReleaseDriver'] != null){
     
 	if(isset($_POST["IndexPathSubmit"])) {
 		foreach($_POST["IndexPath"] as $id => $v) {
-			$sql = "update link set IndexPath = '$v' where LinkID = $id";
+			$sql = "update link set IndexPath = '$v'"
+				.($_POST["IndexPathUrgent"][$v] == "on" ? ", IndexPathUrgent = 1" : ", IndexPathUrgent = 0")
+				." where LinkID = $id";
 			mysql_query($sql);
 		}
 		$links = get_driver_active_links( $driver_id, 'FUTURE' );
