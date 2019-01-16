@@ -701,7 +701,7 @@ if($_GET['date']){
         <?php if(current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise_id, "Franchisee")){ ?>
 		<th class="noprint">Released to Driver</th>  
         <th class="noprint">Custom Transition</th>
-	       	<?php if(user_has_role(get_affected_user_id(), 1, 'FullAdmin') || user_has_role(get_affected_user_id(), $franchise_id, "Franchisee")) { ?>
+	       	<?php if(user_has_role(get_current_user_id(), 1, 'FullAdmin') || user_has_role(get_current_user_id(), $franchise_id, "Franchisee")) { ?>
         		<th class="noprint">Index Path</th>
         	<?php } ?>
         <?php } ?>
@@ -962,7 +962,7 @@ if($foundRide)
          	<?php  } else { ?>
          		<td class="noprint"><input type="button" value="View CT" onClick="document.location = 'custom_transition.php?id=<?php echo $link['CustomTransitionID']; ?>'"><br><input type="submit" name="CancelCustomTransition[<?php echo $link['LinkID']; ?>]" value="Cancel CT" ></td>
          	<?php } ?>
-         		<?php if((user_has_role(get_affected_user_id(), 1, 'FullAdmin') || user_has_role(get_affected_user_id(), $franchise_id, 'Franchisee'))&& $link['LinkID'] != 0){ ?>
+         		<?php if((user_has_role(get_current_user_id(), 1, 'FullAdmin') || user_has_role(get_current_user_id(), $franchise_id, 'Franchisee'))&& $link['LinkID'] != 0){ ?>
          		<td class=noprint>
          			<input type=text size=4 name="IndexPath[<?php echo $link['LinkID']; ?>]" value="<?php echo $link['IndexPath']; ?>"><input type=submit name=IndexPathSubmit value="Upd">
          		</td>
