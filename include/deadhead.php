@@ -98,6 +98,21 @@ function create_transition_miles($franchise_id, $date, $to_date = '') {
                     $driver_credit_cents = floor($driver_rate_card['CentsPerMile'] * $link_distance);
 
                     //echo " - $link_distance miles = $driver_credit_cents cents<br />";
+                    
+                    // determine time delta between FROM and TO rides
+                    $totalDeltaMinutes = (strtotime("-5 minute",strtotime($to['DesiredArrivalTime'])) - strtotime($from["DesiredDepartureTime"])) / 60;
+                    
+                    // subtract total transition minutes
+                    $deltaMinutes = $totalDeltaMinutes - ($distance_and_time['time']/60);
+                    // if remainder of minutes is greater than the value of franchise.deadhead_plus,
+                    // then the maximum credit for that time is franchise.deadhead_plus
+                    $deltaMinutes = $deltaMinutes < 0 ? 0 : $deltaMinutes;
+                    $sql = "select deadhead_plus from franchise where FranchiseID = $franchise_id";
+                    $r = mysql_query($sql);
+                    $rs = mysql_fetch_array($r);
+                    $deltaMintues = $deltaMinutes > $rs["deadhead_plus"] ? $rs["deadhead_plus"] : $deltaMinutes;
+                    
+                    // insert credit for transition minutes and that deadhead_plus credit in table insert, below
 
                     $start = db_start_transaction();
                     if (!$start) {
@@ -115,8 +130,7 @@ function create_transition_miles($franchise_id, $date, $to_date = '') {
                     $deadhead_id = store_deadhead_link($driver_id, $from_id, $to_id, 
                                                        $from_dest['FranchiseID'], $from_dest['DestinationID'],
                                                        $to_dest['DestinationID'], $link_distance,
-                                                       /* maximize transition time at 30 minutes */
-                                                       ($distance_and_time['time']/60 > 30 ? 30 : $distance_and_time['time']/60),
+                                                       ($distance_and_time['time']/60) + $deltaMinutes,
                                                        $driver_credit_cents, $driver_ledger_id);
 
                     if ($start && $driver_ledger_id && $deadhead_id) {
