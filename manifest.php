@@ -964,7 +964,7 @@ if($foundRide)
          	<?php } ?>
          		<?php if((user_has_role(get_current_user_id(), 1, 'FullAdmin') || user_has_role(get_current_user_id(), $franchise_id, 'Franchisee'))&& $link['LinkID'] != 0){ ?>
          		<td class=noprint>
-         		<input type=text size=4 name="IndexPath[<?php echo $link['LinkID']; ?>]" value="<?php echo $link['IndexPath']; ?>"><input type=submit name=IndexPathSubmit value="Upd"><label class=IndexPathUrgentLabel>U</label><input type=checkbox name=IndexPathUrgent <?php if($link["IndexPathUrgent"]) echo "checked"; ?>>
+         		<input type=text size=4 name="IndexPath[<?php echo $link['LinkID']; ?>]" value="<?php echo $link['IndexPath']; ?>"><input type=submit name=IndexPathSubmit value="Upd"><label class=IndexPathUrgentLabel>U</label><input class=IndexPathUrgen type=checkbox name=IndexPathUrgent[<?php echo $link['LinkID']; ?>] <?php if($link["IndexPathUrgent"]) echo "checked"; ?>>
          		</td>
          		<?php } ?>
          <?php }
@@ -1357,6 +1357,18 @@ If you aren't sure that the rides will work in your schedule, you can click the 
 .alert_time {
 	font-weight: bold;
 	color: red;
+}
+.IndexPathUrgent {
+    position: relative;
+    float: right;
+    top: -15px;
+}
+.IndexPathUrgentLabel {
+    position: relative;
+    float: right;
+    right: 0px;
+    top: 1px;
+    font-size: 49%;	
 }
 </style>
 <script>
