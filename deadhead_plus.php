@@ -16,7 +16,7 @@
 	}
 	
 	$sql = "select deadhead_plus from franchise where FranchiseID = $franchise";
-	$r = msyql_query($sql);
+	$r = mysql_query($sql);
 	$rs = mysql_fetch_array($r);
 	$deadhead_plus = $rs["deadhead_plus"];
 ?>
