@@ -317,7 +317,7 @@ function get_driver_active_links( $driver_user_id, $date = 'ALLDATES' ) {
                    T_Address.ZIP5 AS T_ZIP5, T_Address.ZIP4 AS T_ZIP4,
                    T_Address.VerifySource as T_VerifySource,
                    T_Address.Latitude as T_Latitude,
-                   T_Address.Longitude as T_Longitude, IndexPath
+                   T_Address.Longitude as T_Longitude, IndexPath, IndexPathUrgent
             FROM link, destination AS F_Dest, destination AS T_Dest, 
                  address AS F_Address, address AS T_Address
             WHERE link.AssignedDriverUserID = $safe_driver_user_id AND
