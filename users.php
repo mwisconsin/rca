@@ -220,7 +220,7 @@
                         <td style="text-align:right;"><?php 
                         	echo "<a class=\"User_Redirect\" id=\"$user_row[UserID]\" href=\"make_payment.php\">"
                         		.format_dollars($user_row['RechargeThreshold']); ?></a></td>
-                        <td style="text-align:right;"><?php echo format_dolars($user_row['RechargeAmount']); ?></td>
+                        <td style="text-align:right;"><?php echo format_dollars($user_row['RechargeAmount']); ?></td>
                         <td style="text-align:center;"><?php if($user_row['CareFacility']) echo '<a href="care_facility.php?id=' . $user_row['CareFacility'] . '">x</a>'; ?></td>
                         <td nowrap><?php echo $phone; ?></td>
                         <td id="RiderPictureWaiver" class="editable_date"><?php echo format_date($user_row['RiderPictureWaiver'], "n/j/y"); ?></td>
