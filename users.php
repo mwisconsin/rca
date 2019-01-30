@@ -114,20 +114,21 @@
 				<th style="text-align:center;">ID</th>
                 <th width="205px">Name</th>
                 <th style="text-align:center;">Age</th>
-                <th width="60px", style="text-align:center;">Sign Up</th>
-                <th width="60px", style="text-align:center;">Ann. Fee Pd</th>
-                <th width="60px", style="text-align:center;">Welc. Pkg.</th>
-                <th width="60px", style="text-align:center;">Rider Waiver</th>
-                <th width="60px", style="text-align:center;">First Ride</th>
-                <th width="60px", style="text-align:center;">Ride 1 Fol/up</th>
-                <th width="60px", style="text-align:center;">Last Ride</th>
-                <th width="60px", style="text-align:center;">Next Ride</th>
-                <th width="60px", style="text-align:center;">Cur. Bal.</th>
-                <th width="60px", style="text-align:center;">Avail. Bal.</th>
-                <th width="60px", style="text-align:center;">Thres-hold</th>
-                <th width="20px", class="nosort", style="text-align:center;">CF</th>
-                <th width="85px", style="text-align:center;">Phone</th>
-                <th width="40px", style="text-align:center;">Pic Waiv</th>
+                <th width="60px" style="text-align:center;">Sign Up</th>
+                <th width="60px" style="text-align:center;">Ann. Fee Pd</th>
+                <th width="60px" style="text-align:center;">Welc. Pkg.</th>
+                <th width="60px" style="text-align:center;">Rider Waiver</th>
+                <th width="60px" style="text-align:center;">First Ride</th>
+                <th width="60px" style="text-align:center;">Ride 1 Fol/up</th>
+                <th width="60px" style="text-align:center;">Last Ride</th>
+                <th width="60px" style="text-align:center;">Next Ride</th>
+                <th width="60px" style="text-align:center;">Cur. Bal.</th>
+                <th width="60px" style="text-align:center;">Avail. Bal.</th>
+                <th width="60px" style="text-align:center;">Thres-hold</th>
+                <th width="60px" style="text-align:center;">Re-charge</th>
+                <th width="20px" class="nosort", style="text-align:center;">CF</th>
+                <th width="85px" style="text-align:center;">Phone</th>
+                <th width="40px" style="text-align:center;">Pic Waiv</th>
 			</tr>
 			<?php
                 $travel_times = get_next_travel_times_for_all_riders($riders);
@@ -219,6 +220,7 @@
                         <td style="text-align:right;"><?php 
                         	echo "<a class=\"User_Redirect\" id=\"$user_row[UserID]\" href=\"make_payment.php\">"
                         		.format_dollars($user_row['RechargeThreshold']); ?></a></td>
+                        <td style="text-align:right;"><?php echo format_dolars($user_row['RechargeAmount']); ?></td>
                         <td style="text-align:center;"><?php if($user_row['CareFacility']) echo '<a href="care_facility.php?id=' . $user_row['CareFacility'] . '">x</a>'; ?></td>
                         <td nowrap><?php echo $phone; ?></td>
                         <td id="RiderPictureWaiver" class="editable_date"><?php echo format_date($user_row['RiderPictureWaiver'], "n/j/y"); ?></td>
@@ -227,6 +229,7 @@
 				}
 			?>
             <tr>
+            	<td></td>
             	<td></td>
             	<td></td>
             	<td></td>
@@ -254,17 +257,17 @@
 			<tr class="head">
 				<th style="text-align:center;">ID</th>
                 <th width="205px">Name</th>
-                <th width="60px", style="text-align:center;">Sign Up</th>
-                <th width="60px", style="text-align:center;">Ann. Fee Pd</th>
-                <th width="60px", style="text-align:center;">Welc. Pkg.</th>
-                <th width="60px", style="text-align:center;">C/F Waiver</th>
-                <th width="60px", style="text-align:center;">First Ride</th>
-                <th width="60px", style="text-align:center;">Ride 1 Fol/up</th>
-                <th width="60px", style="text-align:center;">Last Ride</th>
-                <th width="60px", style="text-align:center;">Next Ride</th>
-                <th width="60px", style="text-align:center;">Current Bal.</th>
-                <th width="60px", style="text-align:center;">Avail. Bal.</th>
-                <th width="60px", style="text-align:center;">Thresh.</th>
+                <th width="60px" style="text-align:center;">Sign Up</th>
+                <th width="60px" style="text-align:center;">Ann. Fee Pd</th>
+                <th width="60px" style="text-align:center;">Welc. Pkg.</th>
+                <th width="60px" style="text-align:center;">C/F Waiver</th>
+                <th width="60px" style="text-align:center;">First Ride</th>
+                <th width="60px" style="text-align:center;">Ride 1 Fol/up</th>
+                <th width="60px" style="text-align:center;">Last Ride</th>
+                <th width="60px" style="text-align:center;">Next Ride</th>
+                <th width="60px" style="text-align:center;">Current Bal.</th>
+                <th width="60px" style="text-align:center;">Avail. Bal.</th>
+                <th width="60px" style="text-align:center;">Thresh.</th>
                 <th width="85px", style="text-align:center;">Phone</th>
                 <th width="40px", style="text-align:center;">Pic Waiv</th>
 			</tr>
@@ -366,17 +369,17 @@
 				<th style="text-align:center;">ID</th>
                 <th width="205px">Name</th>
                 <th style="text-align:center;">Age</th>
-                <th width="60px", style="text-align:center;">Sign Up</th>
-                <th width="60px", style="text-align:center;">Ann. Fee Pd</th>
-                <th width="60px", style="text-align:center;">Welc. Pkg.</th>
-                <th width="60px", style="text-align:center;">Rider Waiver</th>
-                <th width="60px", style="text-align:center;">First Ride</th>
-                <th width="60px", style="text-align:center;">Ride 1 Fol/up</th>
-                <th width="60px", style="text-align:center;">Last Ride</th>
-                <th width="60px", style="text-align:center;">Next Ride</th>
-                <th width="60px", style="text-align:center;">Cur. Bal.</th>
+                <th width="60px" style="text-align:center;">Sign Up</th>
+                <th width="60px" style="text-align:center;">Ann. Fee Pd</th>
+                <th width="60px" style="text-align:center;">Welc. Pkg.</th>
+                <th width="60px" style="text-align:center;">Rider Waiver</th>
+                <th width="60px" style="text-align:center;">First Ride</th>
+                <th width="60px" style="text-align:center;">Ride 1 Fol/up</th>
+                <th width="60px" style="text-align:center;">Last Ride</th>
+                <th width="60px" style="text-align:center;">Next Ride</th>
+                <th width="60px" style="text-align:center;">Cur. Bal.</th>
                 <th width="70px", style="text-align:center;">Avail. Bal.</th>
-                <th width="60px", style="text-align:center;">Thres-hold</th>
+                <th width="60px" style="text-align:center;">Thres-hold</th>
                 <th width="20px", class="nosort", style="text-align:center;">CF</th>
                 <th width="85px", style="text-align:center;">Phone</th>
                 <th width="40px", style="text-align:center;">Pic Waiv</th>
@@ -525,16 +528,16 @@
 			<tr>
 				<th width="30px", style="text-align:center;">ID</th>
             <th width="185px">Name</th>
-            <th width="60px", style="text-align:center;">SF Since</th>
+            <th width="60px" style="text-align:center;">SF Since</th>
             <th width="185px">Supported Rider (R)</th>
             <th width="30px", style="text-align:center;">R ID</th>
-            <th width="60px", style="text-align:center;">R Status</th>
-            <th width="60px", style="text-align:center;">R Ann. Fee Due</th>
-            <th width="60px", style="text-align:center;">R Last Ride</th>
-            <th width="60px", style="text-align:center;">R Next Ride</th>
-            <th width="60px", style="text-align:center;">R Cur. Bal.</th>
-            <th width="60px", style="text-align:center;">R Avail. Bal.</th>
-            <th width="60px", style="text-align:center;">R Thres.</th>
+            <th width="60px" style="text-align:center;">R Status</th>
+            <th width="60px" style="text-align:center;">R Ann. Fee Due</th>
+            <th width="60px" style="text-align:center;">R Last Ride</th>
+            <th width="60px" style="text-align:center;">R Next Ride</th>
+            <th width="60px" style="text-align:center;">R Cur. Bal.</th>
+            <th width="60px" style="text-align:center;">R Avail. Bal.</th>
+            <th width="60px" style="text-align:center;">R Thres.</th>
             <th width="85px", style="text-align:center;">SF Phone</th>
 			</tr>
 			<?php
@@ -633,15 +636,15 @@
 				<th width="30px", style="text-align:center;">ID </th>
                 <th width="200px">Name</th>
                 <th width="30px", style="text-align:center;">Age </th>
-                <th width="60px", style="text-align:center;">Dr. Train</th>
-                <th width="60px", style="text-align:center;">Pol. & Proc.</th>
-                <th width="60px", style="text-align:center;">Dr. Agr.</th>
+                <th width="60px" style="text-align:center;">Dr. Train</th>
+                <th width="60px" style="text-align:center;">Pol. & Proc.</th>
+                <th width="60px" style="text-align:center;">Dr. Agr.</th>
                 <th width="30px", style="text-align:center;">Copy DL/ Ins</th>
-                <th width="60px", style="text-align:center;">Ins. Ver.</th>
-                <th width="60px", style="text-align:center;">Ins. Exp.</th>
-                <th width="60px", style="text-align:center;">DL Exp.</th>
-                <th width="60px", style="text-align:center;">1st Dr.<BR>FL</th>
-                <th width="60px", style="text-align:center;">Last<br>Ride</th>
+                <th width="60px" style="text-align:center;">Ins. Ver.</th>
+                <th width="60px" style="text-align:center;">Ins. Exp.</th>
+                <th width="60px" style="text-align:center;">DL Exp.</th>
+                <th width="60px" style="text-align:center;">1st Dr.<BR>FL</th>
+                <th width="60px" style="text-align:center;">Last<br>Ride</th>
                 <th width="200px">Current Donate</th>
                 <th width="90px", style="text-align:center;">Phone Number</th>
                 <th width="40px", style="text-align:center;">Pic Waiv </th>

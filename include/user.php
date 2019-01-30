@@ -801,7 +801,7 @@ function get_care_facility_admins($franchise){
 function get_all_active_rider_user_info($franchise, $sort_by_last_name = TRUE) {
     $safe_franchise = mysql_real_escape_string($franchise);
 
-    $sql = "SELECT FirstName, LastName, UserID, DateOfBirth, AnnualFeePaymentDate, ApplicationDate, WelcomePackageSentDate, FirstRideDate, FirstRideFollowupDate, RechargeThreshold, RiderPictureWaiver, RiderWaiverReceived
+    $sql = "SELECT *
             FROM users NATURAL JOIN user_role NATURAL JOIN rider NATURAL JOIN person_name
             WHERE Role = 'Rider' AND RiderStatus = 'Active' AND users.UserID IN (SELECT UserID FROM user_role WHERE FranchiseID = $safe_franchise)
             GROUP BY users.UserID";
