@@ -1084,7 +1084,7 @@ HTML;
 		$on_demand_row = "<td style=\"vertical-align:top; border: 0px;\"><input type=checkbox name=\"OnDemandFlag[$idx]\" ".(@$cached_schedule['OnDemandFlag'][$idx] === 1 || @$cached_schedule['OnDemandFlag'][$idx] === 'on' ? 'checked' : '')."> On Demand"
 			."</td>";
 		$post_padding = "<br>Drop Off Padding: <select name=\"PostPadding[$idx]\">";
-		for($i = 10; $i >= 0; $i--){
+		for($i = 15; $i >= 0; $i--){
 			$post_padding .= "<option value=\"$i\"";
 			if((isset($cached_schedule['PostPadding'][$idx]) && $i == $cached_schedule['PostPadding'][$idx]) || (!isset($cached_schedule['PostPadding'][$idx]) && $i == $default_post_padding))
 				$post_padding .= " SELECTED";
@@ -1092,7 +1092,7 @@ HTML;
 		}
 		$post_padding .= "</select> Minutes";
 		$pre_padding = "<br>Loading Padding: <select name=\"PrePadding[$idx]\">";
-		for($i = 10; $i >= 0; $i--){
+		for($i = 15; $i >= 0; $i--){
 			$pre_padding .= "<option value=\"$i\"";
 			if(isset($cached_schedule['PrePadding'][$idx]) && $i == $cached_schedule['PrePadding'][$idx] || !isset($cached_schedule['PrePadding'][$idx]) && $i == $default_pre_padding)
 				$pre_padding .= " SELECTED";
