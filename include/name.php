@@ -116,7 +116,7 @@ echo <<<HTML
     </tr>
     <tr>
         <td class="alignright">Nickname</td>
-        <td><input type="text" name="{$form_name_prefix}Nickname" value="{$person_name['NickName']}" maxlength="10" style="width:200px;" /></td>
+        <td><input type="text" name="{$form_name_prefix}Nickname" value="{$person_name['NickName']}" style="width:200px;" /></td>
     </tr>
 HTML;
 
