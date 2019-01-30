@@ -110,7 +110,7 @@ function create_transition_miles($franchise_id, $date, $to_date = '') {
                     $sql = "select deadhead_plus from franchise where FranchiseID = $franchise_id";
                     $r = mysql_query($sql);
                     $rs = mysql_fetch_array($r);
-                    $deltaMintues = $deltaMinutes > $rs["deadhead_plus"] ? $rs["deadhead_plus"] : $deltaMinutes;
+                    $deltaMinutes = $deltaMinutes > $rs["deadhead_plus"] ? $rs["deadhead_plus"] : $deltaMinutes;
                     
                     // insert credit for transition minutes and that deadhead_plus credit in table insert, below
 
