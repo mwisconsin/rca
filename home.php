@@ -284,6 +284,7 @@
 				$monthlyave = '$'.number_format($rval,2);
 			}
 		
+			$ride_costs_30 = calculate_riders_incomplete_ride_costs( get_user_rider_id( $user_id ), 30 );
 		?>
 		<table class=cleanTable  style="margin-left:50px;">
 			<tr valign=bottom>
@@ -296,7 +297,7 @@
 			<tr>
 				<td><?php echo format_dollars($balance); ?></td>
 				<td><?php echo format_dollars($ride_costs); ?></td>
-				<td></td>
+				<td><?php echo format_dollars($balance - $ride_costs_30); ?></td>
 				<td><?php echo format_dollars($balance - $ride_costs); ?></td>
 				<td><?php echo $monthlyave; ?></td>
 			</tr>
