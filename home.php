@@ -50,6 +50,12 @@
 	padding: 2px;
 	border: 1px solid black;
 }	
+.cleanTable TH {
+	padding: 2px;
+	text-align: center;
+	border: 1px solid black;
+	border-bottom: 2px solid black;
+}
 </style>
 <div style="float:right; clear:both; border-left:1px solid; width:300px; height:100%; padding:4px; margin-right:10px;">
     
