@@ -265,6 +265,26 @@
 		<?php } ?>
 		<span style="font-size:1.3em;">Ride Balance </span><br>
 		
+		<?php
+			
+			$sql = "SELECT datediff(now(),min(LedgerEntryTime)) from ledger where EntityType = 'USER' and EntityID = $user_id";
+			$rs = mysql_fetch_array(mysql_query($sql));
+			if($rs[0] >= 30 && $rs[0] < 60) {
+				$sql = "select avg(quotedcents) from ( SELECT quotedcents FROM `link` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() UNION SELECT quotedcents FROM `link_history` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()) a";
+				$rval = mysql_fetch_array(mysql_query($sql));
+			} else if($rs[0] >= 60 && $rs[0] < 90) {
+				$sql = "select avg(quotedcents) from ( SELECT quotedcents FROM `link` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 60 DAY AND CURDATE() UNION SELECT quotedcents FROM `link_history` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 60 DAY AND CURDATE()) a";				
+				$rval = mysql_fetch_array(mysql_query($sql)) / 2;
+			} else if($rs[0] > 90) {
+				$sql = "select avg(quotedcents) from ( SELECT quotedcents FROM `link` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 90 DAY AND CURDATE() UNION SELECT quotedcents FROM `link_history` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 90 DAY AND CURDATE()) a";				
+				$rval = mysql_fetch_array(mysql_query($sql)) / 3;				
+			} 
+			if($rs[0] < 30) $monthlyave = 'Not Enough History';
+			else {
+				$monthlyave = '$'.number_format($rval,2);
+			}
+		
+		?>
 		<table class=cleanTable  style="margin-left:50px;">
 			<tr valign=bottom>
 				<th>Cur. Bal.</th>
@@ -278,7 +298,7 @@
 				<td><?php echo format_dollars($ride_costs); ?></td>
 				<td></td>
 				<td><?php echo format_dollars($balance - $ride_costs); ?></td>
-				<td></td>
+				<td><?php echo $monthlyave; ?></td>
 			</tr>
 		</table>
 		<a style="font-size:.9em;" href="make_payment.php">add money to my account</a><br>
