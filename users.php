@@ -520,7 +520,7 @@
 		
 		$sf_ids = array();
 		$sf_rider_ids = array();
-		foreach($supporting_friends as $sf)
+		if($supporting_friends) foreach($supporting_friends as $sf)
         {
             $sf_ids[] = $sf['UserID'];
 			if(!is_null($sf['RiderUserID']))
@@ -552,7 +552,7 @@
             <th width="85px", style="text-align:center;">SF Phone</th>
 			</tr>
 			<?php
-				foreach($supporting_friends as $row){
+				if($supporting_friends) foreach($supporting_friends as $row){
                     $balance = isset($row['RiderUserID']) ? $balances[$row['RiderUserID']] : 0;
                     $ride_costs = isset($row['RiderUserID']) ? $incomplete_balances[$row['RiderUserID']] : 0;
                     $available = ($balance - $ride_costs);
