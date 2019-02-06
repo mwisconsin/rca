@@ -252,9 +252,10 @@
 		
 		<table border="1"  style="margin-left:50px;">
 			<tr>
-				<th>Current Balance</th>
-				<th>Dollars for Planned Rides</th>
-				<th>Available Balance</th>
+				<th>Cur. Bal.</th>
+				<th>Future Ride $</th>
+				<th>Avail. Bal.</th>
+				<th>Monthly Avg.</th>
 			</tr>
 			<tr>
 				<td><?php echo format_dollars($balance); ?></td>
