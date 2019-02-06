@@ -7,6 +7,7 @@ require_once('include/large_facility.php');
 require_once('include/weather.php');
 require_once 'include/time_delay.php';
 require_once 'include/scheduling_lockout.php';
+require_once 'include/name.php';
 
 
 function get_link($link_id) {
@@ -2172,6 +2173,7 @@ function get_links_rider_names($links){
 	if($result) while($row = mysql_fetch_array($result)) $names[] = get_displayable_person_name_string($row["RiderUserID"]);
 	return $names;
 }
+
 
 
 function set_driver_confirm($link_id, $bool_confirmed){
