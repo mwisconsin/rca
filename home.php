@@ -271,13 +271,13 @@
 			$rs = mysql_fetch_array(mysql_query($sql));
 			if($rs[0] >= 30 && $rs[0] < 60) {
 				$sql = "select avg(quotedcents) from ( SELECT quotedcents FROM `link` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() UNION SELECT quotedcents FROM `link_history` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()) a";
-				$rval = mysql_fetch_array(mysql_query($sql));
+				$rval = mysql_fetch_array(mysql_query($sql))[0];
 			} else if($rs[0] >= 60 && $rs[0] < 90) {
 				$sql = "select avg(quotedcents) from ( SELECT quotedcents FROM `link` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 60 DAY AND CURDATE() UNION SELECT quotedcents FROM `link_history` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 60 DAY AND CURDATE()) a";				
-				$rval = mysql_fetch_array(mysql_query($sql)) / 2;
+				$rval = mysql_fetch_array(mysql_query($sql))[0] / 2;
 			} else if($rs[0] > 90) {
 				$sql = "select avg(quotedcents) from ( SELECT quotedcents FROM `link` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 90 DAY AND CURDATE() UNION SELECT quotedcents FROM `link_history` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 90 DAY AND CURDATE()) a";				
-				$rval = mysql_fetch_array(mysql_query($sql)) / 3;				
+				$rval = mysql_fetch_array(mysql_query($sql))[0] / 3;				
 			} 
 			if($rs[0] < 30) $monthlyave = 'Not Enough History';
 			else {
