@@ -41,7 +41,16 @@
 	openCharityPopup();
 ?>
 <h2>Welcome to the Home Page</h2>
-
+<style>
+.cleanTable {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.cleanTable TD {
+	padding: 2px;
+	border: 1px solid black;
+}	
+</style>
 <div style="float:right; clear:both; border-left:1px solid; width:300px; height:100%; padding:4px; margin-right:10px;">
     
 	<div style="padding:2px; border-bottom:1px solid; margin-bottom:5px; font-size:.9em;">Messages From Your Local Office</div>
@@ -234,7 +243,7 @@
 	<span style="font-size:1.3em;">Finances</span><br>
 	<div style="margin-left:25px;">
 		<span style="font-size:1.3em;">Annual Fee</span><br>
-		<table border="1"  style="width:300px; margin-left:50px;">
+		<table class=cleanTable  style="width:300px; margin-left:50px;">
 			<tr>
 				<th>Annual Fee</th>
 				<td><?php if($due) echo "Not Paid"; else echo "Paid"; ?></td>
@@ -250,18 +259,20 @@
 		<?php } ?>
 		<span style="font-size:1.3em;">Ride Balance </span><br>
 		
-		<table border="1"  style="margin-left:50px;">
-			<tr>
+		<table class=cleanTable  style="margin-left:50px;">
+			<tr valign=bottom>
 				<th>Cur. Bal.</th>
 				<th>Future Ride $</th>
+				<th>30 Day<BR>Avail. Bal.</th>
 				<th>Avail. Bal.</th>
 				<th>Monthly Avg.</th>
 			</tr>
 			<tr>
 				<td><?php echo format_dollars($balance); ?></td>
 				<td><?php echo format_dollars($ride_costs); ?></td>
+				<td></td>
 				<td><?php echo format_dollars($balance - $ride_costs); ?></td>
-				
+				<td></td>
 			</tr>
 		</table>
 		<a style="font-size:.9em;" href="make_payment.php">add money to my account</a><br>
