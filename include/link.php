@@ -2171,11 +2171,19 @@ function set_link_note($link_id, $note){
 function get_links_rider_names($links){
 	foreach($links as $id => $link)
 		$links[$id] = mysql_real_escape_string($link);
-	$sql = "select RiderUserID from link WHERE LinkID ='" . implode("' || LinkID = '", $links) . "'";
-	$result = mysql_query($sql);
-	$names = array();
-	if($result) while($row = mysql_fetch_array($result)) $names[] = get_user_person_name($row['RiderUserID']);
-	return $names;
+	$sql = "SELECT * FROM (link LEFT JOIN users ON link.RiderUserID = users.UserID) LEFT JOIN person_name ON users.PersonNameID = person_name.PersonNameID WHERE LinkID ='" . implode("' || LinkID = '", $links) . "' GROUP BY UserID";
+	$result = mysql_query($sql) or die($sql);
+	
+	if($result){
+		$names = array();
+		while($row = mysql_fetch_array($result))
+			$names[] = $row;
+		return $names;
+	} else {
+		rc_log_db_error(PEAR_LOG_ERR, mysql_error(),
+                        "could not get rider names for link array", $sql);
+		return false;
+	}
 }
 
 
