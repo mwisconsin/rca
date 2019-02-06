@@ -2170,7 +2170,7 @@ function get_links_rider_names($links){
 	$sql = "select RiderUserID from link WHERE LinkID ='" . implode("' || LinkID = '", $links) . "'";
 	$result = mysql_query($sql);
 	$names = array();
-	if($result) while($row = mysql_fetch_array($result)) $names[] = get_displayable_person_name_string( get_user_person_name($row["RiderUserID"]));
+	if($result) while($row = mysql_fetch_array($result)) $names[] = get_user_person_name($row['RiderUserID']);
 	return $names;
 }
 
