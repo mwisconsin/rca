@@ -1985,7 +1985,7 @@ function calculate_riders_incomplete_ride_costs( $rider_user_id , $future_days =
 	$safe_rider_user_id = mysql_real_escape_string($rider_user_id);
 	$sql = "SELECT SUM(QuotedCents) FROM link WHERE RiderUserID = $safe_rider_user_id AND (CustomTransitionType = 'RIDER' || CustomTransitionType IS NULL)";
 	if($future_days > 0)
-		$sql .= " AND DesiredArrivalTime BETWEEN CURDATE() + INTERVAL $future_days DAY AND CURDATE() ";
+		$sql .= " AND DesiredArrivalTime < CURDATE() + INTERVAL $future_days DAY ";
 	$r = mysql_query($sql);
 	if(mysql_num_rows($r) > 0) return mysql_fetch_array( $r )[0];
 	else return "0";
