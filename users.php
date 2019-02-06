@@ -123,6 +123,7 @@
                 <th width="60px" style="text-align:center;">Last Ride</th>
                 <th width="60px" style="text-align:center;">Next Ride</th>
                 <th width="60px" style="text-align:center;">Cur. Bal.</th>
+                <th width="60px" style="text-align:center;">30 Day<br>Avail. Bal.</th>
                 <th width="60px" style="text-align:center;">Avail. Bal.</th>
                 <th width="60px" style="text-align:center;">Thres-hold</th>
                 <th width="60px" style="text-align:center;">Re-charge</th>
@@ -134,6 +135,7 @@
                 $travel_times = get_next_travel_times_for_all_riders($riders);
 				$balances = calculate_batch_user_ledger_balance($riders);
 				$incomplete_balances = calculate_batch_rider_incomplete_ride_costs($riders);
+				$incomplete_balances_30 = calculate_batch_rider_incomplete_ride_costs($riders, 30);
 				$phone_numbers = get_phone_number_for_users($riders);
 				$first_rides = get_batch_riders_first_ride($riders);
 				$last_rides = get_batch_riders_last_ride($riders);
@@ -147,6 +149,7 @@
 					$balance = $balances[$user_row['UserID']];
 					$total_balance += $balance;
 					$ride_costs = $incomplete_balances[$user_row['UserID']];
+					$ride_costs_30 = $incomplete_balances_30[$user_row['UserID']];
 					$total_available += ($balance - $ride_costs);
                     $annual_fee =  $user_row['AnnualFeePaymentDate']; 
 					$phone = isset($phone_numbers[$user_row['UserID']]) ? $phone_numbers[$user_row['UserID']] : "";
@@ -209,6 +212,14 @@
                         	printf("$%d.%02.2d", $balance/100, $balance % 100); 
                         	echo "</a>";
                         ?></td>
+                        <td style="text-align:right;"<?php 
+                                if ($balance - $ride_costs_30 <= $user_row['RechargeThreshold'] && !$user_row['CareFacility']) {
+                                    echo " class=\"Table_Warning_Cell\">"; 
+                                } else {  
+                                    echo '>';
+                                }
+                                echo "<a class=\"User_Redirect\" id=\"$user_row[UserID]\" href=\"manual_ledger_entry.php\">";
+                                echo format_dollars( $balance - $ride_costs_30 ); ?></a></td>                        
                         <td style="text-align:right;"<?php 
                                 if ($balance - $ride_costs <= $user_row['RechargeThreshold'] && !$user_row['CareFacility']) {
                                     echo " class=\"Table_Warning_Cell\">"; 
