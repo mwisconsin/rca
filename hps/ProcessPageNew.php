@@ -200,7 +200,7 @@ if (is_string($response)) {
 
 	if(!isset($_POST["token_value"]) || $_POST["token_value"] == "") {
 		$sql = "insert into hps_mutokens (UserID, muToken, Nickname) values ($user_id, '{$suToken->tokenValue}', '{$_POST[Nickname]}')";
-		$strNickname = $_POST["token_value"];
+		$strNickname = $_POST["Nickname"];
 		mysql_query($sql);
 		rc_log(PEAR_LOG_INFO, "New Nickname $strNickname: $sql");
 	}	else {
