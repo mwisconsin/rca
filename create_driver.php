@@ -199,7 +199,7 @@ error_reporting(0);
 					</td>
 				</tr>
 				<tr>
-					<td class="alignright">Driver License State</td>
+					<td class="alignright">*Driver License State</td>
 					<td>
 						<?php
                         	get_state_dropdown('License');
@@ -207,7 +207,7 @@ error_reporting(0);
 					</td>
 				</tr>
 				<tr>
-					<td class="alignright">Driver License Number</td>
+					<td class="alignright">*Driver License Number</td>
 					<td><input type="text" name="LicenseNumber" maxlength="15" value="<?php if ($_POST['LicenseNumber']) { echo $_POST['LicenseNumber']; } ?>"></td>
 				</tr>
 				<tr>
