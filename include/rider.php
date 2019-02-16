@@ -320,6 +320,7 @@ function clone_rider( $currentid, $username, $email, $qualifications ) {
 	if(!$r) echo mysql_error();
 	
 	$r = mysql_query("select AddressID from user_address where UserID = $currentid");
+	if(!$r) echo mysql_error();
 	while($rs = mysql_fetch_assoc($r)) {
 		$sql = "insert into address (`Address1`, `Address2`, `City`, `State`, `ZIP5`, `ZIP4`, `Latitude`, `Longitude`, `IsVerified`, `VerifySource`)
 		SELECT `Address1`, `Address2`, `City`, `State`, `ZIP5`, `ZIP4`, `Latitude`, `Longitude`, `IsVerified`, `VerifySource` FROM `address` where AddressID = $rs[AddressID]";
