@@ -325,14 +325,14 @@ function clone_rider( $currentid, $username, $email, $qualifications ) {
 		$sql = "insert into address (`Address1`, `Address2`, `City`, `State`, `ZIP5`, `ZIP4`, `Latitude`, `Longitude`, `IsVerified`, `VerifySource`)
 		SELECT `Address1`, `Address2`, `City`, `State`, `ZIP5`, `ZIP4`, `Latitude`, `Longitude`, `IsVerified`, `VerifySource` FROM `address` where AddressID = $rs[AddressID]";
 		#echo $sql."\n";
-		$r = mysql_query($sql);
-		if(!$r) echo mysql_error();
+		$ret = mysql_query($sql);
+		if(!$ret) echo mysql_error();
 		
 		$newaddressid = mysql_insert_id($db_connection_link);
 		$sql = "insert into user_address (UserID, AddressID, AddressType) select $newuserid, $newaddressid, AddressType from user_address where AddressID = $rs[AddressID]";
 		# echo $sql."\n";
-		$r = mysql_query($sql);
-		if(!$r) echo mysql_error();
+		$ret = mysql_query($sql);
+		if(!$ret) echo mysql_error();
 	}
 	$r = mysql_query("select PhoneID from user_phone where UserID = $currentid");
 	if(!$r) echo mysql_error();
@@ -340,14 +340,14 @@ function clone_rider( $currentid, $username, $email, $qualifications ) {
 	while($rs = mysql_fetch_assoc($r)) {
 		$sql = "insert into phone (`PhoneType`, `PhoneNumber`, `canSMS`, `ProviderID`) select `PhoneType`, `PhoneNumber`, `canSMS`, `ProviderID` from phone where PhoneID = $rs[PhoneID]";
 		#echo $sql."\n";
-		$r = mysql_query($sql);
-		if(!$r) echo mysql_error();
+		$ret = mysql_query($sql);
+		if(!$ret) echo mysql_error();
 		
 		$newphoneid = mysql_insert_id($db_connection_link);
 		$sql = "insert into user_phone (UserID, PhoneID, IsPrimary) select $newuserid, $newphoneid, IsPrimary from user_phone where PhoneID = $rs[PhoneID]";
 		#echo $sql."\n";
-		$r = mysql_query($sql);
-		if(!$r) echo mysql_error();
+		$ret = mysql_query($sql);
+		if(!$ret) echo mysql_error();
 	}
 	
 	$sql = "insert into `rider` (UserID, `RiderStatus`, `EmergencyContactID`, `EmergencyContactRelationship`, 
