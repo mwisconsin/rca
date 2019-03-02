@@ -79,13 +79,15 @@ $.fn.dataTable.ext.afnFiltering.push(
 		onSelect: function() {
 			var table = $('#tableMedRides').DataTable();
 			table.draw();
-		}
+		},
+		language: 'en'
 	});
 	$('#max').datepicker({
 		onSelect: function() {
 			var table = $('#tableMedRides').DataTable();
 			table.draw();
-		}
+		},
+		language: 'en'
 	});
 
 	$('#tableMedRides').DataTable({
