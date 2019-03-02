@@ -270,13 +270,25 @@
 			$sql = "SELECT datediff(now(),min(LedgerEntryTime)) from ledger where EntityType = 'USER' and EntityID = $user_id";
 			$rs = mysql_fetch_array(mysql_query($sql));
 			if($rs[0] >= 30 && $rs[0] < 60) {
-				$sql = "select sum(quotedcents) from ( SELECT quotedcents FROM `link` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() UNION SELECT quotedcents FROM `link_history` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()) a";
+				$sql = "select sum(quotedcents) from (
+					SELECT LinkID, quotedcents FROM `link` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() and LinkStatus in ('CANCELEDLATE','COMPLETE') and (CustomTransitionType = 'RIDER' or CustomTransitionType is null)
+					UNION 
+					SELECT LinkID, quotedcents FROM `link_history` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() and LinkStatus in ('CANCELEDLATE','COMPLETE') and (CustomTransitionType = 'RIDER' or CustomTransitionType is null)
+					) a";		
 				$rval = mysql_fetch_array(mysql_query($sql))[0];
 			} else if($rs[0] >= 60 && $rs[0] < 90) {
-				$sql = "select sum(quotedcents) from ( SELECT quotedcents FROM `link` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 60 DAY AND CURDATE() UNION SELECT quotedcents FROM `link_history` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 60 DAY AND CURDATE()) a";				
+				$sql = "select sum(quotedcents) from (
+					SELECT LinkID, quotedcents FROM `link` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 60 DAY AND CURDATE() and LinkStatus in ('CANCELEDLATE','COMPLETE') and (CustomTransitionType = 'RIDER' or CustomTransitionType is null)
+					UNION 
+					SELECT LinkID, quotedcents FROM `link_history` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 60 DAY AND CURDATE() and LinkStatus in ('CANCELEDLATE','COMPLETE') and (CustomTransitionType = 'RIDER' or CustomTransitionType is null)
+					) a";					
 				$rval = mysql_fetch_array(mysql_query($sql))[0] / 2;
 			} else if($rs[0] > 90) {
-				$sql = "select sum(quotedcents) from ( SELECT quotedcents FROM `link` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 90 DAY AND CURDATE() UNION SELECT quotedcents FROM `link_history` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 90 DAY AND CURDATE()) a";				
+				$sql = "select sum(quotedcents) from (
+					SELECT LinkID, quotedcents FROM `link` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 90 DAY AND CURDATE() and LinkStatus in ('CANCELEDLATE','COMPLETE') and (CustomTransitionType = 'RIDER' or CustomTransitionType is null)
+					UNION 
+					SELECT LinkID, quotedcents FROM `link_history` WHERE RiderUserId = $user_id and DesiredArrivalTime BETWEEN CURDATE() - INTERVAL 90 DAY AND CURDATE() and LinkStatus in ('CANCELEDLATE','COMPLETE') and (CustomTransitionType = 'RIDER' or CustomTransitionType is null)
+					) a";				
 				$rval = mysql_fetch_array(mysql_query($sql))[0] / 3;				
 			} 
 			$rval = $rval / 100; /* convert from cents to dollars */
