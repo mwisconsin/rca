@@ -1998,9 +1998,10 @@ function calculate_batch_rider_incomplete_ride_costs($riders = array(), $future_
 	foreach($riders as $rider)
 		$balances[$rider] = 0;
 	//$safe_rider_user_id = mysql_real_escape_string($rider_user_id);
-	$sql = "SELECT UserID, (SELECT SUM(QuotedCents) as Balance FROM link WHERE RiderUserID = users.UserID  AND (CustomTransitionType = 'RIDER' || CustomTransitionType IS NULL) ) AS Balance FROM users WHERE UserID IN ( " . implode(", ", $riders) . " ) ";
+	$sql = "SELECT users.UserID, SUM(QuotedCents) as Balance FROM link, users WHERE RiderUserID = users.UserID  AND (CustomTransitionType = 'RIDER' || CustomTransitionType IS NULL) AND users.UserID IN ( " . implode(", ", $riders) . " ) ";
 	if($future_days > 0)
 		$sql .= " AND DesiredArrivalTime < CURDATE() + INTERVAL $future_days DAY ";
+	$sql .= " GROUP BY users.UserID";
 	$result = mysql_query( $sql );
 	
 	if($result){
@@ -2009,9 +2010,8 @@ function calculate_batch_rider_incomplete_ride_costs($riders = array(), $future_
 		}
 		return $balances;
 	} else {
-		
+		return array();
 	}
-	return $result[0];
 }
 
 function get_links_from_array($links){
