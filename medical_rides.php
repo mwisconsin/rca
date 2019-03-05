@@ -96,7 +96,8 @@ $.fn.dataTable.ext.afnFiltering.push(
         'copy', 'excel',
         {
         	extend: 'pdfHtml5',
-        	filename: '<?php echo $name["FirstName"]." ".$name["LastName"]." - Medical Rides - ".date("Y-m-d",time()); ?>'
+        	filename: '<?php echo $name["FirstName"]." ".$name["LastName"]." - Medical Rides - ".date("Y-m-d",time()); ?>',
+        	orientation: 'landscape'
         }
     ],
     "columnDefs": [
