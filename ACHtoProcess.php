@@ -34,6 +34,7 @@ jQuery(function($) {
             "visible": false
         }
     ],
+    "pageLength": 25,
     "fnRowCallback": function( nRow, aData ) {
     	var cDate = new Date(aData[2]);
     	if(cDate.getTime() > (new Date()).getTime()) $(nRow).addClass('futureWorld');
