@@ -114,7 +114,7 @@ while($rs = mysql_fetch_assoc($r)) {
     $rider_id = get_user_rider_id($user_id);
     $rider_info = get_user_rider_info($user_id);
     $rname = mysql_fetch_assoc(mysql_query("select * from person_name where PersonNameID = $rider_info[PersonNameID]"));
-    $rider_name = $rname["FirstName"].' '.$rname["LastName"];
+    $rider_name = get_displayable_person_name_string($rname);
   } else if (user_has_role($user_id, $franchise, 'CareFacilityAdmin')) {
   	$cf = get_care_facility( get_user_current_care_facility( $user_id ) );
   	$rider_name = "Care Facility: ".$cf['CareFacilityName'];
