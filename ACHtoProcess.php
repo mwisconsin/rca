@@ -87,7 +87,7 @@ jQuery(function($) {
 	
 	
 </script>
-<br><br><br><br><br>
+<br><br><br><a href=/make_payment.php>Make Payment</a><br><br>
 <table id=achtable>
 	<thead>
 		<th>Rider</th>	
