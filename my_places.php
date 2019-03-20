@@ -205,7 +205,7 @@
                         echo $db_address['Longitude']; ?>"></td>
 		</tr>
 		<tr>
-            <td style="padding-left:4px;">Use Geocode? <input name="UseGeocode" type="checkbox" <?php 
+            <td style="padding-left:4px;" colspan=2>Use Geocode? <input name="UseGeocode" type="checkbox" <?php 
                 if ($db_address['VerifySource'] == 'Geocode') {
                     echo 'checked="checked" ';
                 } ?> /> (note: Geocode bypasses USPS verification)
