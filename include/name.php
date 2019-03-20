@@ -168,7 +168,16 @@ function get_displayable_person_name_string($person_name, $prefix = "") {
         $name .= $person_name[$prefix . 'MiddleInitial'] . ' ';
     }
 
-    $name .= $person_name[$prefix . 'LastName'];
+    
+    
+    if(isset($person_name["UserID"])) {
+    	$r = mysql_query("select CareFacilityID from care_facility_user where UserID = $person_name[UserID]");
+    	if(mysql_num_rows($r) > 0) {
+    		$rs = mysql_fetch_array($r);
+    		$ln = preg_replace('/\s*\(\d+\)/','',$person_name[$prefix.'LastName']);
+    		$name .= $ln . " (CF$rs[CareFacilityID])";
+    	} else $name .= $person_name[$prefix . 'LastName'];
+    } else $name .= $person_name[$prefix . 'LastName'];
 
     if (isset($person_name[$prefix . 'Suffix']) && $person_name[$prefix . 'Suffix'] != '') {
         $name .= ' ' . $person_name[$prefix . 'Suffix'];
