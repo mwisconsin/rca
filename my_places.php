@@ -66,7 +66,8 @@
 			$new_destination = create_new_destination($_POST['Destination'], $address,
                                                       $franchise_id, $_POST['Public'],
                                                       NULL, $_POST["DestinationGroup"], $_POST['DestinationPhone'], 
-                                                      $_POST['DestinationDetail'], $_POST['DestinationPhoneExt']);
+                                                      $_POST['DestinationDetail'], $_POST['DestinationPhoneExt'],
+                                                      @$_POST['AdditionalMinutes']);
 			add_destination_for_rider($rider_id,$new_destination);
 			$destination = get_destination($new_destination);
       if ($should_geocode) {
@@ -93,7 +94,8 @@
 				$is_public = $_POST['Public'] ? true : false;
 				edit_destination($_POST['placeid'], $_POST['Destination'], $address, 
                                  $franchise_id, $_POST["DestinationGroup"], $_POST['DestinationPhone'], 
-                                 $_POST['DestinationDetail'], $is_public, $_POST['DestinationPhoneExt'], $_POST['is_local_area'] == 'on' ? TRUE : FALSE);	
+                                 $_POST['DestinationDetail'], $is_public, $_POST['DestinationPhoneExt'], $_POST['is_local_area'] == 'on' ? TRUE : FALSE,
+                                 @$_POST['AdditionalMinutes']);	
                 if ($should_geocode) {
                     update_address($address['id'], $address, FALSE, TRUE);
                 }
@@ -209,7 +211,12 @@
                 if ($db_address['VerifySource'] == 'Geocode') {
                     echo 'checked="checked" ';
                 } ?> /> (note: Geocode bypasses USPS verification)
-        </tr>
+    </tr>
+    <tr>
+    	<td style="padding-left: 4px;" colspan=2>Additional Minutes for this Place: 
+    		<input type=text size=4 name=AdditionalMinutes id=AdditionalMinutes value="<?php echo $db_address['AdditionalMinutes'];  ?>">
+    	</td>
+    </tr>
 <?php } 
 ?>
 		<tr valign=top>

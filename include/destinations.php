@@ -33,7 +33,7 @@ function get_destinations_by_franchise_and_group($franchise_id, $destination_gro
     $safe_destination_group_id = mysql_real_escape_string($destination_group_id);
 
     $dest_sql = "SELECT DestinationID, DestinationGroupID, Name, AddressID,
-                       IsPublic, FranchiseID, DestinationDetail, PhoneNumber,
+                       IsPublic, FranchiseID, DestinationDetail, PhoneNumber, AdditionalMinutes,
                        (SELECT GROUP_CONCAT(TagName SEPARATOR ' ') 
                         FROM destination_tag NATURAL JOIN destination_tag_list
                         WHERE destination_tag.DestinationID = destination.DestinationID
@@ -104,7 +104,7 @@ function get_rider_destinations( $rider_user_id ) {
                     FROM destination_tag NATURAL JOIN destination_tag_list
                     WHERE destination_tag.DestinationID = destination.DestinationID
                     GROUP BY destination_tag.DestinationID) AS TagString,
-                    Latitude, Longitude
+                    Latitude, Longitude, AdditionalMinutes
             FROM rider_destination NATURAL JOIN destination NATURAL JOIN address 
                  LEFT JOIN phone ON destination.PhoneID = phone.PhoneID
             WHERE rider_destination.UserID = $safe_rider_user_id
@@ -169,7 +169,8 @@ function create_new_destination($name, $address, $franchise_id, $is_public, $is_
 function create_destination_for_address_id($name, $address_id, $franchise_id,
                                            $is_public, $is_public_approved = FALSE,
                                            $destination_group_id , $destination_phone, 
-                                           $destination_detail = NULL, $destination_phone_ext = NULL) {
+                                           $destination_detail = NULL, $destination_phone_ext = NULL, 
+                                           $AdditionalMinutes = 0) {
     $return = FALSE;
 
     $safe_name = mysql_real_escape_string($name);
@@ -183,10 +184,10 @@ function create_destination_for_address_id($name, $address_id, $franchise_id,
                                     "'" . mysql_real_escape_string($destination_detail) . "'"; 
 
     $sql = "INSERT INTO destination (DestinationGroupID, Name, AddressID, IsPublic, 
-                                     IsPublicApproved, FranchiseID, PhoneID, DestinationDetail)
+                                     IsPublicApproved, FranchiseID, PhoneID, DestinationDetail, AdditionalMinutes)
             VALUES ($safe_destination_group_id, '$safe_name', $safe_address_id, 
                     '$safe_public', '$safe_approved', $safe_franchise_id, $safe_destination_phone,
-                    $safe_detail)";
+                    $safe_detail, $AdditionalMinutes)";
  		#echo $sql;
     $result = mysql_query($sql);
 
@@ -202,7 +203,7 @@ function create_destination_for_address_id($name, $address_id, $franchise_id,
 
 function edit_destination($destination_id, $name, $address, 
 		$franchise_id, $destination_group_id, $destination_phone, 
-		$destination_detail, $is_public, $destination_phone_ext = '', $is_local_area = TRUE){
+		$destination_detail, $is_public, $destination_phone_ext = '', $is_local_area = TRUE, $AdditionalMinutes = 0){
 	
 	$is_local_area = $is_local_area == null ? 0 : $is_local_area;
 	$safe_destination_id = mysql_real_escape_string( $destination_id );
@@ -234,7 +235,8 @@ function edit_destination($destination_id, $name, $address,
                                    PhoneID = $phone, 
                                    $public_clause
                                    DestinationDetail = $safe_detail,
-                                   is_local_area_override = $is_local_area
+                                   is_local_area_override = $is_local_area,
+                                   AdditionalMinutes = $AdditionalMinutes
                                WHERE DestinationID = $safe_destination_id LIMIT 1 ;";
 
 	$result = mysql_query($sql) or die(mysql_error());
@@ -349,7 +351,7 @@ function get_destination($destination_id) {
     $safe_dest_id = mysql_real_escape_string($destination_id);
 
     $sql = "SELECT DestinationID, DestinationGroupID, Name, IsPublic, IsPublicApproved, destination.PhoneID, PhoneNumber,DestinationDetail,
-                   Address1, Address2, City, State, ZIP5, ZIP4, Latitude, Longitude, AddressID, VerifySource, FranchiseID, DestinationGroupID, is_local_area_override
+                   Address1, Address2, City, State, ZIP5, ZIP4, Latitude, Longitude, AddressID, VerifySource, FranchiseID, DestinationGroupID, is_local_area_override, AdditionalMinutes
             FROM (destination NATURAL JOIN address) LEFT JOIN phone ON  destination.PhoneID = phone.PhoneID
             WHERE destination.DestinationID = $safe_dest_id";
 
