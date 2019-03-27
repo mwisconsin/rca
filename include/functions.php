@@ -312,7 +312,7 @@ function get_navigation_bar( $user_id ) {
 			unset($rider_nav['Schedule&nbsp;a&nbsp;ride']);
 			unset($rider_nav['Make&nbsp;Payment']);
 		}
-    $driver_nav = array('Manifest' => 'manifest.php',
+    $driver_nav = array('Manifest' => array('My Manifest'=>'manifest.php','My Places'=>'my_places.php'),
                         'Availability' => 'driver_availability.php', 
                         'Ledger' => 'user_ledger.php');
 

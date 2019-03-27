@@ -18,12 +18,13 @@
 	} else {
 		$user_id = get_affected_user_id();
 	}
-
+/*
 	if (!user_has_role($user_id,$franchise_id, 'Rider')) {
 		header('Location: home.php');
     } else {
+*/
         $rider_id = $user_id;
-    }
+/*    }*/
 	
 	// TODO:  Func'ify	
 	if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['placeid']) && $_GET['placeid'] != '') {
@@ -268,7 +269,7 @@
 					<input type="button" value="edit" onclick="document.location ='<?php echo $edit_link; ?>'">
 				<?php }if ($destinations[$i]['Name'] != 'Default Home' || ( current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise_id, 'Franchisee'))) { ?>
 					<input type="button" value="Delete" onclick="document.location ='<?php echo $delete_link; ?>'">
-				<?php }if ($destinations[$i]['Name'] != 'Default Home') { ?>
+				<?php }if ($destinations[$i]['Name'] != 'Default Home' && user_has_role($user_id,$franchise_id, 'Rider')))  { ?>
                     <BR><input type="button" value="Go To" onclick="document.location ='<?php echo $goto_link; ?>'">
                     	<input type="button" value="Come From" onclick="document.location ='<?php echo $comefrom_link; ?>'">
                 <?php } ?>
