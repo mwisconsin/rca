@@ -214,7 +214,7 @@
     </tr>
     <tr>
     	<td style="padding-left: 4px;" colspan=2>Additional Minutes for this Place: 
-    		<input type=text size=4 name=AdditionalMinutes id=AdditionalMinutes value="<?php echo $db_address['AdditionalMinutes'];  ?>">
+    		<input type=text size=4 name=AdditionalMinutes id=AdditionalMinutes value="<?php echo $place['AdditionalMinutes'];  ?>">
     	</td>
     </tr>
 <?php } 
