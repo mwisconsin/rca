@@ -125,6 +125,7 @@ for ($i = 0; $i < count($ride_request['links']); $i++) {
 		if( is_destination_grocery_store( $curr_link['from'] ) ) $link_minutes += 5;
 		
     $travel_time = (60 * $link_minutes) + (60 * 5) + (60 * 5);  // load, pad TODO:  configurable
+    $travel_time += $from_dest["AdditionalMinutes"] + $to_dest["AdditionalMinutes"];
     // TODO:  TIMING HERE
 
     if (!isset($first_absolute_time_index) && 
