@@ -151,6 +151,8 @@ $first_time_link = $ride_request['links'][$first_absolute_time_index];
 for ($i = $first_absolute_time_index; $i >= 0; $i--) {
     $curr_link = $ride_request['links'][$i];
 $padding = (($curr_link['PrePadding'] != NULL ? $curr_link['PrePadding'] : 5) * 60) + (($curr_link['PostPadding'] != NULL ? $curr_link['PostPadding'] : 5) * 60);
+$padding += ($from_dest["AdditionalMinutes"] * 60) + ($to_dest["AdditionalMinutes"] * 60);
+
 
     if (isset($curr_link['to_time']) && isset($curr_link['from_time'])) {
         $arrive_time = mktime( $curr_link['to_time']['hour'], $curr_link['to_time']['minute'], 0, 
@@ -192,6 +194,8 @@ $padding = (($curr_link['PrePadding'] != NULL ? $curr_link['PrePadding'] : 5) * 
 for ($i = $first_absolute_time_index; $i < count($ride_request['links']); $i++) {
     $curr_link = $ride_request['links'][$i];
 $padding = (($curr_link['PrePadding'] != NULL ? $curr_link['PrePadding'] : 5) * 60) + (($curr_link['PostPadding'] != NULL ? $curr_link['PostPadding'] : 5) * 60);
+$padding += ($from_dest["AdditionalMinutes"] * 60) + ($to_dest["AdditionalMinutes"] * 60);
+
 
     if (isset($curr_link['to_time']) && isset($curr_link['from_time'])) {
         $arrive_time = mktime( $curr_link['to_time']['hour'], $curr_link['to_time']['minute'], 0, 
