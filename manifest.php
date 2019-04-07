@@ -589,7 +589,7 @@ if($_GET['date']){
 	<form method="post" id="start_end_form">
         <table>
         		<tr>
-        			<td>Choose from My Locations: <select size=1 id=my_places name=my_places><option value=-1></option>
+        			<td>Choose from My Locations: <select size=1 id=my_places name=my_places onChange="setAddress(this);"><option value=-1></option>
         				<?php
         				$destinations = get_rider_destinations( $driver_id );
         				for($i = 0; $i < count($destinations); $i++)
@@ -599,7 +599,7 @@ if($_GET['date']){
         						." data-City=\"".$destination[$i]['City']."\""
         						." data-State=\"".$destination[$i]['State']."\""
         						." data-Zip=\"".$destination[$i]['Zip']."\""
-        						." onChange=\"setAddress(this);\">".$destinations[$i]['Name']."</option>\n";
+        						.">".$destinations[$i]['Name']."</option>\n";
         				?></select></td>	
         		</tr>
         		<tr>
