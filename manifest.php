@@ -578,11 +578,11 @@ if($_GET['date']){
 	<script>
 	jQuery(function($) {
 		function setAddress(ob) {
-			$('#Address1').val( $(ob).attr('data-Address1');
-			$('#Address2').val( $(ob).attr('data-Address2');
-			$('#City').val( $(ob).attr('data-City');
-			$('#State').val( $(ob).attr('data-State');
-			$('#Zip').val( $(ob).attr('data-Zip');
+			$('#Address1').val( $(ob).attr('data-Address1') );
+			$('#Address2').val( $(ob).attr('data-Address2') );
+			$('#City').val( $(ob).attr('data-City') );
+			$('#State').val( $(ob).attr('data-State') );
+			$('#Zip').val( $(ob).attr('data-Zip') );
 		}
 	});	
 	</script>
