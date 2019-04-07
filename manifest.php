@@ -578,13 +578,13 @@ if($_GET['date']){
 	<script>
 
 		function setAddress(ob) {
-			opt = jQuery(ob).children().find('option[value="'+jQuery(ob).val()+'"]');
-			jQuery('#Address1').val( opt.attr('data-Address1') );
-			jQuery('#Address2').val( opt.attr('data-Address2') );
-			jQuery('#City').val( opt.attr('data-City') );
-			jQuery('#State').val( opt.attr('data-State') );
-			jQuery('#Zip5').val( opt.attr('data-Zip5') );
-			jQuery('#Zip4').val( opt.attr('data-Zip4') );
+			data = jQuery(ob).children('option[value="'+jQuery(ob).val()+'"]')[0].dataset;
+			jQuery('#Address1').val( data.address1 );
+			jQuery('#Address2').val( data.address2 );
+			jQuery('#City').val( data.city );
+			jQuery('#State').val( data.state );
+			jQuery('#Zip5').val( data.zip5 );
+			jQuery('#Zip4').val( data.zip4 );
 		}
 
 	</script>
