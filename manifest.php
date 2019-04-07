@@ -642,7 +642,7 @@ if($_GET['date']){
      <input class="noprint" type="button" value="Set Starting Location"
             onclick="$('location_selector_start_or_end').value = 'start';
                      $('start_end_location_selector').setStyle('display','');
-                     $('location_selector_title').innerHTML = 'New Starting Location';
+                     $('location_selector_title').innerHTML = 'Manually Enter New Starting Location';
 <?php                     
   $sql = "select * from user_address natural join address where addresstype = 'Physical' and userid = $driver_id";
   $r = mysql_query($sql);
@@ -662,7 +662,7 @@ if($_GET['date']){
      <input class="noprint" type="button" value="Set Ending Location" 
             onclick="$('location_selector_start_or_end').value = 'end'; 
                      $('start_end_location_selector').setStyle('display',''); 
-                     $('location_selector_title').innerHTML = 'New Ending Location';
+                     $('location_selector_title').innerHTML = 'Manually Enter New Ending Location';
 <?php                     
   $sql = "select * from user_address natural join address where addresstype = 'Physical' and userid = $driver_id";
   $r = mysql_query($sql);
