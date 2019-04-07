@@ -576,15 +576,15 @@ if($_GET['date']){
 <br />
 <div id="start_end_location_selector" style="display:none;">
 	<script>
-	jQuery(function($) {
+
 		function setAddress(ob) {
-			$('#Address1').val( $(ob).attr('data-Address1') );
-			$('#Address2').val( $(ob).attr('data-Address2') );
-			$('#City').val( $(ob).attr('data-City') );
-			$('#State').val( $(ob).attr('data-State') );
-			$('#Zip').val( $(ob).attr('data-Zip') );
+			jQuery('#Address1').val( jQuery(ob).attr('data-Address1') );
+			jQuery('#Address2').val( jQuery(ob).attr('data-Address2') );
+			jQuery('#City').val( jQuery(ob).attr('data-City') );
+			jQuery('#State').val( jQuery(ob).attr('data-State') );
+			jQuery('#Zip').val( jQuery(ob).attr('data-Zip') );
 		}
-	});	
+
 	</script>
 	<form method="post" id="start_end_form">
         <table>
