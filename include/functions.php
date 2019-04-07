@@ -312,7 +312,7 @@ function get_navigation_bar( $user_id ) {
 			unset($rider_nav['Schedule&nbsp;a&nbsp;ride']);
 			unset($rider_nav['Make&nbsp;Payment']);
 		}
-    $driver_nav = array('Manifest' => array('My Manifest'=>'manifest.php','My Places'=>'my_places.php'),
+    $driver_nav = array('Manifest' => array('main_href'=>'manifest.php','My Manifest'=>'manifest.php','My Places'=>'my_places.php'),
                         'Availability' => 'driver_availability.php', 
                         'Ledger' => 'user_ledger.php');
 
@@ -346,7 +346,7 @@ function get_navigation_bar( $user_id ) {
 			$rider_nav = array('My&nbsp;Rides' => 'myrides.php', 
                       	'Schedule&nbsp;a&nbsp;ride' => 'plan_ride.php', 
                        'My&nbsp;Places' => 'my_places.php',
-                       'Make&nbsp;Payment' => array('Payment'=>'make_payment.php', 'Manual&nbsp;Ledger&nbsp;Entry' => 'manual_ledger_entry.php'),
+                       'Make&nbsp;Payment' => array('main_href'=>'make_payment.php','Payment'=>'make_payment.php', 'Manual&nbsp;Ledger&nbsp;Entry' => 'manual_ledger_entry.php'),
                        'Ledger' => 'user_ledger.php');
 	    if($ReadOnly) {
 	    	unset($rider_nav['Schedule&nbsp;a&nbsp;ride']);
