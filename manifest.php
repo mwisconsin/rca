@@ -594,12 +594,12 @@ if($_GET['date']){
         				$destinations = get_rider_destinations( $driver_id );
         				for($i = 0; $i < count($destinations); $i++)
         					echo "<option value=".$destinations[$i]['DestinationID']
-        						." data-Address1=\"".$destination[$i]['Address1']."\""
-        						." data-Address2=\"".$destination[$i]['Address2']."\""
-        						." data-City=\"".$destination[$i]['City']."\""
-        						." data-State=\"".$destination[$i]['State']."\""
-        						." data-Zip5=\"".$destination[$i]['ZIP5']."\""
-        						." data-Zip4=\"".$destination[$i]['ZIP4']."\""
+        						." data-Address1=\"".$destinations[$i]['Address1']."\""
+        						." data-Address2=\"".$destinations[$i]['Address2']."\""
+        						." data-City=\"".$destinations[$i]['City']."\""
+        						." data-State=\"".$destinations[$i]['State']."\""
+        						." data-Zip5=\"".$destinations[$i]['ZIP5']."\""
+        						." data-Zip4=\"".$destinations[$i]['ZIP4']."\""
         						.">".$destinations[$i]['Name']."</option>\n";
         				?></select></td>	
         		</tr>
