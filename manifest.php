@@ -598,7 +598,8 @@ if($_GET['date']){
         						." data-Address2=\"".$destination[$i]['Address2']."\""
         						." data-City=\"".$destination[$i]['City']."\""
         						." data-State=\"".$destination[$i]['State']."\""
-        						." data-Zip=\"".$destination[$i]['Zip']."\""
+        						." data-Zip5=\"".$destination[$i]['ZIP5']."\""
+        						." data-Zip4=\"".$destination[$i]['ZIP4']."\""
         						.">".$destinations[$i]['Name']."</option>\n";
         				?></select></td>	
         		</tr>
