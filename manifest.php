@@ -577,6 +577,18 @@ if($_GET['date']){
 <div id="start_end_location_selector" style="display:none;">
 	<form method="post" id="start_end_form">
         <table>
+        		<tr>
+        			<td>Choose from My Locations: <select size=1 id=my_places name=my_places><option value=-1></option>
+        				<?php
+        				$destinations = get_rider_destinations( $driver_id );
+        				for($i = 0; $i < count($destinations); $i++)
+        					echo "<option value=".$destinations[$i]['DestinationID'].">".$destinations[$i]['Name']."</option>\n";
+        				?></select></td>	
+        		</tr>
+        		<tr>
+        			<td><h3> - OR - </h3>
+        				</td>
+        		</tr>
             <tr>
                 <td>
                     <h3><span id="location_selector_title"></span></h3>
