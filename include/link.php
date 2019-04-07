@@ -708,7 +708,8 @@ function get_link_destination_table_cell_contents($dest_prefix, $link_row, $link
 		}
 		
     $cell .= "{$link_row[$dest_prefix . 'Name']}" 
-    	. ($link_row[$dest_prefix . 'Name'] == 'Default Home' ? " - $rider_name" : "")
+    	#. ($link_row[$dest_prefix . 'Name'] == 'Default Home' ? " - $rider_name" : "")
+    	. " - $rider_name"
     	. (($link) ? '</a>' : '') . '<br />';
     $cell .= ((is_null($link_row[$dest_prefix . 'DestinationDetail'])) ? 
                 '' : "{$link_row[$dest_prefix . 'DestinationDetail']}<br />");
