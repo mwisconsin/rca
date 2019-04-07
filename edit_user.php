@@ -166,7 +166,7 @@
 			if($_POST['NewPassword'] == $_POST['NewPassword2'])
 			{
 				$account = get_user_account($user_id);
-				if(!current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise, "Franchisee"))
+				if(!current_user_has_role(1, 'FullAdmin') && !current_user_has_role($franchise, "Franchisee") || get_current_user_id() == $user_id)
 				{
 					
 					$query = "SELECT * FROM `users` WHERE `UserID` ='" . $user_id . "' AND `Password` ='" . sha1($account['Salt'] . $_POST['OldPassword']) . "' LIMIT 1;";
