@@ -575,6 +575,17 @@ if($_GET['date']){
 </form>
 <br />
 <div id="start_end_location_selector" style="display:none;">
+	<script>
+	jQuery(function($) {
+		function setAddress(ob) {
+			$('#Address1').val( $(ob).attr('data-Address1');
+			$('#Address2').val( $(ob).attr('data-Address2');
+			$('#City').val( $(ob).attr('data-City');
+			$('#State').val( $(ob).attr('data-State');
+			$('#Zip').val( $(ob).attr('data-Zip');
+		}
+	});	
+	</script>
 	<form method="post" id="start_end_form">
         <table>
         		<tr>
@@ -582,7 +593,13 @@ if($_GET['date']){
         				<?php
         				$destinations = get_rider_destinations( $driver_id );
         				for($i = 0; $i < count($destinations); $i++)
-        					echo "<option value=".$destinations[$i]['DestinationID'].">".$destinations[$i]['Name']."</option>\n";
+        					echo "<option value=".$destinations[$i]['DestinationID']
+        						." data-Address1=\"".$destination[$i]['Address1']."\""
+        						." data-Address2=\"".$destination[$i]['Address2']."\""
+        						." data-City=\"".$destination[$i]['City']."\""
+        						." data-State=\"".$destination[$i]['State']."\""
+        						." data-Zip=\"".$destination[$i]['Zip']."\""
+        						." onChange=\"setAddress(this);\">".$destinations[$i]['Name']."</option>\n";
         				?></select></td>	
         		</tr>
         		<tr>
