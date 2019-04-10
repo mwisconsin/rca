@@ -68,6 +68,12 @@ function parse_address1($address1){
 }
 
 function verify_address($address){
+	/* if geolocated, no need for USPS confirmation */
+	if(@$address['Longitude'] != '' && @$address['Latitude'] != '') {
+		$address['VerifySource'] = "'Geocode'";
+		return $address;
+	}
+		
 	$returned_address = usps_standardize_address( $address );
 	$address_log_file = 'rc_address.log';
 	
@@ -345,6 +351,8 @@ function create_html_address_table($prefix = '', $address = NULL, $verify = TRUE
 			<td>Zip<br /><input id="<?php echo $prefix; ?>Zip5<?php echo $postfix; ?>"  value="<?php echo $address['ZIP5'] != '' ? sprintf("%05s", $address['ZIP5']) : ''; ?>" name="<?php echo $prefix; ?>Zip5<?php echo $postfix; ?>" maxlength="5" type="text" style="width:40px;" /><?php if(current_user_has_role($franchise, 'FullAdmin') || current_user_has_role($franchise, "Franchisee")){?> - <input type="text" id="<?php echo $prefix; ?>Zip4<?php echo $postfix; ?>" value="<?php echo $address['ZIP4'] != '' ? sprintf("%04s", $address['ZIP4']) : ''; ?>" name="<?php echo $prefix; ?>Zip4<?php echo $postfix; ?>" maxlength="4" style="width:35px;" /><?php } ?></td>
 		</tr>
 	</table>
+	<input type=hidden id="<?php echo $prefix; ?>Latitude<?php echo $postfix; ?>" name="<?php echo $prefix; ?>Latitude<?php echo $postfix; ?>" value="<?php echo @$address['Latitude']; ?>>
+	<input type=hidden id="<?php echo $prefix; ?>Longitude<?php echo $postfix; ?>" name="<?php echo $prefix; ?>Longitude<?php echo $postfix; ?>" value="<?php echo @$address['Longitude']; ?>>
 	<?php if($verify){ 
 	        if ($postfix=='') {
 	?>

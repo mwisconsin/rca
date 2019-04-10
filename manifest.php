@@ -168,7 +168,9 @@ if($_POST['ReleaseDriver'] != null){
 																				   'City' => $_POST['City'],
 																				   'State' => $_POST['State'],
 																				   'ZIP5' => $_POST['Zip5'],
-																				   'ZIP4' => $_POST['Zip4']));
+																				   'ZIP4' => $_POST['Zip4'],
+																				   'Latitude' => $_POST['Latitude'],
+																				   'Longitude' => $_POST['Longitude']));
 			$_SESSION['Manifest']['StartLocation']['Name'] = 'Starting Location';
 		}
 		else if($_POST['location_start_or_finish'] == 'end')
@@ -178,7 +180,9 @@ if($_POST['ReleaseDriver'] != null){
 																				 'City' => $_POST['City'],
 																				 'State' => $_POST['State'],
 																				 'ZIP5' => $_POST['Zip5'],
-																				 'ZIP4' => $_POST['Zip4']));
+																				 'ZIP4' => $_POST['Zip4'],
+																				 'Latitude' => $_POST['Latitude'],
+																				 'Longitude' => $_POST['Longitude']));
 			$_SESSION['Manifest']['EndLocation']['Name'] = 'Ending Location';
 		}
 	}
@@ -585,6 +589,8 @@ if($_GET['date']){
 			jQuery('#State').val( data.state );
 			jQuery('#Zip5').val( data.zip5 );
 			jQuery('#Zip4').val( data.zip4 );
+			jQuery('#Latitude').val( data.latitude );
+			jQuery('#Longitude').val( data.longitude );
 		}
 
 	</script>
@@ -602,6 +608,8 @@ if($_GET['date']){
         						." data-State=\"".$destinations[$i]['State']."\""
         						." data-Zip5=\"".$destinations[$i]['ZIP5']."\""
         						." data-Zip4=\"".$destinations[$i]['ZIP4']."\""
+        						." data-Latitude=\"".$destinations[$i]['Latitude']."\""
+        						." data-Longitude=\"".$destinations[$i]['Longitude']."\""
         						.">".$destinations[$i]['Name']."</option>\n";
         				?></select></td>	
         		</tr>
@@ -658,6 +666,8 @@ if($_GET['date']){
   	$('State').value = '<?php echo addslashes($rs['State']); ?>';
   	$('Zip5').value = '<?php echo addslashes($rs['ZIP5']); ?>';
   	$('Zip4').value = '<?php echo addslashes($rs['ZIP4']); ?>';
+  	$('Latitude').value = '';
+  	$('Longitude').value = '';
   	<?php
   }                 
 ?>                     
@@ -678,6 +688,8 @@ if($_GET['date']){
   	$('State').value = '<?php echo addslashes($rs['State']); ?>';
   	$('Zip5').value = '<?php echo addslashes($rs['ZIP5']); ?>';
   	$('Zip4').value = '<?php echo addslashes($rs['ZIP4']); ?>';
+  	$('Latitude').value = '';
+  	$('Longitude').value = '';
   	<?php
   }                 
 ?>                      
