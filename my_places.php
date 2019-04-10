@@ -41,6 +41,7 @@
 			/* refresh the page in edit mode for that destination */
 			echo "<script>window.location.href = '/my_places.php?action=edit&placeid=".$new_destination."';</script>";
 			exit();
+		}
 	}
 /*
 	if (!user_has_role($user_id,$franchise_id, 'Rider')) {
