@@ -21,6 +21,7 @@ function usps_standardize_address( $original_address ) {
 
 		if(@$original_address['Latitude'] != '' && @$original_address['Longitude'] != '') {
 			// address has already been geolocated
+			$original_address['VerifySource'] = 'Geocode';
 			$original_address['SUCCESS'] = TRUE;
 			return $original_address;
 		}
