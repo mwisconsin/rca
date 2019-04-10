@@ -35,8 +35,7 @@
 
 			/* Create new Destination record associated with that address */
 			$rider = get_user_rider_info($user_id);
-			$new_destination = create_new_destination('Account Address', $rs, $franchise_id, '',
-                                                NULL, '', '', '', '', 0);
+			$new_destination = create_new_destination('Account Address', $rs, $franchise_id, FALSE);
 			add_destination_for_rider($rider_id,$new_destination);
 			/* refresh the page in edit mode for that destination */
 			echo "<script>window.location.href = '/my_places.php?action=edit&placeid=".$new_destination."';</script>";
