@@ -34,9 +34,9 @@
 			$rs = mysql_fetch_array($r);
 
 			/* Create new Destination record associated with that address */
-			$rider = get_user_rider_info($user_id);
-			$new_destination = create_new_destination('Account Address', $rs, $franchise_id, FALSE);
-			add_destination_for_rider($rider_id,$new_destination);
+			$new_destination = create_destination_for_address_id('Account Address', $rs["AddressID"], 
+						$franchise_id, FALSE, FALSE, -1, NULL, NULL, NULL, 0);
+			add_destination_for_rider($user_id,$new_destination);
 			/* refresh the page in edit mode for that destination */
 			echo "<script>window.location.href = '/my_places.php?action=edit&placeid=".$new_destination."';</script>";
 			exit();
