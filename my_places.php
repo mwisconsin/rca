@@ -29,7 +29,7 @@
 			exit();
 		} else {
 			/* Get Address information from database */
-			$sql = "select * from address where id = $_GET[new_destination_from_addressid]";
+			$sql = "select * from address where AddressID = $_GET[new_destination_from_addressid]";
 			$r = mysql_query($sql);
 			$rs = mysql_fetch_array($r);
 
