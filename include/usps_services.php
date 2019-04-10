@@ -19,6 +19,11 @@ function usps_standardize_address( $original_address ) {
     global $USPS_RETURNED_HEADER;
     $USPS_RETURNED_HEADER = '';
 
+		if(@$original_address['Latitude'] != '' && @$original_address['Longitude'] != '') {
+			// address has already been geolocated
+			$original_address['SUCCESS'] = TRUE;
+			return $original_address;
+		}
 
     $xml = get_usps_address_verify_request_xml($original_address);
     $url = get_usps_webtools_url();
