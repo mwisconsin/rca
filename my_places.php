@@ -18,6 +18,30 @@
 	} else {
 		$user_id = get_affected_user_id();
 	}
+	
+	if(@$_GET['new_destination_from_addressid']) {
+		/* If address destination exists, refresh the page in edit mode for that destination */
+		$sql = "select DestinationID from destination where AddressID = $_GET[new_destination_from_addressid]";
+		$r = mysql_query($sql);
+		if(mysql_num_rows($r) > 0) {
+			$rs = mysql_fetch_array($r);
+			echo "<script>window.location.href = '/my_places.php?action=edit&placeid=".$rs["DestinationID"]."';</script>";
+			exit();
+		} else {
+			/* Get Address information from database */
+			$sql = "select * from address where id = $_GET[new_destination_from_addressid]";
+			$r = mysql_query($sql);
+			$rs = mysql_fetch_array($r);
+
+			/* Create new Destination record associated with that address */
+			$rider = get_user_rider_info($user_id);
+			$new_destination = create_new_destination('Account Address', $rs, $franchise_id, '',
+                                                NULL, '', '', '', '', 0);
+			add_destination_for_rider($rider_id,$new_destination);
+			/* refresh the page in edit mode for that destination */
+			echo "<script>window.location.href = '/my_places.php?action=edit&placeid=".$new_destination."';</script>";
+			exit();
+	}
 /*
 	if (!user_has_role($user_id,$franchise_id, 'Rider')) {
 		header('Location: home.php');

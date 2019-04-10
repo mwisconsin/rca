@@ -158,8 +158,7 @@ function CloneUser() {
               			if(!$ReadOnly) {
               			?>
                     <div style="float:right; font-size:.8em;">
-                    <a href="<?php echo site_url() . 'edit_user.php?field=editaddress&addressid=' . $address['AddressID'] . $edit_url; ?>">Edit</a> 
-                    <a href="<?php echo site_url() . 'edit_user.php?field=deleteaddress&addressid=' . $address['AddressID'] . $edit_url; ?>">Delete</a>
+                    <a href="<?php echo site_url() . 'my_places.php?new_destination_from_addressid=' . $address['AddressID']; ?>">Edit</a> 
                     </div>
                     <?php
                   	}
@@ -170,7 +169,7 @@ function CloneUser() {
 			}
 			echo '<div class="float_clear"></div><br/>';
 			if(!$ReadOnly)
-				echo '<a href="' . site_url() . 'edit_user.php?field=createaddress' . $edit_url . '">Add another address</a>';
+				echo '<a href="' . site_url() . 'my_places.php">Add additional addresses</a>';
 		}
 		else {
 			echo 'You have no addresses saved.';
