@@ -705,7 +705,8 @@ function get_link_destination_table_cell_contents($dest_prefix, $link_row, $link
 	  		inner join link on RiderUserID = users.UserID
 	  		where ".($dest_prefix == 'F_' ? 'From' : 'To')."DestinationID = ".$link_row[$dest_prefix."DestinationID"]."
 	  		and (CustomTransitionType is null or CustomTransitionType = 'RIDER')
-	  		and LinkID = ".$link_row['LinkID'];
+	  		and (LinkID = ".$link_row['LinkID']." 
+	  		or CustomTransitionID = (select CustomTransitionID from link where LinkID = ".$link_row['LinkID']."))";
 	  	$rs = mysql_fetch_array(mysql_query($sql));		
 	  	$rider_name = $rs["FirstName"];
 		}
