@@ -398,7 +398,7 @@
 			myMap.removeAllShapes();
 			custom=new MQA.Poi( {lat:cords.getLatitude(), lng:cords.getLongitude()} );
 		  myMap.addShape(custom);  		
-  	}
+  	});
   });
 </script>
 <?php 
