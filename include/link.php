@@ -700,7 +700,7 @@ function get_link_destination_table_cell_contents($dest_prefix, $link_row, $link
 			$link_row["F_DestinationID"] = $link_row["FromDestinationID"];
 		
 		if(isset($link_row[$dest_prefix."DestinationID"])) {
-	  	$sql = "select FirstName from users 
+	  	$sql = "select FirstName, NickName from users 
 	  		natural join person_name 
 	  		inner join link on RiderUserID = users.UserID
 	  		where ".($dest_prefix == 'F_' ? 'From' : 'To')."DestinationID = ".$link_row[$dest_prefix."DestinationID"]."
@@ -708,7 +708,7 @@ function get_link_destination_table_cell_contents($dest_prefix, $link_row, $link
 	  		and (LinkID = ".$link_row['LinkID']." 
 	  		or CustomTransitionID = (select CustomTransitionID from link where LinkID = ".$link_row['LinkID']."))";
 	  	$rs = mysql_fetch_array(mysql_query($sql));		
-	  	$rider_name = $rs["FirstName"];
+	  	$rider_name = $rs["NickName"] != '' ? $rs["NickName"] : $rs["FirstName"];
 		}
 		
     $cell .= "{$link_row[$dest_prefix . 'Name']}" 
