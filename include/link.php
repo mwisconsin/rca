@@ -702,7 +702,10 @@ function get_link_destination_table_cell_contents($dest_prefix, $link_row, $link
 		if(isset($link_row[$dest_prefix."DestinationID"])) {
 	  	$sql = "select FirstName from users 
 	  		natural join rider_destination
-	  		natural join person_name where DestinationID = ".$link_row[$dest_prefix."DestinationID"];
+	  		natural join person_name 
+	  		natural join link
+	  		where DestinationID = ".$link_row[$dest_prefix."DestinationID"]."
+	  		and LinkID = ".$link_row['LinkID'];
 	  	$rs = mysql_fetch_array(mysql_query($sql));		
 	  	$rider_name = $rs["FirstName"];
 		}
