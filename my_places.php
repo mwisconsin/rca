@@ -369,7 +369,7 @@
 	cords = myMap.getCenter();
 	custom=new MQA.Poi( {lat:cords.getLatitude(), lng:cords.getLongitude()} );
   myMap.addShape(custom);
-
+/*
 	$('map').addEvent('mouseup',function() {
 		cords = myMap.getCenter();
 		$('Latitude').value = cords.getLatitude();
@@ -378,8 +378,9 @@
 		custom=new MQA.Poi( {lat:cords.getLatitude(), lng:cords.getLongitude()} );
 	  myMap.addShape(custom);
 	});
+	*/
 	$('map').addEvent('mouseleave', function() {
-		$('mqmaptilediv').fireEvent('mouseup');
+		$('mqa_display_div').fireEvent('mouseup');
 	});
 	function set_destination($idx, field2, field3, field4){
 		$('DestinationSelectorValue[' + $idx + "]").value = field3;
@@ -388,6 +389,17 @@
     	load_public_destination_data(<?php echo $franchise_id; ?>);
 		create_public_destination_selector(0);
     });
+    
+  jQuery(function() {
+  	jQuery('#map').on('mouseup',function() {
+			cords = myMap.getCenter();
+			jQuery('input[name="Latitude"][type="text"]').val(cords.getLatitude());
+			jQuery('input[name="Longitude"][type="text"]').val(cords.getLongitude());
+			myMap.removeAllShapes();
+			custom=new MQA.Poi( {lat:cords.getLatitude(), lng:cords.getLongitude()} );
+		  myMap.addShape(custom);  		
+  	}
+  });
 </script>
 <?php 
     }
