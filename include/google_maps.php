@@ -8,7 +8,9 @@ function get_google_time_and_distance_results($mapquest_from_string, $mapquest_t
 		$mapquest_to_string = str_replace("DESOTO","DESTO",$mapquest_to_string);
 		$departure_time = strtotime($desiredArrivalTime);
 	
-    $request_url =  "http://maps.googleapis.com/maps/api/distancematrix/json?origins=$mapquest_from_string&destinations=$mapquest_to_string&units=imperial&sensor=false"
+    $request_url =  "https://maps.googleapis.com/maps/api/distancematrix/json?origins=$mapquest_from_string"
+    	."&destinations=$mapquest_to_string&units=imperial&sensor=false"
+    	."&key=".GOOGLE_API_KEY
     	.($desiredArrivalTime != '' ? "&departure_time=$departure_time" : "");
 
 		//echo $request_url."<BR><BR>";
