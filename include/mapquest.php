@@ -115,7 +115,9 @@ function get_mapquest_time_and_distance_results($mapquest_from_string, $mapquest
 //    }
 //	if($miles == 0 || $miles > 30 || is_null($miles) || $seconds == 0 || is_null($seconds)){
 	    //echo 'google request made: '.$mapquest_from_string.' - '.$mapquest_to_string;
-		$google_request = get_google_time_and_distance_results($mapquest_from_string, $mapquest_to_string, $desiredArrivalTime);
+	   
+	  // NOTE: Forced desiredArrivaltime to be '' because we don't want to cache that specific time for 90 days.
+		$google_request = get_google_time_and_distance_results($mapquest_from_string, $mapquest_to_string, '');
 		$miles = $google_request['distance'];
 		$seconds = $google_request['time'];
 //	}
