@@ -1221,7 +1221,7 @@ If you aren't sure that the rides will work in your schedule, you can click the 
         				
 
         
-        if (!$doing_history && $link['IsHistory'] == 'HISTORY') {
+        if (!$doing_history && @$link['IsHistory'] == 'HISTORY') {
             echo '<tr><td colspan="13"> HISTORY </td></tr>';
             $doing_history = TRUE;
         }
@@ -1274,7 +1274,7 @@ If you aren't sure that the rides will work in your schedule, you can click the 
 	    }
     	$lastIndexPath = $link["IndexPath"];
       $class_pu_cell = "pickup_time_cell ";
-      if($last_arrival_time > 0 && $last_arrival_time > $departure_time_info['time_t'])
+      if(@$last_arrival_time > 0 && @$last_arrival_time > $departure_time_info['time_t'])
       	$class_pu_cell .= ($last_arrival_time - $departure_time_info['time_t'] > 600 ? "serious_" : "")."manifest_problem";
 			?>
 			<td><a target="_blank" href="admin_schedule_link.php?LinkID=<?php echo $link['LinkID'] ?>"><?php echo $link['LinkID']; ?></a></td>
@@ -1539,9 +1539,9 @@ jQuery(function($) {
 				order by FirstName,LastName";
 			$r = mysql_query($sql);
 			while($rs = mysql_fetch_array($r)) { echo "<option value=$rs[UserID]>"
-					.str_replace("'","\\'",$rs[FirstName])
+					.str_replace("'","\\'",$rs['FirstName'])
 					." "
-					.str_replace("'","\\'",$rs[LastName])."</option>"; }
+					.str_replace("'","\\'",$rs['LastName'])."</option>"; }
 		?></select></div>').dialog({
 				modal: true,
 				title: 'Assign New Driver',
