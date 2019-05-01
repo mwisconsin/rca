@@ -166,7 +166,7 @@
 				</select> / 
 				<select name="BirthYear">
 					<?php
-						for($i = (int)date("Y") - 16; $i >= (int)date("Y")- 109; $i--)
+						for($i = (int)date("Y") - 5; $i >= (int)date("Y")- 115; $i--)
 							echo '<option value="' . $i . '">' . $i . '</option>';
 					?>
 				</select>
