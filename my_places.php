@@ -90,7 +90,8 @@
 			$rider = get_user_rider_info($user_id);
 			$new_destination = create_new_destination($_POST['Destination'], $address,
                                                       $franchise_id, $_POST['Public'],
-                                                      NULL, $_POST["DestinationGroup"], $_POST['DestinationPhone'], 
+                                                      @$_POST['IsPublicApproved'] ? true: false, 
+                                                      $_POST["DestinationGroup"], $_POST['DestinationPhone'], 
                                                       $_POST['DestinationDetail'], $_POST['DestinationPhoneExt'],
                                                       @$_POST['AdditionalMinutes']);
 			add_destination_for_rider($rider_id,$new_destination);
@@ -240,6 +241,14 @@
     <tr>
     	<td style="padding-left: 4px;" colspan=2>Additional Minutes for this Place: 
     		<input type=text size=4 name=AdditionalMinutes id=AdditionalMinutes value="<?php echo $place['AdditionalMinutes'];  ?>">
+    	</td>
+    </tr>
+    <tr>
+    	<td style="padding-left: 4px;" colspan=2>Make this Place Public Approved: 
+    		<input name="IsPublicApproved" type="checkbox" <?php 
+                if ($place['IsPublicApproved'] == 'Yes') {
+                    echo 'checked="checked" ';
+                } ?> />
     	</td>
     </tr>
 <?php } 

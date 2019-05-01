@@ -140,7 +140,8 @@ function get_rider_destinations( $rider_user_id ) {
  * @return ID of new destination; FALSE on error.
  */
 function create_new_destination($name, $address, $franchise_id, $is_public, $is_public_approved = FALSE,
-                                $destination_group = -1, $destination_phone = NULL, $destination_detail = NULL, $destination_phone_ext = NULL) {
+                                $destination_group = -1, $destination_phone = NULL, $destination_detail = NULL, 
+                                $destination_phone_ext = NULL, $AdditionalMinutes = 0) {
     $address_id = add_address($address, TRUE);
     if ($address_id === FALSE) {
         return FALSE;
@@ -148,7 +149,8 @@ function create_new_destination($name, $address, $franchise_id, $is_public, $is_
 
     $destination_id = create_destination_for_address_id($name, $address_id, $franchise_id,
                                                         $is_public, $is_public_approved, $destination_group,
-                                                        $destination_phone, $destination_detail, $destination_phone_ext);
+                                                        $destination_phone, $destination_detail, $destination_phone_ext,
+                                                        $AdditionalMinutes);
 
     return $destination_id;
 }
@@ -203,7 +205,8 @@ function create_destination_for_address_id($name, $address_id, $franchise_id,
 
 function edit_destination($destination_id, $name, $address, 
 		$franchise_id, $destination_group_id, $destination_phone, 
-		$destination_detail, $is_public, $destination_phone_ext = '', $is_local_area = TRUE, $AdditionalMinutes = 0){
+		$destination_detail, $is_public, $is_public_approved = false, 
+		$destination_phone_ext = '', $is_local_area = TRUE, $AdditionalMinutes = 0){
 	
 	$is_local_area = $is_local_area == null ? 0 : $is_local_area;
 	$safe_destination_id = mysql_real_escape_string( $destination_id );
@@ -214,6 +217,7 @@ function edit_destination($destination_id, $name, $address,
                                     "'" . mysql_real_escape_string($destination_detail) . "'";
 	if ($is_public !== 'NOEDIT') {
         $public_clause = $is_public ? " IsPublic = 'Yes'," : " IsPublic = 'No',";
+        $public_clause .= " IsPublicApproved = ".($is_public_approved ? 'Yes' : 'No').",";
     }
 	update_address($address['id'],$address);
 	$destination = get_destination($safe_destination_id);
