@@ -217,7 +217,7 @@ function edit_destination($destination_id, $name, $address,
                                     "'" . mysql_real_escape_string($destination_detail) . "'";
 	if ($is_public !== 'NOEDIT') {
         $public_clause = $is_public ? " IsPublic = 'Yes'," : " IsPublic = 'No',";
-        $public_clause .= " IsPublicApproved = ".($is_public_approved ? 'Yes' : 'No').",";
+        $public_clause .= " IsPublicApproved = '".($is_public_approved ? 'Yes' : 'No')."',";
     }
 	update_address($address['id'],$address);
 	$destination = get_destination($safe_destination_id);
