@@ -1449,14 +1449,16 @@ jQuery(function($) {
 		var dropoffminutes = '<select class=dropoffminutes>'
 		for(var i = 0; i <= 59; i++)
 			dropoffminutes += '<option value='+i+(parseInt(dropoff_time.substr(2,2),10)==i?' selected':'')+'>'+(i<10?'0':'')+i+'</option>';
-		dropoffminutes += '</select>';	
+		dropoffminutes += '</select>';
+		var ampm = pickup_time.indexOf('AM') > -1 ? 'AM' : 'PM';	
 		var pickupampm = '<select class=pickupampm>'
-			+'<option value=AM'+(pickup_time.substr(6)=='AM'?' selected':'')+'>AM</option>'	
-			+'<option value=PM'+(pickup_time.substr(6)=='PM'?' selected':'')+'>PM</option>'	
+			+'<option value=AM'+(ampm=='AM'?' selected':'')+'>AM</option>'	
+			+'<option value=PM'+(ampm=='PM'?' selected':'')+'>PM</option>'	
 			+'</select>';	
+		ampm = dropoff_time.indexOf('AM') > -1 ? 'AM' : 'PM';
 		var dropoffampm = '<select class=dropoffampm>'
-			+'<option value=AM'+(dropoff_time.substr(6)=='AM'?' selected':'')+'>AM</option>'	
-			+'<option value=PM'+(dropoff_time.substr(6)=='PM'?' selected':'')+'>PM</option>'	
+			+'<option value=AM'+(ampm=='AM'?' selected':'')+'>AM</option>'	
+			+'<option value=PM'+(ampm=='PM'?' selected':'')+'>PM</option>'	
 			+'</select>';	
 		var pu_date = new Date();
 		pu_date.setHours( parseInt(pickup_time.substr(0,2),10)+(parseInt(pickup_time.substr(0,2),10)>=1&&parseInt(pickup_time.substr(0,2),10)<12&&pickup_time.substr(6)=='PM'?12:0) );
