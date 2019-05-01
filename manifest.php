@@ -1536,7 +1536,10 @@ jQuery(function($) {
 				where DriverStatus = 'Active' and FranchiseID = $franchise_id and not users.UserId = $driver_id
 				order by FirstName,LastName";
 			$r = mysql_query($sql);
-			while($rs = mysql_fetch_array($r)) { echo "<option value=$rs[UserID]>$rs[FirstName] $rs[LastName]</option>"; }
+			while($rs = mysql_fetch_array($r)) { echo "<option value=$rs[UserID]>"
+					.str_replace("'","\\'",$rs[FirstName])
+					." "
+					.str_replace("'","\\'",$rs[LastName])."</option>"; }
 		?></select></div>').dialog({
 				modal: true,
 				title: 'Assign New Driver',
