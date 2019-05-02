@@ -79,48 +79,48 @@ function get_mapquest_time_and_distance_results($mapquest_from_string, $mapquest
 		return array('distance' => $rs["miles"], 'time' => $rs["seconds"]);
 	}
 	
-//	echo "<!-- REQUESTING FROM MAPQUEST -->\n";
-//	
-//    $request_url = $MAPQUEST_API_MATRIX_URL . 
-//                   "&ambiguities=ignore&outFormat=json&from=$mapquest_from_string&to=$mapquest_to_string" .
-//                   "&routeType=shortest";
+	echo "<!-- REQUESTING FROM MAPQUEST -->\n";
+	
+    $request_url = $MAPQUEST_API_MATRIX_URL . 
+                   "&ambiguities=ignore&outFormat=json&from=$mapquest_from_string&to=$mapquest_to_string" .
+                   "&routeType=shortest";
 
 	//echo $request_url;
 	//echo '<br>';
 	//echo '<br>';
 	
     // Using cURL for better error detection and handling.
-//	
-//    $ch = curl_init();
+	
+    $ch = curl_init();
 	//echo '<br /><br />URL: '. $request_url . '<br /><br />';
-//    curl_setopt($ch, CURLOPT_URL, $request_url);   
-//    curl_setopt($ch, CURLOPT_HEADER, FALSE);   
-//    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE); 
-//    $response = curl_exec($ch);
+    curl_setopt($ch, CURLOPT_URL, $request_url);   
+    curl_setopt($ch, CURLOPT_HEADER, FALSE);   
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE); 
+    $response = curl_exec($ch);
     
 	//echo $response;
 	//echo '<br>';
 	//echo '<br>';
-//	
-//	$decoded_response = json_decode($response, true);
+	
+	$decoded_response = json_decode($response, true);
 	//echo '<br /><br />';
 	//print_r($decoded_response);
-//    $miles = $decoded_response['distance'][1];
-//    $seconds = $decoded_response['time'][1];
-//    
-//    if (is_null($miles) || is_null($seconds)) {
-//        $xml_time_distance = get_xml_api_mapquest_time_and_distance($mapquest_from_string, $mapquest_to_string);
-//        $miles = $xml_time_distance['distance'];
-//        $seconds = $xml_time_distance['time'];
-//    }
-//	if($miles == 0 || $miles > 30 || is_null($miles) || $seconds == 0 || is_null($seconds)){
+    $miles = $decoded_response['distance'][1];
+    $seconds = $decoded_response['time'][1];
+    
+    if (is_null($miles) || is_null($seconds)) {
+        $xml_time_distance = get_xml_api_mapquest_time_and_distance($mapquest_from_string, $mapquest_to_string);
+        $miles = $xml_time_distance['distance'];
+        $seconds = $xml_time_distance['time'];
+    }
+	if($miles == 0 || $miles > 30 || is_null($miles) || $seconds == 0 || is_null($seconds)){
 	    //echo 'google request made: '.$mapquest_from_string.' - '.$mapquest_to_string;
 	   
 	  // NOTE: Forced desiredArrivaltime to be '' because we don't want to cache that specific time for 90 days.
 		$google_request = get_google_time_and_distance_results($mapquest_from_string, $mapquest_to_string, '');
 		$miles = $google_request['distance'];
 		$seconds = $google_request['time'];
-//	}
+	}
 	
 	$sql = "insert into mapquest_cache (mapquest_from_string, mapquest_to_string, miles, seconds) values ('"
 		.mysql_real_escape_string($mapquest_from_string)."','".mysql_real_escape_string($mapquest_to_string)."',$miles,$seconds)";
