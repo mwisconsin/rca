@@ -120,7 +120,8 @@
 				$is_public = $_POST['Public'] ? true : false;
 				edit_destination($_POST['placeid'], $_POST['Destination'], $address, 
                                  $franchise_id, $_POST["DestinationGroup"], $_POST['DestinationPhone'], 
-                                 $_POST['DestinationDetail'], $is_public, $_POST['DestinationPhoneExt'], $_POST['is_local_area'] == 'on' ? TRUE : FALSE,
+                                 $_POST['DestinationDetail'], $is_public, @$_POST['IsPublicApproved'] ? true: false,
+                                 $_POST['DestinationPhoneExt'], $_POST['is_local_area'] == 'on' ? TRUE : FALSE,
                                  @$_POST['AdditionalMinutes']);	
                 if ($should_geocode) {
                     update_address($address['id'], $address, FALSE, TRUE);
