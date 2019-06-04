@@ -146,7 +146,8 @@ function create_new_destination($name, $address, $franchise_id, $is_public, $is_
     if ($address_id === FALSE) {
         return FALSE;
     }
-
+		if($AdditionalMinutes == '' || $AdditionalMinutes == NULL) $AdditionalMinutes = 0;
+		
     $destination_id = create_destination_for_address_id($name, $address_id, $franchise_id,
                                                         $is_public, $is_public_approved, $destination_group,
                                                         $destination_phone, $destination_detail, $destination_phone_ext,
