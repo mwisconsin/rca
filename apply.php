@@ -246,6 +246,7 @@ MAIL;
 	<div style="float:right; width:450px; border:solid 1px #000; margin:0px 30px 0px 15px; padding:2px; position:relative;">
 		<?php echo '<b><center>' . $error . '</center></b>'; ?>
 		<span style="font-size:1.5em;"> I would like to apply as a:</span><br>
+		<p><b>Note: </b>Please <i>also</i> call the office at 319-365-1511 to receive an application packet.</p>
 		<ul>
 			<li class="type"><input type="radio" id="RiderSelect" name="UserRole" value="Rider" checked/> Rider</li>
 			<li class="type"><input type="radio" id="DriverSelect" name="UserRole" value="Driver" /> Driver</li>
@@ -422,6 +423,10 @@ MAIL;
 	</p>
 	<p>
 		Please select the role for which you are applying, fill in any number you would like us to be able to contact you by, and press the "next" button to go on.
+	</p>
+	<p>
+		<b>Note: </b>Please <i>also</i> call the office at 319-365-1511 to receive an application packet.
+
 	</p>
 </span>
 
