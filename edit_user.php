@@ -994,7 +994,7 @@
                 <tr>
                 	<Td class="alignright" style='vertical-align: middle;'>Default # In Car</Td>	
                 	<td>
-						<input type=text name=default_num_in_car value="<?php echo $rider_info["default_num_in_car"]; ?>">
+						<input type=text size=1 name=default_num_in_car value="<?php echo $rider_info["default_num_in_car"]; ?>">
                 	</td>
                 </tr>
 				<tr>
