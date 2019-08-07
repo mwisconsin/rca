@@ -663,13 +663,16 @@ function CloneUser() {
                             <td class="alignright">Qualifications:</td>
                             <td><?php echo $rider_info['QualificationReason']; ?></td>
                         </tr>
-                        <?php if(current_user_has_role(1, "FullAdmin") || current_user_has_role($franchise, "Franchisee")) { ?>
                         <tr>
-                        	<td></td>	
-                        	<td colspan=2 class=alignright>Scheduling Cutoff Hour:</td>
+                        	<td class="alignright">Default # in Car:</td>
+                            <td><?php echo $rider_info['default_num_in_car']; ?></td>
+                        <?php if(current_user_has_role(1, "FullAdmin") || current_user_has_role($franchise, "Franchisee")) { ?>
+                        	<td class="alignright">Scheduling Cutoff Hour:</td>
                         	<td><?php echo $rider_info['Cutoff_Hour']; ?></td>
                         </tr>
-                      	<?php } ?>
+                      	<?php } else { ?>
+							<td colspan=2></td>
+						<?php } ?>
                     </table>
                     <br />
                     </div>
