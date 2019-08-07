@@ -743,7 +743,9 @@ $href = '';
         	<?php
         		for($i = 1; $i <= 4; $i++)
         			echo "<option value=$i"
-        				.($cached_schedule['NumberOfRiders'][$row_idx] == $i ? " selected" : "")
+                        .($cached_schedule['NumberOfRiders'][$row_idx] == $i || 
+                            (!isset($cached_schedule['NumberOfRiders'][$row_idx]) && $rider_info["default_num_in_car"] == $i)
+                            ? " selected" : "")
         				.">$i</option>";
             ?></select>
     </td>
