@@ -17,10 +17,11 @@ function add_rider($rider, $user_id)
                                mysql_real_escape_string($rider['EmergencyContactRelationship']);
     $safe_user_id = mysql_real_escape_string($user_id);
 
-	$sql = "INSERT INTO `rider` (`UserID`, `RiderStatus`, `EmergencyContactID`, `EmergencyContactRelationship`,`ADAQualified`, `QualificationReason`, `DateOfBirth`, `RiderWaiverReceived`)
+	$sql = "INSERT INTO `rider` (`UserID`, `RiderStatus`, `EmergencyContactID`, `EmergencyContactRelationship`,`ADAQualified`, `QualificationReason`, 
+		`DateOfBirth`, `RiderWaiverReceived`, default_num_in_car)
 	 VALUES ($safe_user_id, '" . mysql_real_escape_string($rider['RiderStatus']) . "', $safe_emergency_contact, '$safe_emergency_relation', '" . mysql_real_escape_string($rider['ADAQualified']) 
 	 . "', '" . mysql_real_escape_string($rider['QualificationReason']) . "', '" . mysql_real_escape_string($rider['DateOfBirth']) 
-	 . "', '" . mysql_real_escape_string($rider['RiderWaiverReceived'])."');";
+	 . "', '" . mysql_real_escape_string($rider['RiderWaiverReceived'])."', $rider[default_num_in_car]);";
 	$result = mysql_query($sql) or die(mysql_error());
 	
 	if ($result){

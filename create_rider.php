@@ -53,6 +53,7 @@ error_reporting(0);
 								 'EmergencyContactID' => 'NULL',
 								 'EmergencyContactRelationship' => 'NULL',
 								 'ADAQualified' => $_POST['ADA'],
+								 'default_num_in_car' => $_POST['default_num_in_car'],
 								 'QualificationReason' => $_POST['QualificationReason'],
 								 'DateOfBirth' => ($_POST['DateOfBirth'] != ''
 																							? date('Y-m-d',strtotime($_POST['DateOfBirth'])) : "") );
@@ -144,13 +145,19 @@ error_reporting(0);
 					<td align=right>Birth Date</td>
 					<td><input name=DateOfBirth class=jq_datepicker value="<?php echo date('m/d/Y',strtotime(@$_GET['b'])); ?>" size=10></td>
 				</tr>
-                 <tr>
+				<tr>
                 	<td class="alignright">ADA Qualified</td>
                 	<td>
                     	<select name="ADA">
                         	<option value="No"<?php if ($_POST['ADA']=='No') { echo ' selected="selected"'; } ?>>No</option>
                             <option value="Yes"<?php if ($_POST['ADA']=='Yes') { echo ' selected="selected"'; } ?>>Yes</option>
                         </select>
+                    </td>
+                </tr>
+				<tr>
+                	<td class="alignright">Default # in Car</td>
+                	<td>
+                    	<input type=text name=default_num_in_car value="<?php echo @$_POST["default_num_in_car"] == '' ? 1 : $_POST["default_num_in_car"]; ?>">"
                     </td>
                 </tr>
 				<tr>
