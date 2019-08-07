@@ -157,7 +157,7 @@ error_reporting(0);
 				<tr>
                 	<td class="alignright">Default # in Car</td>
                 	<td>
-                    	<input type=text name=default_num_in_car value="<?php echo @$_POST["default_num_in_car"] == '' ? 1 : $_POST["default_num_in_car"]; ?>">
+                    	<input type=text size=1 name=default_num_in_car value="<?php echo @$_POST["default_num_in_car"] == '' ? 1 : $_POST["default_num_in_car"]; ?>">
                     </td>
                 </tr>
 				<tr>
