@@ -887,6 +887,7 @@
 						`EmergencyContactRelationship` = '" . mysql_real_escape_string($_POST['EmergencyContactRelationship']) . "',`QualificationReason` = '" . mysql_real_escape_string($_POST['QualificationReason']) . "', `DateOfBirth` = '" . mysql_real_escape_string($birthday) . "', ADAQualified = '" . mysql_real_escape_string($_POST['ADA']) . "'
 						, RiderWaiverReceived = '".date('Y-m-d',strtotime($_POST[RiderWaiverReceived]))."'
 						, FirstPadding = $_POST[FirstPadding], PrePadding = $_POST[PrePadding], PostPadding = $_POST[PostPadding]
+						, default_num_in_car = $_POST[default_num_in_car]
 						 WHERE `rider`.`UserID` ='" . mysql_real_escape_string($user_id) . "' LIMIT 1 ;";
 				
 				//echo $query;
@@ -988,6 +989,12 @@
                 				<td nowrap>Post: <input type=text size=2 name=PostPadding value="<?php echo $rider_info["PostPadding"]; ?>"></td>
                 			</tr>	
                 		</table>
+                	</td>
+				</tr>
+                <tr>
+                	<Td class="alignright" style='vertical-align: middle;'>Default # In Car</Td>	
+                	<td>
+						<input type=text name=default_num_in_car value="<?php echo $rider_info["default_num_in_car"]; ?>">
                 	</td>
                 </tr>
 				<tr>
