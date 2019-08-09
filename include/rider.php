@@ -14,7 +14,8 @@ function add_rider($rider, $user_id)
     $safe_emergency_contact = (is_null($rider['EmergencyContactID'])) ? 'NULL' : 
                               mysql_real_escape_string($rider['EmergencyContactID']);
     $safe_emergency_relation = (is_null($rider['EmergencyContactRelationship'])) ? 'NULL' : 
-                               mysql_real_escape_string($rider['EmergencyContactRelationship']);
+							   mysql_real_escape_string($rider['EmergencyContactRelationship']);
+	if(!isset($rider["default_num_in_car"])) $rider["default_num_in_car"] = 1;
     $safe_user_id = mysql_real_escape_string($user_id);
 
 	$sql = "INSERT INTO `rider` (`UserID`, `RiderStatus`, `EmergencyContactID`, `EmergencyContactRelationship`,`ADAQualified`, `QualificationReason`, 
