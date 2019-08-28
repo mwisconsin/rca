@@ -239,7 +239,7 @@ Thank you for using Riders Club of Cedar Rapids!";
 	if($_POST["button_take_rides"] && isset($_POST["SelectIndexPath"]) && count($_POST["SelectIndexPath"]) > 0) {
 		
 		$sql = "select CustomTransitionID from link where IndexPath in ('".join("','",array_keys($_POST["SelectIndexPath"]))."')
-				and not AssignedDriverUserID in (select UserID from user_role natural join users where 
+				and AssignedDriverUserID in (select UserID from user_role natural join users where 
 					users.status = 'ACTIVE' and 
 					(
 						(FranchiseID = $franchise_id and (Role = 'FullAdmin' or Role = 'Franchisee'))
