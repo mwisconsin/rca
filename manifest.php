@@ -235,33 +235,45 @@ Thank you for using Riders Club of Cedar Rapids!";
 		}
 	}
 	
+	$take_ride_error = '';
 	if($_POST["button_take_rides"] && isset($_POST["SelectIndexPath"]) && count($_POST["SelectIndexPath"]) > 0) {
 		
-		$sql = "select CustomTransitionID from link where IndexPath in ('".join("','",array_keys($_POST["SelectIndexPath"]))."')";
+		$sql = "select CustomTransitionID from link where IndexPath in ('".join("','",array_keys($_POST["SelectIndexPath"]))."')
+				and not AssignedDriverUserID in (select UserID from user_role natural join users where 
+					users.status = 'ACTIVE' and 
+					(
+						(FranchiseID = $franchise_id and (Role = 'FullAdmin' or Role = 'Franchisee'))
+						or
+						(FranchiseID = 1 and Role = 'FullAdmin')
+					))";
 
 		$r = mysql_query($sql);
-		$cts = [];
-		while($rs = mysql_fetch_array($r)) if($rs["CustomTransitionID"] != "") { $cts[] = $rs["CustomTransitionID"]; }
-		$sql = "update link set AssignedDriverUserID = ".get_affected_user_id()." where IndexPath in ('".join("','",array_keys($_POST["SelectIndexPath"]))."')";
-		#echo $sql."<BR><BR>";
-		mysql_query($sql);
-		if(count($cts) > 0) {
-			$sql = "update link set AssignedDriverUserID = ".get_affected_user_id()." where CustomTransitionID in ('".join("','",$cts)."')";
+		if(mysql_num_rows($r) == 0) {
+			$take_ride_error = "That ride or those rides have already been taken.";
+		} else {
+			$cts = [];
+			while($rs = mysql_fetch_array($r)) if($rs["CustomTransitionID"] != "") { $cts[] = $rs["CustomTransitionID"]; }
+			$sql = "update link set AssignedDriverUserID = ".get_affected_user_id()." where IndexPath in ('".join("','",array_keys($_POST["SelectIndexPath"]))."')";
 			#echo $sql."<BR><BR>";
-			mysql_query($sql);			
-		}
+			mysql_query($sql);
+			if(count($cts) > 0) {
+				$sql = "update link set AssignedDriverUserID = ".get_affected_user_id()." where CustomTransitionID in ('".join("','",$cts)."')";
+				#echo $sql."<BR><BR>";
+				mysql_query($sql);			
+			}
 
-		error_reporting(E_ALL);
-		$email = new Email();
-		$u = get_user_account( get_affected_user_id() );
-		$email_message = "Rides with the Index/Paths of ".join("','",array_keys($_POST["SelectIndexPath"]))." have been TAKEN by User ".$u['FirstName']." ".$u['LastName']." (".get_affected_user_id().").";
-		$r = mysql_query("select fe.EmailType, e.EmailAddress as EmailAddress1, e2.EmailAddress as EmailAddress2, vacation_end, vacation_duration from franchise_email_settings fe, email e, email e2 where e.EmailID=fe.EmailID1 and e2.EmailID=fe.EmailID2 and fe.FranchiseID=".(int)$franchise_id." and EmailType = 'de_ride_taken'");
-		#print_r($r);
+			error_reporting(E_ALL);
+			$email = new Email();
+			$u = get_user_account( get_affected_user_id() );
+			$email_message = "Rides with the Index/Paths of ".join("','",array_keys($_POST["SelectIndexPath"]))." have been TAKEN by User ".$u['FirstName']." ".$u['LastName']." (".get_affected_user_id().").";
+			$r = mysql_query("select fe.EmailType, e.EmailAddress as EmailAddress1, e2.EmailAddress as EmailAddress2, vacation_end, vacation_duration from franchise_email_settings fe, email e, email e2 where e.EmailID=fe.EmailID1 and e2.EmailID=fe.EmailID2 and fe.FranchiseID=".(int)$franchise_id." and EmailType = 'de_ride_taken'");
+			#print_r($r);
 
-		while($rs = mysql_fetch_array($r)) {
-			#print_r($rs);
-			$email->send($rs['EmailAddress1'], 'Rides Taken', $email_message);
-			$email->send($rs['EmailAddress2'], 'Rides Taken', $email_message);
+			while($rs = mysql_fetch_array($r)) {
+				#print_r($rs);
+				$email->send($rs['EmailAddress1'], 'Rides Taken', $email_message);
+				$email->send($rs['EmailAddress2'], 'Rides Taken', $email_message);
+			}
 		}
 	}
 	
@@ -1173,6 +1185,7 @@ if(count($links) > 0 && !$foundRide) {
 	if(count($links) > 0) {
 ?>
 <h2>Take a Ride</h2>
+<?php if($take_ride_error != '') echo "<b style='color: red;'>$take_ride_error</b><br><br>"; ?>
 Please examine the rides below. These are rides that have been marked by the admin as available for acquisition and/or need someone else to drive.
 <br><br>
 Rides are grouped by the "Index/path" column. To select one of the groups of rides, click the corresponding checkbox to the group where you have interest, and click the button "Take Rides"
