@@ -238,7 +238,7 @@ Thank you for using Riders Club of Cedar Rapids!";
 	$take_ride_error = '';
 	if($_POST["button_take_rides"] && isset($_POST["SelectIndexPath"]) && count($_POST["SelectIndexPath"]) > 0) {
 		
-		$sql = "select CustomTransitionID from link where IndexPath in ('".join("','",array_keys($_POST["SelectIndexPath"]))."')
+		$sql = "select CustomTransitionID, LinkID, IndexPath from link where IndexPath in ('".join("','",array_keys($_POST["SelectIndexPath"]))."')
 				and AssignedDriverUserID in (select UserID from user_role natural join users where 
 					users.status = 'ACTIVE' and 
 					(
@@ -252,8 +252,17 @@ Thank you for using Riders Club of Cedar Rapids!";
 			$take_ride_error = "That ride or those rides have already been taken.";
 		} else {
 			$cts = [];
-			while($rs = mysql_fetch_array($r)) if($rs["CustomTransitionID"] != "") { $cts[] = $rs["CustomTransitionID"]; }
-			$sql = "update link set AssignedDriverUserID = ".get_affected_user_id()." where IndexPath in ('".join("','",array_keys($_POST["SelectIndexPath"]))."')";
+			$ls = [];
+			$ips = [];
+			while($rs = mysql_fetch_array($r)) {
+				if($rs["CustomTransitionID"] != "") $cts[] = $rs["CustomTransitionID"];
+				$ls[] = $rs["LinkID"];
+				$ips[$rs["IndexPath"]] = 1;
+			}
+			if(count(array_keys($ips)) != count($_POST["SelectIndexPath"])) {
+				$take_ride_error = "One or more of your selected rides have already been taken. You've been given the remainder that you chose.";
+			}
+			$sql = "update link set AssignedDriverUserID = ".get_affected_user_id()." where LinkID in (".join(",",$ls).")";
 			#echo $sql."<BR><BR>";
 			mysql_query($sql);
 			if(count($cts) > 0) {
