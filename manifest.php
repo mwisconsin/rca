@@ -260,7 +260,7 @@ Thank you for using Riders Club of Cedar Rapids!";
 				$ips[$rs["IndexPath"]] = 1;
 			}
 			if(count(array_keys($ips)) != count($_POST["SelectIndexPath"])) {
-				$take_ride_error = "One or more of your selected rides have already been taken. You've been given the remainder that you chose.";
+				$take_ride_error = "One or more of your selected rides have already been taken. You've been given the remainder that you chose.<br>Please contact the office if that is not your preference.";
 			}
 			$sql = "update link set AssignedDriverUserID = ".get_affected_user_id()." where LinkID in (".join(",",$ls).")";
 			#echo $sql."<BR><BR>";
