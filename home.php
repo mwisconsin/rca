@@ -199,7 +199,8 @@
             <tr>
             	<td></td>
             	<td>Previous Year Distribution</td>
-            	<td colspan="2"></td>
+            	<td style="border:1px solid;"><?php echo format_dollars(get_user_driver_attened_miles_YTD($user_id,date("Y")-1)); ?></td>
+				<td style="border:1px solid;"><?php echo format_dollars(get_user_driver_unattened_miles_YTD($user_id,date("Y")-1)); ?></td>
             	<td style="border:1px solid;"><?php echo format_dollars(get_user_total_reimbursement_donation_YTD($user_id, (date("Y") - 1))); ?></td>
             </tr>
         </table>
