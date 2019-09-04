@@ -640,7 +640,7 @@ function get_user_driver_next_drives($user_id){
 	return $_SESSION['DriverNextDrives'];
 }
 
-function get_user_driver_attened_miles_YTD($user_id, $date = NULL, $to_date = true){
+function get_user_driver_attened_miles_YTD($user_id, $date = NULL, $to_date = true, $from_date = false){
 	if($date === NULL)
 		$date = date("Y-n-j");
     $safe_user_id = mysql_real_escape_string($user_id);
@@ -648,8 +648,12 @@ function get_user_driver_attened_miles_YTD($user_id, $date = NULL, $to_date = tr
 	$date2 = date("Y-01-01");
 	if($to_date)
 		$strdate = " AND EffectiveDate >= '$date2 ' AND EffectiveDate <= '$safe_date 23:59:59'";
-	else
-		$strdate = " AND EffectiveDate > '$safe_date'";
+	else {
+		if($from_date) 
+			$strdate = " AND EffectiveDate >= '".date("Y-01-01",strtotime($date))."' AND EffectiveDate <= '$safe_date 23:59:59'";
+		else 
+			$strdate = " AND EffectiveDate > '$safe_date'";
+	}
     $sql = "SELECT SUM(Distance) AS Distance, SUM(ledger.Cents) AS Cents FROM (`completed_link_ledger_xref` LEFT JOIN ledger ON completed_link_ledger_xref.`LedgerEntryID` = ledger.`LedgerEntryID`) LEFT JOIN link_history ON completed_link_ledger_xref.LinkID = link_history.LinkID WHERE `EntityRole` = 'DRIVER' AND (LinkStatus = 'COMPLETE' OR linkStatus = 'CANCELEDLATE') AND Cents > 0 AND (CustomTransitionType != 'RIDER' OR CustomTransitionType IS NULL)   AND DriverUserID = $safe_user_id AND ledger.EntityID = $safe_user_id $strdate";
     $result = mysql_query($sql) or die(2 . mysql_error());
     
@@ -662,7 +666,7 @@ function get_user_driver_attened_miles_YTD($user_id, $date = NULL, $to_date = tr
     }
 }
 
-function get_user_driver_unattened_miles_YTD($user_id, $date = NULL, $to_date = true){
+function get_user_driver_unattened_miles_YTD($user_id, $date = NULL, $to_date = true, $from_date = false){
 	if($date === NULL)
 		$date = date("Y-n-j");
     $safe_user_id = mysql_real_escape_string($user_id);
@@ -670,8 +674,12 @@ function get_user_driver_unattened_miles_YTD($user_id, $date = NULL, $to_date = 
 	$date2 = date("Y-01-01");
 	if($to_date)
 		$strdate = " AND EffectiveDate >= '$date2 ' AND EffectiveDate <= '$safe_date 23:59:59'";
-	else
-		$strdate = " AND EffectiveDate > '$safe_date'";
+	else {
+		if($from_date) 
+			$strdate = " AND EffectiveDate >= '".date("Y-01-01",strtotime($date))."' AND EffectiveDate <= '$safe_date 23:59:59'";
+		else 
+			$strdate = " AND EffectiveDate > '$safe_date'";
+	}
     $sql = "SELECT SUM( deadhead_history.Distance) AS Distance, SUM(ledger.Cents) AS Cents FROM (deadhead_history LEFT JOIN link_history ON deadhead_history.NextLinkID = link_history.LinkID) LEFT JOIN ledger ON deadhead_history.LedgerEntryID = ledger.LedgerEntryID WHERE deadhead_history.UserID =  $safe_user_id $strdate ";
     $result = mysql_query($sql);
     
