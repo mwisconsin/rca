@@ -523,7 +523,7 @@ if($_GET['date']){
 # highlight links without rider (shading) will make rides stand out
 ?>
 <div style="text-align:center;"><h2><?php 
-    echo isset($driver_info['NickName'] && $driver_info['NickName'] != '' ? $driver_info['NickName'] : $driver_info['FirstName'] ?>'s Scheduled Riders for <?php echo $date ?></h2></div>
+    echo isset($driver_info['NickName']) && $driver_info['NickName'] != '' ? $driver_info['NickName'] : $driver_info['FirstName'] ?>'s Scheduled Riders for <?php echo $date ?></h2></div>
     <?php echo $CTL_result; ?>
 <div style="clear:both;">
 <p>
