@@ -260,7 +260,10 @@
 				<?php } ?>
 				<?php
 					if($_GET['action'] == 'edit') {
-						echo "<br>Is In Local Area? <input type=checkbox name=is_local_area ".( !is_zip_out_of_area( $franchise, $db_address['ZIP5'] ) || $place['is_local_area_override'] == TRUE ? 'checked' : '' ).">";
+						echo "<br>Is In Local Area? <input type=checkbox name=is_local_area "
+							.(( isset($place['is_local_area_override']) && $place['is_local_area_override'] == 0 )
+								 || is_zip_out_of_area( $franchise, $db_address['ZIP5'] ) ? '' : 'checked' )
+							 .">";
 					}
 				?></td>
 			<td class="alignright"><input type="submit" value="<?php if ($_GET['action'] == 'edit') { ?>Submit Changes<? } else { ?>Add Address<?php } ?>"></td>
