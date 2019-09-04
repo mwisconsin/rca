@@ -102,8 +102,14 @@
 			$upcoming_rides = get_user_driver_next_drives($user_id);
 	?>
 	<span style="font-size:1.3em;">Finances</span><br>
+	<style>
+	#homeTable tr td:nth-child(n+3) {
+		text-align: right;
+		padding-right: 5px;
+	}
+	</style>
     <form method="post">
-        <table style="margin:auto; width:90%;">
+        <table style="margin:auto; width:90%;" id="homeTable">
             <tr>
                 <td style="font-size:1.2em;" colspan="2">Accumulated Miles</td>
                 <td style="font-size:.8em;">Attended Miles</td>
