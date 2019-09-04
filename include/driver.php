@@ -285,7 +285,7 @@ function get_driver_person_info( $user_id, $clear_cache = FALSE ) {
 
     $safe_user_id = mysql_real_escape_string($user_id);
 
-    $sql = "SELECT UserID, Title, FirstName, MiddleInitial, 
+    $sql = "SELECT UserID, Title, FirstName, MiddleInitial, NickName, 
                    LastName, Suffix, Address1, Address2, City, State, ZIP5, ZIP4,
                    VehicleHeight, VehicleColor, VehicleDescription
             FROM users NATURAL JOIN person_name NATURAL JOIN vehicle_driver NATURAL JOIN vehicle
