@@ -1086,9 +1086,10 @@
 							<select name="HasWalker">
 								<option value="No">No</option>
 								<option value="W1">W1</option>
-								<option value="W2">W2</option>								
+								<option value="W2">W2</option>
+								<option value="W3">W3</option>								
 							</select>
-							<td >W1 = Flat Folding Walker, W2 = Walker With Handles </td>
+							<td >W1 = Flat Folding Walker, W2 = Walker With Handles, W3 = XL Walker </td>
 						</td>
 					</tr>
 					<tr>
@@ -1396,9 +1397,10 @@
 							<option value="No"<?php if($_POST['CanHandleWalker'] == "No") echo ' SELECTED'; ?>>No</option>
 							<option value="W1"<?php if($_POST['CanHandleWalker'] == "W1") echo ' SELECTED'; ?>>W1</option>
 							<option value="W2"<?php if($_POST['CanHandleWalker'] == "W2") echo ' SELECTED'; ?>>W2</option>
+							<option value="W2"<?php if($_POST['CanHandleWalker'] == "W3") echo ' SELECTED'; ?>>W3</option>
 							<option value="Yes"<?php if($_POST['CanHandleWalker'] == "Yes") echo ' SELECTED'; ?>>Yes</option>
 						</select>
-							<td>W1 = Flat Folding Walker, W2 = Handles stick out</td>
+							<td>W1 = Flat Folding Walker, W2 = Handles stick out, W3 = XL Walker</td>
 					</td>
 				</tr>
 				<tr>
@@ -1567,9 +1569,10 @@
 							<option value="No"<?php if($vehicle['CanHandleWalker'] == "No") echo ' SELECTED'; ?>>No</option>
 							<option value="W1"<?php if($vehicle['CanHandleWalker'] == "W1") echo ' SELECTED'; ?>>W1</option>
 							<option value="W2"<?php if($vehicle['CanHandleWalker'] == "W2") echo ' SELECTED'; ?>>W2</option>
+							<option value="W3"<?php if($vehicle['CanHandleWalker'] == "W3") echo ' SELECTED'; ?>>W3</option>
 							<option value="Yes"<?php if($vehicle['CanHandleWalker'] == "Yes") echo ' SELECTED'; ?>>Yes</option>
 						</select>
-							<td >W1 = Flat Folding Walker, W2 = Handles stick out</td>
+							<td >W1 = Flat Folding Walker, W2 = Handles stick out, W3 = XL Walker</td>
 					</td>
 				</tr>
 				<tr>
@@ -1816,9 +1819,10 @@
 							<select name="HasWalker">
 								<option value="No" <?php if($preferences['HasWalker'] == "No") echo 'SELECTED'; ?>>No</option>
 								<option value="W1" <?php if($preferences['HasWalker'] == "W1") echo 'SELECTED'; ?>>W1</option>
-								<option value="W2" <?php if($preferences['HasWalker'] == "W2") echo 'SELECTED'; ?>>W2</option>								
+								<option value="W2" <?php if($preferences['HasWalker'] == "W2") echo 'SELECTED'; ?>>W2</option>
+								<option value="W3" <?php if($preferences['HasWalker'] == "W3") echo 'SELECTED'; ?>>W3</option>								
 							</select>
-							<td >W1 = Walker Folds Flat, W2 = Handles stick out </td>
+							<td >W1 = Walker Folds Flat, W2 = Handles stick out, W3 = XL Walker </td>
 						</td>
 					</tr>
 					<tr>
