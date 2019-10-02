@@ -500,7 +500,8 @@ function showPanel(index) {
 							<select name="data[Preferences][HasWalker]">
 								<option value="No"<?php if ($_POST['data']['Preferences']['HasWalker']=='No') { echo ' selected="selected"'; } ?>>No</option>
 								<option value="W1"<?php if ($_POST['data']['Preferences']['HasWalker']=='W1') { echo ' selected="selected"'; } ?>>W1</option>
-								<option value="W2"<?php if ($_POST['data']['Preferences']['HasWalker']=='W2') { echo ' selected="selected"'; } ?>>W2</option>								
+								<option value="W2"<?php if ($_POST['data']['Preferences']['HasWalker']=='W2') { echo ' selected="selected"'; } ?>>W2</option>
+								<option value="W3"<?php if ($_POST['data']['Preferences']['HasWalker']=='W3') { echo ' selected="selected"'; } ?>>W3</option>								
 							</select>
 							<td >W1 = folds flat</td>
 						</td>

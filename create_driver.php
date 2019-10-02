@@ -704,8 +704,9 @@ function showPanel(index) {
 							<option value="No"<?php if($_POST['CanHandleWalker'] == "No") echo ' SELECTED'; ?>>No</option>
 							<option value="W1"<?php if($_POST['CanHandleCane'] == "W1") echo ' SELECTED'; ?>>W1</option>
 							<option value="W2"<?php if($_POST['CanHandleCane'] == "W2") echo ' SELECTED'; ?>>W2</option>
+							<option value="W3"<?php if($_POST['CanHandleCane'] == "W3") echo ' SELECTED'; ?>>W3</option>
 						</select>
-							<td>W1 = Flat, W2 = handles</td>
+							<td>W1 = Flat, W2 = handles, W3 = XL Walker</td>
 					</td>
 				</tr>
 				<tr>

@@ -615,7 +615,7 @@ function rider_preferences_to_display_string($preferences_array) {
         'EnterPassengerSide' => array('Yes' => 'PS'),
         'DriverStays' => array('Yes' => '' /*'Prefers Driver to Stay' Removed at Martin's request Jun 1 2010*/),
     // Build conditional statement for HasWalker and HasWheelchair
-        'HasWalker' => array('W1' => 'W1', 'W2' => 'W2'),  //ADD CONDITIONAL STATEMENT
+        'HasWalker' => array('W1' => 'W1', 'W2' => 'W2', 'W3' => 'W3'),  //ADD CONDITIONAL STATEMENT
         'HasCane' => array('Yes' => 'C'),
         'HasWheelchair' => array('WC1' => 'WC1', 'WC2' => 'WC2'),  //ADD CONDITIONAL STATEMENT
         'EnterBoth' => array('OVERRIDE' => ''), /*'Both Sides OK' UNNECESSARY*/
@@ -719,7 +719,8 @@ function get_rider_preference_key(){
 	<td>MV</td><td>Medium Vehicle</td>
 	<td>PU</td><td>Perfume User</td>
 	<td>VL1</td><td>not 20/20</td>
-	<td>WC1</td><td>Transfer Chair</td>
+	<td>W3</td><td>XL Walker</td>
+	
 </tr>
 <tr>
 	<td>CH</td><td>Need Help to Car</td>
@@ -727,11 +728,12 @@ function get_rider_preference_key(){
 	<td>NFD</td><td>No Felon Driver</td>
 	<td>SA</td><td>Service Animal</td>
 	<td>VL2</td><td>Blind</td>
-	<td>WC2</td><td>Wheelchair (Stays)</td>
+	<td>WC1</td><td>Transfer Chair</td>
 </tr>
 <tr>
 	<td>DS</td><td>Driver Side only</td>
 	<td>LV</td><td>Low Vehicle</td>
+	<td>WC2</td><td>Wheelchair (Stays)</td>
 </tr>
 <table>";
     return $html;
