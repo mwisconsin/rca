@@ -831,6 +831,9 @@ jQuery(function($) {
         //$('DepartCell[' + last_row_index + ']').setStyle('display', 'table-cell');
         $('DepartCell[' + last_row_index + ']').setStyle('visibility', '');
         $('DepartCell[' + new_row_index + ']').setStyle('visibility', 'hidden');
+        jQuery('select[name="NumberOfRiders[' + new_row_index + ']"]').val(
+            jQuery('select[name="NumberOfRiders[' + last_row_index + ']"]').val()
+        );
 
         // Now decorate the new radio buttons
         decorate_radio_buttons();
