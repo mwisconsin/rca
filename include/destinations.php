@@ -125,6 +125,19 @@ function get_rider_destinations( $rider_user_id ) {
     return $destinations;
 }
 
+function in_add_destination_blacklist() {
+    $sql = "select AD_ind from rider where UserID = ".get_affected_user_id();
+    $result = mysql_query($sql);
+    if($result) {
+        $row = mysql_fetch_array($result,MYSQL_ASSOC);
+        if($row["AD_ind"] == 0) return TRUE;
+        else return FALSE;
+    } else {
+        rc_log_db_error(PEAR_LOG_WARNING, mysql_error(),
+                        "Could not get information for rider in_add_destination_blacklist()", $sql);
+    }
+}
+
 
 /**
  * Creates a destination in the database.  The address entry will also be created.
@@ -142,6 +155,10 @@ function get_rider_destinations( $rider_user_id ) {
 function create_new_destination($name, $address, $franchise_id, $is_public, $is_public_approved = FALSE,
                                 $destination_group = -1, $destination_phone = NULL, $destination_detail = NULL, 
                                 $destination_phone_ext = NULL, $AdditionalMinutes = 0) {
+    
+    if(in_add_destination_blacklist())
+        return FALSE;
+
     $address_id = add_address($address, TRUE);
     if ($address_id === FALSE) {
         return FALSE;
