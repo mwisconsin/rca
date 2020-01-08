@@ -85,6 +85,8 @@
 						 'State' => $_POST['State'],
 						 'ZIP5' => $_POST['Zip5'],
 						 'ZIP4' => $_POST['Zip4'],
+						 'Latitude' => $_POST['Latitude'],
+						 'Longitude' => $_POST['Longitude'],
 						 'id' => $destination['AddressID']);
 		
 		if ( $_POST['DestinationGroup'] == 0)
