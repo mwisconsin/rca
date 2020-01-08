@@ -151,7 +151,7 @@
 					$total_balance += $balance;
 					$ride_costs = $incomplete_balances[$user_row['UserID']];
 					$ride_costs_30 = $incomplete_balances_30[$user_row['UserID']];
-					$total_30 += $ride_costs_30;
+					$total_30 += $balance - $ride_costs_30 ;
 					$total_available += ($balance - $ride_costs);
                     $annual_fee =  $user_row['AnnualFeePaymentDate']; 
 					$phone = isset($phone_numbers[$user_row['UserID']]) ? $phone_numbers[$user_row['UserID']] : "";
