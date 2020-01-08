@@ -557,8 +557,9 @@ function showPanel(index) {
 						<td class="alignright">Has Service Animal:</td>
 						<td>
 							<select name="data[Preferences][HasServiceAnimal]">
+								<option value="No"<?php if ($_POST['data']['Preferences']['HasServiceAnimal']=='No') { echo ' selected="selected"'; } ?>>No</option>
 								<option value="Yes"<?php if ($_POST['data']['Preferences']['HasServiceAnimal']=='Yes') { echo ' selected="selected"'; } ?>>Yes</option>
-								<option value="No"<?php if ($_POST['data']['Preferences']['HasServiceAnimal']=='No') { echo ' selected="selected"'; } ?>>No</option>					
+													
 							</select>
 						</td>
 					</tr>
@@ -566,8 +567,9 @@ function showPanel(index) {
 						<td class="alignright">Has Small Pet In Carrier:</td>
 						<td>
 							<select name="data[Preferences][HasSmallPetInCarrier]">
+								<option value="No"<?php if ($_POST['data']['Preferences']['HasSmallPetInCarrier']=='No') { echo ' selected="selected"'; } ?>>No</option>
 								<option value="Yes"<?php if ($_POST['data']['Preferences']['HasSmallPetInCarrier']=='Yes') { echo ' selected="selected"'; } ?>>Yes</option>
-								<option value="No"<?php if ($_POST['data']['Preferences']['HasSmallPetInCarrier']=='No') { echo ' selected="selected"'; } ?>>No</option>					
+													
 							</select>
 						</td>
 					</tr>
