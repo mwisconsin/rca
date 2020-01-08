@@ -1180,8 +1180,8 @@
 						<td class="alignright">Has Service Animal:</td>
 						<td>
 							<select name="HasServiceAnimal">
-								<option value="Yes">Yes</option>
 								<option value="No">No</option>					
+								<option value="Yes">Yes</option>								
 							</select>
 						</td>
 					</tr>
@@ -1189,8 +1189,8 @@
 						<td class="alignright">Has Small Pet In Carrier:</td>
 						<td>
 							<select name="HasSmallPetInCarrier">
+								<option value="No">No</option>								
 								<option value="Yes">Yes</option>
-								<option value="No">No</option>					
 							</select>
 						</td>
 					</tr>
