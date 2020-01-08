@@ -61,7 +61,16 @@
 				$postfix++;
 			}
             $user_id = add_user( $user_name, mt_rand(1001,mt_getrandmax()) . mt_rand(1001,mt_getrandmax()), 'ACTIVE',
-                                 $rider_email, $person_name_id, $_POST['Felony']);
+								 $rider_email, $person_name_id, $_POST['Felony']);
+			if($_POST['PhoneNumber'] != '')
+				add_phone_number_for_user(
+					$_POST['PhoneNumber'],$_POST['PhoneNumberType'],$user_id,
+						$_POST['PhoneNumberType'] == 'MOBILE' ? $_POST['PhoneCanSMS'] : 'N',
+						$_POST['PhoneNumberType'] == 'MOBILE' ? $_POST['PhoneMobileCarrier'] : 0,
+						$_POST['PhoneNumberExt'],
+						$_POST['PhoneNumberType'] == 'MOBILE' ? $_POST['sms_preferences'] : "FIRST"
+						, $_POST["phonedescription"]
+				);
 			//create rider
 			$birthday = mysql_real_escape_string($_POST['BirthYear']) . '-' . mysql_real_escape_string($_POST['BirthMonth']) . '-' . mysql_real_escape_string($_POST['BirthDay']);
 			$rider = array('RiderStatus' => 'NotApproved',
@@ -98,6 +107,15 @@
 	include_once 'include/header.php';
 	display_care_facility_header( $facility_id );
 ?>
+<script>
+jQuery(function($) {
+	$('select[name="PhoneNumberType"]').on('change load',function() {
+		if($(this).val() == 'MOBILE') $('#PhoneNumberMobile').show();
+		else $('#PhoneNumberMobile').hide();
+	});
+});	
+	
+</script>
 <center><h2>Facility Rider Application</h2></center>
 <center><?php echo $error; ?></center>
 <form action="<?php echo $_SERVER['PHP_SELF'] . '?id=' . $facility_id; ?>" method="post">
@@ -140,10 +158,48 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2"><b>Birthday</b></td>
+			<td style="font-weight:bold; " colspan="2">Phone Number</td>
+		</tr>
+		<tr valign=top>
+			<td width=106>Number/Type</td>
+			<td nowrap><input type="text" name="PhoneNumber" value="<?php echo $_POST['PhoneNumber']; ?>" style="width:160px;" />
+					<input type="text" placeholder="Extension" name="PhoneNumberExt" value="<?php echo $_POST['PhoneNumberExt']; ?>" style="width: 66px;" />
+					<select style='height: 21px;' size=1 name="PhoneNumberType">
+						<option <?php echo $_POST['PhoneNumberType'] == 'HOME' ? 'selected' : ''; ?>>HOME</option>	
+						<option <?php echo $_POST['PhoneNumberType'] == 'MOBILE' ? 'selected' : ''; ?>>MOBILE</option>
+						<option <?php echo $_POST['PhoneNumberType'] == 'WORK' ? 'selected' : ''; ?>>WORK</option>
+						<option <?php echo $_POST['PhoneNumberType'] == 'FAX' ? 'selected' : ''; ?>>FAX</option>
+						<option <?php echo $_POST['PhoneNumberType'] == 'OTHER' ? 'selected' : ''; ?>>OTHER</option>
+					</select><br>
+					<div id=PhoneNumberMobile style='padding-left: 20px; display: none;'>
+						Can Accept Texts? <select size=1 name="PhoneCanSMS">
+							<option <?php echo $_POST['PhoneCanSMS'] == 'Y' ? 'selected' : ''; ?>>Y</option>
+							<option <?php echo $_POST['PhoneCanSMS'] == 'N' ? 'selected' : ''; ?>>N</option>
+							</select><BR>
+						Carrier: <select size=1 name="PhoneMobileCarrier" style="width: 160px;">
+						<?php
+						$sql = "select id, name from sms_providers order by name";
+						$r = mysql_query($sql);
+						while($rs = mysql_fetch_array($r))
+							echo "<option value=$rs[id] ".($rs["id"] == $_POST["PhoneMobileCarrier"] ? "selected" : "").">$rs[name]</option>";
+						?></select><br>
+						Preference:<BR>
+						<input type=radio name="sms_preferences" value='FIRST' <?php echo $_POST["sms_preferences"] == "FIRST" ? "checked" : ""; ?>> Text on 1st Ride<br>
+						<input type=radio name="sms_preferences" value='SUBSEQUENT' <?php echo $_POST["sms_preferences"] == "SUBSEQUENT" ? "checked" : ""; ?>> Text on Subsequent Rides	
+						
+					</div>
+			</td>
 		</tr>
 		<tr>
-			<td style="text-align:center;">
+			<td>Description</td>
+			<td><input type=text name=phonedescription size=30></td>
+		</tr>
+		<tr>
+			<td colspan="2"><b>Birthday</b> <b style='color: red;'>*</b></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
 				<select name="BirthMonth">
 					<option value="1">January</option>
 					<option value="2">February</option>
@@ -179,12 +235,15 @@
 			<td colspan="2">
 				Any/All Aliases or Other Names:<br><br>
 				<input type="text" maxlength="50" name="Aliases" style="width:320px; margin:0px 0px 10px 60px;"><br>
-				Have You Ever Commited a Felony?<br>
+				Have You Ever Commited a Felony? <b style='color: red;'>*</b><br>
 				<input type="radio" name="Felony" value="Yes" style="margin-left:60px;">Yes<input type="radio" name="Felony" value="No" style="margin-left:20px;">No
 			</td>
 		</tr>
 		<tr>
 			<td class="alignright" colspan="2"><input type="submit" name="Save" value="Submit"></td>
+		</tr>
+		<tr>
+			<td colspan=2 style='margin-top: 50px;'><b style='color: red;'>*</b> = Required Field</td>
 		</tr>
 	</table>
 </form>
