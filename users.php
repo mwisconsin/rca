@@ -140,6 +140,7 @@
 				$first_rides = get_batch_riders_first_ride($riders);
 				$last_rides = get_batch_riders_last_ride($riders);
 				//print_r($first_rides);
+				$total_30 = 0;
 				$total_balance = 0;
 				$total_available = 0;
                 
@@ -150,6 +151,7 @@
 					$total_balance += $balance;
 					$ride_costs = $incomplete_balances[$user_row['UserID']];
 					$ride_costs_30 = $incomplete_balances_30[$user_row['UserID']];
+					$total_30 += $ride_costs_30;
 					$total_available += ($balance - $ride_costs);
                     $annual_fee =  $user_row['AnnualFeePaymentDate']; 
 					$phone = isset($phone_numbers[$user_row['UserID']]) ? $phone_numbers[$user_row['UserID']] : "";
@@ -251,8 +253,8 @@
             	<td></td>
             	<td></td>
             	<td></td>
-            	<td></td>
                 <td style="text-align:right;"><?php echo format_dollars($total_balance); ?></td>
+				<td style="text-align:right;"><?php echo format_dollars($total_30); ?></td>
                 <td style="text-align:right;"><?php echo format_dollars($total_available); ?></td>
             </tr>
 		</table>
