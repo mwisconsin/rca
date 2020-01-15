@@ -94,13 +94,14 @@ You must be logged in for this link to be active. \n
 The System.
 MESSAGE;
 	    if($driver_id != NULL && $driver_id != '') {
-    	   mail(DEFAULT_CORD_EMAIL,"Weekly Availability Updated", $message, DEFAULT_EMAIL_FROM);
+    	   
 		   $club_emails = get_franchise_email_addresses($franchise_id, 'ra_threshold');
 	       if (sizeof($club_emails)>0) {
 		      foreach($club_emails as $email) {
 			     if (isset($email) && ($email != '')) {
 			      //echo $email;
-				  mail($email,"Club ".$franchise_id."; Weekly Availability Updated", $message, DEFAULT_EMAIL_FROM);
+                  mail($email,"Club ".$franchise_id."; Weekly Availability Updated", $message, DEFAULT_EMAIL_FROM);
+                  //mail($email,"Weekly Availability Updated", $message, DEFAULT_EMAIL_FROM);
 			     }
 		      }
 		   }
@@ -130,13 +131,14 @@ You must be logged in for this link to be active.
 The System.
 MESSAGE;
 	if($driver_id != NULL && $driver_id != '') {
-    	mail(DEFAULT_CORD_EMAIL,"Maximum Availability Updated", $message, DEFAULT_EMAIL_FROM);
+    	
 		$club_emails = get_franchise_email_addresses($franchise_id, 'ra_threshold');
 	    if (sizeof($club_emails)>0) {
 		    foreach($club_emails as $email) {
 			  if (isset($email) && ($email!='')) {
 			    //echo $email;
-				mail($email,"Club ".$franchise_id."; Weekly Availability Updated", $message, DEFAULT_EMAIL_FROM);
+                mail($email,"Club ".$franchise_id."; Weekly Availability Updated", $message, DEFAULT_EMAIL_FROM);
+                //mail($email,"Maximum Availability Updated", $message, DEFAULT_EMAIL_FROM);
 			  }
 		    }
 		}
@@ -190,13 +192,14 @@ You must be logged in for this link to be active.
 The System.
 MESSAGE;
 	if($driver_id != NULL && $driver_id != '' && $vacations_string) {
-    	mail(DEFAULT_CORD_EMAIL,"Vacation Times Updated", $message, DEFAULT_EMAIL_FROM);
+    	
 		$club_emails = get_franchise_email_addresses($franchise_id, 'ra_threshold');
 	    if (sizeof($club_emails)>0) {
 		    foreach($club_emails as $email) {
 			  if (isset($email) && ($email!='')) {
 			    //echo $email;
-				mail($email,"Club ".$franchise_id."; Weekly Availability Updated", $message, DEFAULT_EMAIL_FROM);
+                mail($email,"Club ".$franchise_id."; Weekly Availability Updated", $message, DEFAULT_EMAIL_FROM);
+                //mail($email,"Vacation Times Updated", $message, DEFAULT_EMAIL_FROM);
 			  }
 		    }
 		}
