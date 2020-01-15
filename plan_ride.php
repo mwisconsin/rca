@@ -550,10 +550,30 @@ $href = '';
             include_once 'include/footer.php';
             exit;
         } else {
-            echo "<p>As a full admin, you may still schedule a ride.</p>";
+            echo "<p>As an admin, you may still schedule a ride.</p>";
 		
         }
     }
+    $preferences = get_user_rider_preferences(get_affected_user_id());
+    if ($preferences['HasMemoryLoss'] == 'ML1' || $preferences['HasMemoryLoss'] == 'ML2') {
+        echo "<p>Riders with Memory Loss cannot schedule their own rides.</p>";
+        if (!current_user_has_role(1, 'FullAdmin') && !current_user_has_role($franchise_id, 'Franchisee')) {
+            include_once 'include/footer.php';
+            exit;
+        } else {
+            echo "<p>As an admin, you may still schedule a ride.</p>";
+        }       
+    }
+    $rider_info = get_user_rider_info(get_affected_user_id());
+    if ($rider_info["CanScheduleRides"] == 0) {
+        echo "<p>Our records indicate that you are not able to schedule rides.</p>";
+        if (!current_user_has_role(1, 'FullAdmin') && !current_user_has_role($franchise_id, 'Franchisee')) {
+            include_once 'include/footer.php';
+            exit;
+        } else {
+            echo "<p>As an admin, you may still schedule a ride.</p>";
+        }       
+    }    
 ?>
 <?php 
     if (isset($to_destination)) {  ?>

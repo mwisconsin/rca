@@ -16,13 +16,14 @@ function add_rider($rider, $user_id)
     $safe_emergency_relation = (is_null($rider['EmergencyContactRelationship'])) ? 'NULL' : 
 							   mysql_real_escape_string($rider['EmergencyContactRelationship']);
 	if(!isset($rider["default_num_in_car"])) $rider["default_num_in_car"] = 1;
+	if(!isset($rider["CanScheduleRides"])) $rider["CanScheduleRides"] = 1;
     $safe_user_id = mysql_real_escape_string($user_id);
 
 	$sql = "INSERT INTO `rider` (`UserID`, `RiderStatus`, `EmergencyContactID`, `EmergencyContactRelationship`,`ADAQualified`, `QualificationReason`, 
-		`DateOfBirth`, `RiderWaiverReceived`, default_num_in_car)
+		`DateOfBirth`, `RiderWaiverReceived`, default_num_in_car, CanScheduleRides)
 	 VALUES ($safe_user_id, '" . mysql_real_escape_string($rider['RiderStatus']) . "', $safe_emergency_contact, '$safe_emergency_relation', '" . mysql_real_escape_string($rider['ADAQualified']) 
 	 . "', '" . mysql_real_escape_string($rider['QualificationReason']) . "', '" . mysql_real_escape_string($rider['DateOfBirth']) 
-	 . "', '" . mysql_real_escape_string($rider['RiderWaiverReceived'])."', $rider[default_num_in_car]);";
+	 . "', '" . mysql_real_escape_string($rider['RiderWaiverReceived'])."', $rider[default_num_in_car], $rider[CanScheduleRides]);";
 	$result = mysql_query($sql) or die(mysql_error());
 	
 	if ($result){

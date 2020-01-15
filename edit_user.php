@@ -888,6 +888,7 @@
 						, RiderWaiverReceived = '".date('Y-m-d',strtotime($_POST[RiderWaiverReceived]))."'
 						, FirstPadding = $_POST[FirstPadding], PrePadding = $_POST[PrePadding], PostPadding = $_POST[PostPadding]
 						, default_num_in_car = $_POST[default_num_in_car]
+						, CanScheduleRides = $_POST[CanScheduleRides]
 						 WHERE `rider`.`UserID` ='" . mysql_real_escape_string($user_id) . "' LIMIT 1 ;";
 				
 				//echo $query;
@@ -995,6 +996,15 @@
                 	<Td class="alignright" style='vertical-align: middle;'>Default # In Car</Td>	
                 	<td>
 						<input type=text size=1 name=default_num_in_car value="<?php echo $rider_info["default_num_in_car"]; ?>">
+                	</td>
+				</tr>
+                <tr>
+                	<Td class="alignright" style='vertical-align: middle;'>Can Schedule Rides</Td>	
+                	<td>
+						<select size=1 name=CanScheduleRides>
+						<option value=1 <?php if($rider_info["CanScheduleRides"] == 1) echo "selected"; ?>>Yes</option>
+						<option value=0 <?php if($rider_info["CanScheduleRides"] == 0) echo "selected"; ?>>No</option>
+						</select>
                 	</td>
                 </tr>
 				<tr>

@@ -54,6 +54,7 @@ error_reporting(0);
 								 'EmergencyContactRelationship' => 'NULL',
 								 'ADAQualified' => $_POST['ADA'],
 								 'default_num_in_car' => $_POST['default_num_in_car'],
+								 'CanScheduleRides' => $_POST["CanScheduleRides"],
 								 'QualificationReason' => $_POST['QualificationReason'],
 								 'DateOfBirth' => ($_POST['DateOfBirth'] != ''
 																							? date('Y-m-d',strtotime($_POST['DateOfBirth'])) : "") );
@@ -158,6 +159,15 @@ error_reporting(0);
                 	<td class="alignright">Default # in Car</td>
                 	<td>
                     	<input type=text size=1 name=default_num_in_car value="<?php echo @$_POST["default_num_in_car"] == '' ? 1 : $_POST["default_num_in_car"]; ?>">
+                    </td>
+                </tr>
+				<tr>
+                	<td class="alignright">Can Schedule A Ride</td>
+                	<td>
+						<select size=1 name=CanScheduleRides>
+						<option value=1 <?php if(@$_POST["CanScheduleRides"] == 1) echo "selected"; ?>>Yes</option>
+						<option value=0 <?php if(@$_POST["CanScheduleRides"] == 0) echo "selected"; ?>>No</option>
+						</select>                    	
                     </td>
                 </tr>
 				<tr>

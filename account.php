@@ -670,9 +670,16 @@ function CloneUser() {
                         	<td class="alignright">Scheduling Cutoff Hour:</td>
                         	<td><?php echo $rider_info['Cutoff_Hour']; ?></td>
                         </tr>
-                      	<?php } else { ?>
+						<?php } else { ?>
 							<td colspan=2></td>
 						<?php } ?>
+						<?php if(current_user_has_role(1, "FullAdmin") || current_user_has_role($franchise, "Franchisee")) { ?>
+						<tr>
+							<td class="alignright" nowrap>Can Schedule A Ride:</td>
+							<td><?php echo $rider_info['CanScheduleRides'] == 1 ? 'Yes' : 'No'; ?></td>
+						</tr>
+						<?php } ?>
+
                     </table>
                     <br />
                     </div>
