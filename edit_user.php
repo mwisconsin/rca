@@ -2110,6 +2110,7 @@
 									<td nowrap>
 										<input type=radio name="sms_preferences" value='FIRST' > Text on 1st Ride<br>
 										<input type=radio name="sms_preferences" value='SUBSEQUENT' > Text on Subsequent Rides<br>
+										<input type=radio name="sms_preferences" value='ALL' > Text on All Rides<br>
 										<!--<input type=radio name="sms_preferences" value='SIXTY' > Text if more than 60m between rides-->
 									</td>
 								</tr>
@@ -2207,6 +2208,7 @@
 									<td nowrap>
 										<input type=radio name="sms_preferences" value='FIRST' <?php echo $phone["sms_preferences"] == "FIRST" ? "checked" : ""; ?>> Text on 1st Ride<br>
 										<input type=radio name="sms_preferences" value='SUBSEQUENT' <?php echo $phone["sms_preferences"] == "SUBSEQUENT" ? "checked" : ""; ?>> Text on Subsequent Rides<br>
+										<input type=radio name="sms_preferences" value='ALL' <?php echo $phone["sms_preferences"] == "ALL" ? "checked" : ""; ?>> Text on All Rides<br>
 										<!--<input type=radio name="sms_preferences" value='SIXTY' <?php echo $phone["sms_preferences"] == "SIXTY" ? "checked" : ""; ?>> Text if more than 60m between rides-->
 									</td>
 								</tr>

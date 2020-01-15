@@ -210,7 +210,8 @@ jQuery(function($) {
 						?></select><br>
 						Preference:<BR>
 						<input type=radio name="sms_preferences" value='FIRST' <?php echo $_POST["sms_preferences"] == "FIRST" ? "checked" : ""; ?>> Text on 1st Ride<br>
-						<input type=radio name="sms_preferences" value='SUBSEQUENT' <?php echo $_POST["sms_preferences"] == "SUBSEQUENT" ? "checked" : ""; ?>> Text on Subsequent Rides	
+						<input type=radio name="sms_preferences" value='SUBSEQUENT' <?php echo $_POST["sms_preferences"] == "SUBSEQUENT" ? "checked" : ""; ?>> Text on Subsequent Rides<br>
+						<input type=radio name="sms_preferences" value='ALL' <?php echo $_POST["sms_preferences"] == "ALL" ? "checked" : ""; ?>> Text on All Rides	
 						
 					</div>
 			</td>
