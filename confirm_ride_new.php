@@ -545,7 +545,7 @@ JS;
 			echo "We will contact your Supporting Friend for assistance: ".join(', ',$friends);
 			
 		} else {
-			$sql = "select sum(amount) as amount from ach_to_process where userid = ".get_affected_user_id()." and status = 1";
+			$sql = "select sum(case when paytype = 'ANNUAL_FEE' then 0-amount else amount end) as amount from ach_to_process where userid = ".get_affected_user_id()." and status = 1";
 			$r = mysql_query($sql);
 			$ach = 0;
 			if(mysql_num_rows($r) > 0) {
