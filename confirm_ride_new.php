@@ -552,7 +552,7 @@ JS;
 				$rs = mysql_fetch_array($r);
 				if($rs["amount"] > 0) {
 					$ach = $rs["amount"];
-					echo "We have scheduled payments totalling <b>$".$rs["amount"]."</b>.<BR><BR>";
+					echo "We have scheduled ride payments totalling <b>$".$rs["amount"]."</b>.<BR><BR>";
 				}
 				#echo "We will process a payment of <b>$".$rs["amount"]." on ".date("l, n/d/Y",strtotime($rs["dts"]))."</b>.<BR><BR>";
 			} 
