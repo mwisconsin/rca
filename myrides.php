@@ -196,8 +196,10 @@ function confirmAnD(a,d) {
 
     echo '<tr>';
     echo get_user_link_table_headings(FALSE, TRUE);
-    if(current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise, 'Franchisee'))
-    	echo "<TH width=300>Notes</TH>";
+    if(current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise, 'Franchisee')) {
+        echo "<Th>Action</th>";
+        echo "<TH width=300>Notes</TH>";
+    }
     echo '</tr>';
 
     $can_delete_all = current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise, 'Franchisee');
@@ -208,6 +210,7 @@ function confirmAnD(a,d) {
         echo '<tr>';
         echo get_link_as_user_link_table_row($past, FALSE, TRUE, TRUE);
         if(current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise, 'Franchisee')) {
+            echo "<td><a href='/plan_ride.php?edit={$past['LinkID']}&table=link_history'>Copy Path</a></td>";
 	        echo "<td class=link_note_cell><img style='display: none;' id=\"{$past['LinkID']}\" src=\"images/trans.gif\" onclick=\"pop_link_notes(this)\" class='" . 
 	                (isset($past['LinkNote']) || isset($rider_settings['OtherNotes']) ? 'LinkNoteFilled' : 'LinkNoteBlank') . "' alt=\"df\" /> " .
 	    		    (	isset($past['LinkNote']) || isset($rider_settings['OtherNotes']) 

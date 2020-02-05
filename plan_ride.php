@@ -457,13 +457,15 @@ $href = '';
     	}
     	
     }else if(isset($_REQUEST['edit'])){
-    	$cached_schedule = get_links_edit_array($_REQUEST['edit']);
-    	
+    	$cached_schedule = get_links_edit_array($_REQUEST['edit'],NULL,isset($_REQUEST["table"])?$_REQUEST["table"]:'link');
+    	// print_r($cached_schedule);
     	if(count($_POST) > 0) $cached_schedule = $_POST;
-		
-		$month = $cached_schedule['TravelMonth'];
-        $day = $cached_schedule['TravelDay'];
-        $year = $cached_schedule['TravelYear'];
+        
+        if(!isset($_REQUEST["table"])) {
+            $month = $cached_schedule['TravelMonth'];
+            $day = $cached_schedule['TravelDay'];
+            $year = $cached_schedule['TravelYear'];
+        }
     } else if(isset($_REQUEST['goto'])){
         $cached_schedule = create_go_to_array( $_REQUEST['goto'] );
         

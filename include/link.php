@@ -1539,8 +1539,8 @@ function get_links_edit_array($link_id, $rider_user_id = NULL,  $table = 'link' 
 			$links['LocationType'][$array_PH] = rider_has_destination(get_user_rider_id( get_affected_user_id()), $ride[$i]['ToDestinationID']) ? 'Favorite' : 'Franchise';
 			$links['destination_selector'][$array_PH] = "-{$ride[$i]['ToDestinationID']}";
 			$links['DepartureTimeType'][$array_PH] = "NotConcern";
-			$links['DepartureTimeConfirmed'][$array_PH -1] = $ride[$i]['DepartureTimeConfimed'] == 'Y' ? TRUE : FALSE;
-			$links['ArrivalTimeConfirmed'][$array_PH] = $ride[$i]['ArrivalTimeConfimed'] == 'Y' ? TRUE : FALSE;
+			$links['DepartureTimeConfirmed'][$array_PH -1] = @$ride[$i]['DepartureTimeConfimed'] == 'Y' ? TRUE : FALSE;
+			$links['ArrivalTimeConfirmed'][$array_PH] = @$ride[$i]['ArrivalTimeConfimed'] == 'Y' ? TRUE : FALSE;
 			
 			$links['hour']['Depart'][$array_PH] = 9;
 			$links['hour']['Arrive'][$array_PH] = $time['Hour'];
@@ -1645,10 +1645,11 @@ function get_ride_links_array($rider_user_id, $date = NULL, $link_id = NULL , $t
 	$safe_rider_user_id = mysql_escape_string($rider_user_id);
 	$safe_table = mysql_real_escape_string($table);
 	$date_check = ($link_id == NULL) ? NULL : "AND DesiredArrivalTime LIKE CONCAT( (SELECT DATE_FORMAT( DesiredArrivalTime, '%Y-%m-%d' )
-											   FROM link WHERE LinkID =$link_id ) , '%')";
+                                               FROM $safe_table WHERE LinkID =$link_id ) , '%')";
 	$sql = "SELECT LinkID, FromDestinationID, ToDestinationID, DesiredArrivalTime, 
-		NumberOfRiders, DepartureTimeConfimed, ArrivalTimeConfirmed, LinkNote, LinkFlexFlag, PrePadding, PostPadding, Last_Changed_By, Last_Changed_Date, Created_By, Created_Date
-		FROM $safe_table WHERE RiderUserID = $safe_rider_user_id $date_check $safe_date";
+		NumberOfRiders, ".($safe_table == 'link' ? 'DepartureTimeConfirmed, ArrivalTimeConfirmed,':'')." LinkNote, LinkFlexFlag, PrePadding, PostPadding, Last_Changed_By, Last_Changed_Date, Created_By, Created_Date
+        FROM $safe_table WHERE RiderUserID = $safe_rider_user_id $date_check $safe_date";
+    // echo $sql."<BR>";
 	$result = mysql_query($sql) or die(mysql_error());
 	
 	if($result){
