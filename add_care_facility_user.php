@@ -92,7 +92,7 @@
 			mysql_query($query) or die(mysql_error());
 			
 			connect_user_to_care_facility($user_id,$facility_id);
-			
+			create_rider_default_home($user_id);
 			header("location: " . site_url() . 'care_facility_users.php?id=' . $facility_id);
 		}
 	}
