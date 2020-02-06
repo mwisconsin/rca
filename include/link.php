@@ -1647,9 +1647,9 @@ function get_ride_links_array($rider_user_id, $date = NULL, $link_id = NULL , $t
 	$date_check = ($link_id == NULL) ? NULL : "AND DesiredArrivalTime LIKE CONCAT( (SELECT DATE_FORMAT( DesiredArrivalTime, '%Y-%m-%d' )
                                                FROM $safe_table WHERE LinkID =$link_id ) , '%')";
 	$sql = "SELECT LinkID, FromDestinationID, ToDestinationID, DesiredArrivalTime, 
-		NumberOfRiders, ".($safe_table == 'link' ? 'DepartureTimeConfirmed, ArrivalTimeConfirmed,':'')." LinkNote, LinkFlexFlag, PrePadding, PostPadding, Last_Changed_By, Last_Changed_Date, Created_By, Created_Date
+		NumberOfRiders, ".($safe_table == 'link' ? 'DepartureTimeConfimed as DepartureTimeConfirmed, ArrivalTimeConfirmed,':'')." LinkNote, LinkFlexFlag, PrePadding, PostPadding, Last_Changed_By, Last_Changed_Date, Created_By, Created_Date
         FROM $safe_table WHERE RiderUserID = $safe_rider_user_id $date_check $safe_date";
-    // echo $sql."<BR>";
+    # echo $sql."<BR>";
 	$result = mysql_query($sql) or die(mysql_error());
 	
 	if($result){
