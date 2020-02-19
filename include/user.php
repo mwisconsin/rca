@@ -713,7 +713,7 @@ LEFT JOIN supporter_rider AS sr ON sr.SupporterUserID = sl.EntityID
 LEFT JOIN users AS ur on ur.UserID = sr.RiderUserID
 LEFT JOIN person_name AS rn ON rn.PersonNameID = ur.PersonNameID
 LEFT JOIN rider ON sr.RiderUserID = rider.UserID
-WHERE users.Status = 'ACTIVE' AND FranchiseID = $safe_franchise ) ORDER BY LastName, FirstName;";
+WHERE users.Status = 'ACTIVE' ORDER BY LastName, FirstName;";
 	$result = mysql_query($sql);
 	
 	if($result){
