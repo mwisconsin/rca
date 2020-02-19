@@ -600,7 +600,7 @@ function rider_preferences_to_display_string($preferences_array) {
 
     if (!is_array($preferences_array) || count($preferences_array) == 0) {
         return 'Preferences not set';
-    }
+	}
 
     static $string_refs = array(
 	// build conditional statement for HasMemoryLoss => if (ML1 then ML1 elseif ML2 then ML2)
@@ -620,7 +620,11 @@ function rider_preferences_to_display_string($preferences_array) {
         'HasCane' => array('Yes' => 'C'),
         'HasWheelchair' => array('WC1' => 'WC1', 'WC2' => 'WC2'),  //ADD CONDITIONAL STATEMENT
         'EnterBoth' => array('OVERRIDE' => ''), /*'Both Sides OK' UNNECESSARY*/
-        'FelonDriverOK' => array('No' => 'NFD'),
+		'FelonDriverOK' => array('No' => 'NFD'),
+		'VisionLevel' => array('VL1' => 'VL1', 'VL2' => 'VL2'),
+		'HearingLevel' => array('HL1' => 'HL1','HL2' => 'HL2','HL3' => 'HL3'),
+		'HasSmallPetInCarrier' => array('Yes' => 'SP'),
+		'HasServiceAnimal' => array('Yes' => 'SA')
     );
 
     $prefs_strings = array(); 

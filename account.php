@@ -826,6 +826,8 @@ function CloneUser() {
 									<td><?php echo format_date($preferences['CaretakerBirthday'],"n/j/Y"); ?></td>
 									<td class="alignright">Addl Rider BG ch:</td>
 									<td><?php echo $preferences['CaretakerBackgroundCheck']; ?></td>
+									<td class="alignright">Hearing Level:</td>
+									<td><?php echo $preferences['HearingLevel']; ?></td>
 									<?php } ?>
                                 </tr>
 								<tr>

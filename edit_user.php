@@ -1958,10 +1958,10 @@
 						<td class="alignright">Hearing Level:</td>
 						<td>
 							<select name="HearingLevel">
-								<option value="OK"<?php if ($preferences['Hearinglevel']=='OK') { echo ' selected="selected"'; } ?>>OK</option>
-								<option value="HL1"<?php if ($preferences['Hearinglevel']=='HL1') { echo ' selected="selected"'; } ?>>HL1</option>
-								<option value="HL2"<?php if ($preferences['Hearinglevel']=='HL2') { echo ' selected="selected"'; } ?>>HL2</option>
-								<option value="HL3"<?php if ($preferences['Hearinglevel']=='HL3') { echo ' selected="selected"'; } ?>>HL3</option>				
+								<option value="OK"<?php if ($preferences['HearingLevel']=='OK') { echo ' selected="selected"'; } ?>>OK</option>
+								<option value="HL1"<?php if ($preferences['HearingLevel']=='HL1') { echo ' selected="selected"'; } ?>>HL1</option>
+								<option value="HL2"<?php if ($preferences['HearingLevel']=='HL2') { echo ' selected="selected"'; } ?>>HL2</option>
+								<option value="HL3"<?php if ($preferences['HearingLevel']=='HL3') { echo ' selected="selected"'; } ?>>HL3</option>				
 							</select>
 							<td >HL1= Some hearing loss, HL2= Asst. Device, HL3= Little or no hearing</td>
 						</td>
