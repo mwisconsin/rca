@@ -21,6 +21,7 @@ function outside_normal_times( $link ) {
 }
 
 function get_context_link_price($link, $distance, $franchise_id, $from_dest_id, $to_dest_id, $link_date) {
+    // echo "link_date $link_date<BR>";
 	$service_area_zips = get_franchise_service_zips($franchise_id);
 	$is_out_of_area = FALSE;
   $out_of_area_link = FALSE;
@@ -44,7 +45,7 @@ function get_context_link_price($link, $distance, $franchise_id, $from_dest_id, 
 	
 	if($link_price == '' || $link_price == 0) {
 	  if ($out_of_area_link)
-	  	$link_price = get_out_of_area_link_price($link_distance, $franchise_id, $from_dest['DestinationID'], $to_dest['DestinationID']);
+	  	$link_price = get_out_of_area_link_price($link_distance, $franchise_id, $from_dest['DestinationID'], $to_dest['DestinationID'], [], $link_date);
 	  else
 	   	$link_price = get_link_price($distance, $franchise_id, $from_dest_id, $to_dest_id, $link_date);
 	    
@@ -213,7 +214,7 @@ function get_past_out_of_area_rate_cards($franchise_id){
 	$safe_franchise_id = mysql_real_escape_string($franchise_id);
 
     $sql = "SELECT FranchiseID, RiderPerMileCents, DriverPerMileCents, RiderPerHourWaitCents, 
-                   DriverPerHourWaitCents, EffectiveDate, ReplacedDate, IF( ReplacedDate IS NULL, '9999-12-31', ReplacedDate) as ordering
+                   DriverPerHourWaitCents, EnterCarCents, EffectiveDate, ReplacedDate, IF( ReplacedDate IS NULL, '9999-12-31', ReplacedDate) as ordering
             FROM out_of_area_rate_card
             WHERE FranchiseID = $safe_franchise_id ORDER BY ordering DESC";
 	$result = mysql_query($sql);
@@ -227,17 +228,20 @@ function get_past_out_of_area_rate_cards($franchise_id){
 		return false;
 }
 
-function get_out_of_area_link_price($distance, $franchise_id, $from_dest_id, $to_dest_id, $link = []) {
-	
-		if(@$link['QuotedCents'] != '' && @$link['QuotedCents'] > 0) return $link['QuotedCents'];
-		
-    $card = get_current_out_of_area_rate_card($franchise_id);
-
+function get_out_of_area_link_price($distance, $franchise_id, $from_dest_id, $to_dest_id, $link = [], $link_date = '') {
+	// echo "get_out_of_area_link_price<br>";
+	if(@$link['QuotedCents'] != '' && @$link['QuotedCents'] > 0) return $link['QuotedCents'];
+    
+    $link_date = $link_date == '' ? date('Y-m-d') : $link_date;
+        
+    $card = get_out_of_area_rate_card_at_date($franchise_id, $link_date);
+    // print_r($card);
+    // echo "<BR>";
     if ($card === FALSE) {
         return FALSE;  // TODO: Default for not-found card or no valid max dist
     }
 
-    $quote = ceil($distance) * $card['RiderPerMileCents'];
+    $quote = (ceil($distance) * $card['RiderPerMileCents']) + $card["EnterCarCents"];
 	
     $from_tags = get_destination_tags($from_dest_id);
     $to_tags = get_destination_tags($to_dest_id);
@@ -255,10 +259,33 @@ function get_current_out_of_area_rate_card($franchise_id) {
     $safe_franchise_id = mysql_real_escape_string($franchise_id);
 
     $sql = "SELECT FranchiseID, RiderPerMileCents, DriverPerMileCents, RiderPerHourWaitCents, 
-                   DriverPerHourWaitCents, EffectiveDate, ReplacedDate
+                   DriverPerHourWaitCents, EnterCarCents, EffectiveDate, ReplacedDate
             FROM out_of_area_rate_card
             WHERE (ReplacedDate IS NOT NULL && NOW() BETWEEN EffectiveDate And ReplacedDate) || (ReplacedDate IS NULL && EffectiveDate <= NOW() ) AND
                   FranchiseID = $safe_franchise_id";
+
+    $result = mysql_query($sql);
+
+    if ($result) {
+        $rate_card = mysql_fetch_array($result, MYSQL_ASSOC);
+    } else {
+        rc_log_db_error(PEAR_LOG_ERR, mysql_error(),
+                        "Could not get out-of-area rate card for franchise $franchise_id", $sql);
+        $rate_card = FALSE;
+    }
+    return $rate_card;
+}
+
+function get_out_of_area_rate_card_at_date($franchise_id, $at_date = '') {
+    $at_date = $at_date == '' ? date('Y-m-d') : $at_date;
+    $safe_franchise_id = mysql_real_escape_string($franchise_id);
+
+    $sql = "SELECT FranchiseID, RiderPerMileCents, DriverPerMileCents, RiderPerHourWaitCents, 
+                   DriverPerHourWaitCents, EnterCarCents, EffectiveDate, ReplacedDate
+            FROM out_of_area_rate_card
+            WHERE (ReplacedDate IS NOT NULL && '$at_date' BETWEEN EffectiveDate And ReplacedDate) || (ReplacedDate IS NULL && EffectiveDate <= '$at_date' ) AND
+                  FranchiseID = $safe_franchise_id";
+    // echo $sql."<BR>";
 
     $result = mysql_query($sql);
 
@@ -307,7 +334,7 @@ function set_new_rate_card($franchise, $effective_date, $mile_arrays, $replaced_
 	}
 }
 
-function set_new_out_of_area_rate_card($franchise, $RiderPerMileCents, $DriverPerMileCents, $RiderPerHourWaitCents, $DriverPerHourWaitCents, $effective_date, $replaced_date = null){
+function set_new_out_of_area_rate_card($franchise, $RiderPerMileCents, $DriverPerMileCents, $RiderPerHourWaitCents, $DriverPerHourWaitCents, $EnterCarCents, $replaced_date = null){
 	$franchise = mysql_real_escape_string($franchise);
 	$safe_effective_date = mysql_real_escape_string($effective_date);
 	$safe_replaced_date = $replaced_date === NULL ? 'NULL' : "'" . mysql_real_escape_string($replaced_date) . "'";
@@ -324,10 +351,10 @@ function set_new_out_of_area_rate_card($franchise, $RiderPerMileCents, $DriverPe
 	$RiderPerMileCents = mysql_real_escape_string($RiderPerMileCents);
 	$DriverPerMileCents = mysql_real_escape_string($DriverPerMileCents);
 	$RiderPerHourWaitCents = mysql_real_escape_string($RiderPerHourWaitCents);
-	$DriverPerHourWaitCents = mysql_real_escape_string($DriverPerHourWaitCents);
+    $DriverPerHourWaitCents = mysql_real_escape_string($DriverPerHourWaitCents);
 	
-	$sql = "INSERT INTO `out_of_area_rate_card` (`FranchiseID`, `RiderPerMileCents`, `DriverPerMileCents`, `RiderPerHourWaitCents`, `DriverPerHourWaitCents`, `EffectiveDate`, `ReplacedDate`) 
-			VALUES ( '$franchise', '$RiderPerMileCents', '$DriverPerMileCents', '$RiderPerHourWaitCents', '$DriverPerHourWaitCents', '$effective_date', $safe_replaced_date);";
+	$sql = "INSERT INTO `out_of_area_rate_card` (`FranchiseID`, `RiderPerMileCents`, `DriverPerMileCents`, `RiderPerHourWaitCents`, `DriverPerHourWaitCents`, EnterCarCents, `EffectiveDate`, `ReplacedDate`) 
+			VALUES ( '$franchise', '$RiderPerMileCents', '$DriverPerMileCents', '$RiderPerHourWaitCents', '$DriverPerHourWaitCents', '$EnterCarCents', '$effective_date', $safe_replaced_date);";
 	$result = mysql_query($sql);
 	
 	if($result){
@@ -411,11 +438,11 @@ function edit_rate_card($franchise, $effective_date, $replaced_date, $mile_array
     return true;
 }
 
-function edit_out_of_area_rate_card($franchise, $effective_date, $replaced_date, $RiderPerMileCents, $DriverPerMileCents, $RiderPerHourWaitCents, $DriverPerHourWaitCents){
+function edit_out_of_area_rate_card($franchise, $effective_date, $replaced_date, $RiderPerMileCents, $DriverPerMileCents, $RiderPerHourWaitCents, $DriverPerHourWaitCents, $EnterCarCents){
     $delete = delete_out_of_area_rate_card($franchise, $effective_date, $replaced_date, FALSE);
     if(!$delete)
         return false;
-    $add_new = set_new_out_of_area_rate_card($franchise, $RiderPerMileCents, $DriverPerMileCents, $RiderPerHourWaitCents, $DriverPerHourWaitCents, $effective_date, $replaced_date);
+    $add_new = set_new_out_of_area_rate_card($franchise, $RiderPerMileCents, $DriverPerMileCents, $RiderPerHourWaitCents, $DriverPerHourWaitCents, $EnterCarCents, $effective_date, $replaced_date);
     if(!$add_new)
         return false;
     return true;

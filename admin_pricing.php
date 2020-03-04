@@ -10,9 +10,9 @@
 		die();	
 	}
 	
-	if($_POST['RiderPerMileCents'] && $_POST['DriverPerMileCents'] && $_POST['RiderPerHourWaitCents'] && $_POST['DriverPerHourWaitCents']){
+	if($_POST['RiderPerMileCents'] && $_POST['DriverPerMileCents'] && $_POST['RiderPerHourWaitCents'] && $_POST['DriverPerHourWaitCents'] && $_POST['EnterCarCents']){
 		$date = "{$_POST['OOACardYear']}-{$_POST['OOACardMonth']}-{$_POST['OOACardDay']}";
-		$rtn = set_new_out_of_area_rate_card($franchise, $_POST['RiderPerMileCents'], $_POST['DriverPerMileCents'], $_POST['RiderPerHourWaitCents'], $_POST['DriverPerHourWaitCents'], $date);
+		$rtn = set_new_out_of_area_rate_card($franchise, $_POST['RiderPerMileCents'], $_POST['DriverPerMileCents'], $_POST['RiderPerHourWaitCents'], $_POST['DriverPerHourWaitCents'], $_POST['EnterCarCents'], $date);
 		if($rtn)
 			$announce = "A new out of area rate card has been put into place as of now.";
 		else
@@ -95,7 +95,7 @@
 		}
 		$effective = $_POST['effective_date'];
 		$replaced = $_POST['replaced_date'] == '' ? NULL : $_POST['replaced_date'];
-		$rtn = edit_out_of_area_rate_card($franchise, $effective, $replaced, $_POST['RiderPerMileCents'], $_POST['DriverPerMileCents'], $_POST['RiderPerHourWaitCents'], $_POST['DriverPerHourWaitCents']);
+		$rtn = edit_out_of_area_rate_card($franchise, $effective, $replaced, $_POST['RiderPerMileCents'], $_POST['DriverPerMileCents'], $_POST['RiderPerHourWaitCents'], $_POST['DriverPerHourWaitCents'], $_POST['EnterCarCents']);
 		if($rtn)
 			$announce = "The out of area rate card was correctly edited.";
         else
@@ -129,12 +129,14 @@
 					<td>Driver payout(per mile)</td>
 					<td>Rider Waiting Cost(hourly)</td>
 					<td>Driver Waiting Payout(hourly)</td>
+					<td>Enter Car</td>
 				</tr>
 				<tr>
 					<td><input type="text" name="RiderPerMileCents" value="<?php echo $card['RiderPerMileCents']; ?>" size="10"></td>
 					<td><input type="text" name="DriverPerMileCents" value="<?php echo $card['DriverPerMileCents']; ?>" size="10"></td>
 					<td><input type="text" name="RiderPerHourWaitCents" value="<?php echo $card['RiderPerHourWaitCents']; ?>" size="10"></td>
 					<td><input type="text" name="DriverPerHourWaitCents" value="<?php echo $card['DriverPerHourWaitCents']; ?>" size="10"></td>
+					<td><input type="text" name="EnterCarCents" value="<?php echo $card['EnterCarCents']; ?>" size="10"></td>
 				</tr>
 			</table>
 			<?php if(!$_POST['EditOOA']){ ?>
@@ -166,12 +168,14 @@
 				<td>Driver payout(per mile)</td>
 				<td>Rider Waiting Cost(hourly)</td>
 				<td>Driver Waiting Payout(hourly)</td>
+				<td>Enter Car</td>
 			</tr>
 			<tr>
 				<td><?php echo $card['RiderPerMileCents']; ?></td>
 				<td><?php echo $card['DriverPerMileCents']; ?></td>
 				<td><?php echo $card['RiderPerHourWaitCents']; ?></td>
 				<td><?php echo $card['DriverPerHourWaitCents']; ?></td>
+				<td><?php echo $card['EnterCarCents']; ?></td>
 			</tr>
 			<tr>
 				<td>Effective:</td>

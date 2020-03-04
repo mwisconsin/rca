@@ -82,16 +82,16 @@ for ($i = 0; $i < count($ride_request['links']); $i++) {
     
     $from_dest = get_destination($curr_link['from']);
     $to_dest = get_destination($curr_link['to']);
-    if ($ride_request['Type'] != 'Finish Custom Transition' 
-    	&& !$service_area_zips[$to_dest['ZIP5']]
-    	&& $to_dest['is_local_area_override'] != TRUE) {
+    if (($ride_request['Type'] != 'Finish Custom Transition' 
+    	&& !$service_area_zips[$to_dest['ZIP5']])
+    	|| $to_dest['is_local_area_override'] != TRUE) {
         $is_out_of_area = TRUE;
         $ride_request['links'][$i]['to_out_of_area'] = TRUE;
         $out_of_area_link = TRUE;
     }
-    if ($ride_request['Type'] != 'Finish Custom Transition' 
-    	&& !$service_area_zips[$from_dest['ZIP5']]
-    	&& $from_dest['is_local_area_override'] != TRUE) {
+    if (($ride_request['Type'] != 'Finish Custom Transition' 
+    	&& !$service_area_zips[$from_dest['ZIP5']])
+    	|| $from_dest['is_local_area_override'] != TRUE) {
         $is_out_of_area = TRUE;
         $ride_request['links'][$i]['from_out_of_area'] = TRUE;
         $out_of_area_link = TRUE;
@@ -105,7 +105,8 @@ for ($i = 0; $i < count($ride_request['links']); $i++) {
 
     if ($out_of_area_link) {
         $link_price = get_out_of_area_link_price($link_distance, $franchise_id, 
-                                                 $from_dest['DestinationID'], $to_dest['DestinationID']);
+												 $from_dest['DestinationID'], $to_dest['DestinationID'], [],
+												 "{$ride_request['year']}-{$ride_request['month']}-{$ride_request['day']}");
     } else {
         $link_price = get_link_price($link_distance, $franchise_id, 
                                      $from_dest['DestinationID'], $to_dest['DestinationID'],

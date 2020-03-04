@@ -241,7 +241,7 @@
                         "Driver credit for {$status_past_tense[$past_link['LinkStatus']]} ride {$past_link['LinkID']} arriving " .
                         "{$past_link['DesiredArrivalTime']}", $past_link['DesiredArrivalTime'], 'DRIVER');
 				} else {
-					$credit_amount = floor($out_of_area_pricing['DriverPerMileCents'] * ($past_link['Distance']));
+					$credit_amount = floor(($out_of_area_pricing['DriverPerMileCents'] * ($past_link['Distance']))+$out_of_area_pricing["EnterCarCents"]);
 					$driver_credit_ledger_id = credit_user( $driver_user_id, $credit_amount, 
                         "Driver credit for {$status_past_tense[$past_link['LinkStatus']]} out of area ride {$past_link['LinkID']} arriving " .
                         "{$past_link['DesiredArrivalTime']}", $past_link['DesiredArrivalTime'], 'DRIVER');

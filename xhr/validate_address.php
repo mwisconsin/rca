@@ -26,7 +26,7 @@ if($returned_address['SUCCESS'] === TRUE){
 
 if(!isset($verified)){
     // Error message is $returned_address['ERRORMESSAGE']
-	echo "false";
+	echo "false: ".$returned_address['ERRORMESSAGE'];
 }
 
 chdir('xhr/');
