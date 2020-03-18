@@ -34,8 +34,31 @@
 			$rs = mysql_fetch_array($r);
 
 			/* Create new Destination record associated with that address */
-			$new_destination = create_destination_for_address_id('Account Address', $rs["AddressID"], 
-						$franchise_id, FALSE, FALSE, -1, NULL, NULL, NULL, 0);
+			$phone_numbers = get_user_phone_numbers($user_id);
+			$dest_phone = NULL;
+			$found_phone = false;
+			foreach ($phone_numbers as $phone) 
+					if($phone['IsPrimary'] == 'Yes') {
+						$dest_phone = $phone;
+						$found_phone = true;
+						break;
+					}
+			if(!$found_phone)
+				foreach ($phone_numbers as $phone) 
+						if($phone['PhoneType'] == 'HOME') {
+							$dest_phone = $phone;
+							$found_phone = true;
+							break;
+						}
+			if(!$found_phone)
+				foreach ($phone_numbers as $phone) 
+						if($phone['PhoneType'] == 'MOBILE') {
+							$dest_phone = $phone;
+							$found_phone = true;
+							break;
+						}
+			$new_destination = create_destination_for_address_id($_GET['addresstype'].' Address', $rs["AddressID"], 
+						$franchise_id, FALSE, FALSE, -1, $dest_phone['PhoneNumber'], NULL, $dest_phone["Ext"], 0);
 			add_destination_for_rider($user_id,$new_destination);
 			/* refresh the page in edit mode for that destination */
 			echo "<script>window.location.href = '/my_places.php?action=edit&placeid=".$new_destination."';</script>";

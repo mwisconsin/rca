@@ -158,7 +158,7 @@ function CloneUser() {
               			if(!$ReadOnly) {
               			?>
                     <div style="float:right; font-size:.8em;">
-                    <a href="<?php echo site_url() . 'my_places.php?new_destination_from_addressid=' . $address['AddressID']; ?>">Edit</a> 
+                    <a href="<?php echo site_url() . 'my_places.php?new_destination_from_addressid=' . $address['AddressID'] . "&addresstype=". $address['AddressType']; ?>">Edit</a> 
                     </div>
                     <?php
                   	}
