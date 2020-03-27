@@ -48,6 +48,11 @@
 	
 	include_once 'include/header.php';
 ?>
+<style>
+#AUCtable input, #AUCold td {
+    text-align:center;
+}
+</style>
 <form method=POST>
 <h1>Care Facility Additional Use Charge</h1>
 Specify the parameters of the Care Facility Additional Use Charges:<br><br>
@@ -82,7 +87,7 @@ if(count($card) > 0) for($i = 0; $i < count($card); $i++) {
 </form>
 <br><br>
 For Reference, here are the prior values:
-<table>
+<table id=AUCold>
 <tr valign=bottom align=center><th>Minimum<Br>Ride<bR>Count</th><th>Charge<br>Cents</th><th>Effective From</th><th>Effective To</th></tr>
 <?php
 for($i = 0; $i < count($oldcard); $i++) {
