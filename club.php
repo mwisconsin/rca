@@ -335,6 +335,7 @@ include_once 'include/header.php';
     <li><a href="admin_pricing.php">Rate Cards</a></li>
     <li><a href="admin_driver_payout.php">Driver Rate Cards</a></li>
     <li><a href="deadhead_plus.php">Deadhead Plus</a></li>
+    <li><a href="care_facility_additional_use.php">Care Facility Additional Use Charge</a></li>
 </ul>
 <br />
 <span id="Scheduling" style="font-size:1.2em">+ Scheduling</span><br>
