@@ -43,7 +43,7 @@
 	$last = $users[count($users) - 1];
 	echo '{"users":[';
 	foreach($users as $user){
-		echo "[{$user['UserID']},\"{$user['FirstName']} ".($user['NickName'] != '' ? "($user[NickName]) " : "")."{$user['LastName']}\",\"{$user[5]}\",\"{$user[4]}\"]";
+		echo "[{$user['UserID']},\"{$user['FirstName']} ".($user['NickName'] != '' ? "($user[NickName]) " : "")."{$user['LastName']}\",\"{$user[5]}\",\"{$user[6]}\"]";
 		if($user != $last)
 			echo ',';
 	}
