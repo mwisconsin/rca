@@ -226,6 +226,11 @@ function confirmThis(f) {
     <br /><br />
 
     <input name="Submit" type="button" value="Post to RMS" onClick="if(confirmThis(this.form)) this.form.submit();"/>
+    <?php
+    if($balance - $ride_costs == 0 && $balance == 0) {
+    ?> <a href="/edit_user.php?field=deactivateuser">Deactivate Account?</a> <?php
+    }
+    ?>
 
     <p>Annual Fee <?php
         if (!$rider_user_id) {
@@ -258,7 +263,6 @@ function confirmThis(f) {
     </div>
     <?php } ?>
 </form>
-
 
 <?php
     include_once 'include/footer.php';
