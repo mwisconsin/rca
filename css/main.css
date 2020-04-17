@@ -248,6 +248,10 @@ h2 {
 	cursor:pointer;
 }/*background:#cae2f7;*/
 
+#User_Selector_Table .sortable_column {
+	cursor: pointer;
+}
+
 .Destination_Selected {
 	background:#c0c0c0 !important;
 }
@@ -592,4 +596,20 @@ background: repeating-linear-gradient(
 }
 .manifest td {
 	padding: 4px;
+}
+
+.arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid white; display: inline-block; margin-left: 3px; margin-bottom: 2px;
+}   
+
+.arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid white; display: inline-block; margin-left: 3px; margin-bottom: 2px;
 }

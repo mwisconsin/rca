@@ -1,3 +1,7 @@
+/* TODO remove dependency on foreign array of items in the list so that the list can just be managed by its contents */
+/* TODO remove dependency on MooTools. Dear God */
+/* TODO: Just dispense with this tomfoolery and use Datatables? */
+
 function xhr_set_affected_user(userID){
 	if(userID === null)
 		userID = "SETCURRENTUSER";
@@ -21,8 +25,9 @@ function xhr_set_affected_user(userID){
 }
 function button_up(evt){
 	if(evt.key == 'down' || evt.key == 'up' || evt.key == 'enter')
-          return;
-      eliminate_bad_matches();
+		  return;
+	var table = jQuery('#User_Selector_Table').DataTable();
+	table.search( this.value ).draw();
   }
 function eliminate_bad_matches(){
 	if($selected_user != null)
@@ -81,9 +86,13 @@ function selector_row_is_valid($row, $col_ids, $values){
 	return valid;		
 }
 function options_drop_down_change(evt){
-	Cookie.write(this.id, this.selectedIndex);
-	eliminate_bad_matches();
-	$('User_Selector_Input').focus();
+	// Cookie.write(this.id, this.selectedIndex);
+	// eliminate_bad_matches();
+	// $('User_Selector_Input').focus();
+
+	var table = jQuery('#User_Selector_Table').dataTable();
+	if(this.value == 'All Available') table.fnFilter('');
+	else table.fnFilter(this.value,3,true);
 }
 function get_selector_col_ids(){
 	return [2,4,5];
@@ -92,12 +101,12 @@ function get_selector_option_values(){
 	return [$('User_Selector_Input').value, $('User_Selector_Options_Role').value ];
 }
 function button_check(evt){
-    if(evt.key == 'enter' && $selected_user != null)
-    	xhr_set_affected_user($possible_users[$selected_user].getChildren()[0].innerHTML);
-    else if(evt.key == 'up' && $possible_users[ $selected_user - 1 ] != null)
-    	set_selected_user($selected_user - 1);
-    else if(evt.key == 'down' && $possible_users[ $selected_user + 1 ] != null)
-        set_selected_user($selected_user + 1);
+    if(evt.key == 'enter') {
+		var table = jQuery('#User_Selector_Table').DataTable();
+		var first_row = jQuery('#User_Selector_Table tbody tr')[0];
+		var data = table.row( first_row ).data();
+		xhr_set_affected_user(data[0]);
+	}
 }
 function clicked_in_selector(){
 	click_in_selector = true;
@@ -116,9 +125,12 @@ function hide_user_selector(){
 	$('User_Selector').setStyle('overflow-y', '');
 	$('User_Selector_Table').setStyle('display','none');
 	$('User_Selector_Option_Button').setStyle('display','none');
-	$('User_Selector_Input').value = "Find a person...";
 	click_in_selector = false;
-	
+	var table = jQuery('#User_Selector_Table').dataTable();
+	table.fnFilter('');
+	var table = jQuery('#User_Selector_Table').DataTable();
+	table.search('').draw();
+	jQuery('#User_Selector_Input').val('');
 	$('User_Selector_Input').addEvent('focus', show_user_selector);
 }
 
@@ -183,7 +195,6 @@ window.addEvent('domready',function(){
 		$('User_Selector_Options').getStyle('display') != 'none' ? $('User_Selector_Options').setStyle('display', 'none') : $('User_Selector_Options').setStyle('display', '');
 	});
 	$('User_Selector_Options_Role').selectedIndex = Cookie.read('User_Selector_Options_Role');
-	$('User_Selector_Input').value = "Find a person...";
 });
 
 function clear_selector_text(){
@@ -199,43 +210,13 @@ function clear_selector_text(){
 	$('User_Selector_Table').setStyle('display','');
 	$('User_Selector_Option_Button').setStyle('display','');
 	window.addEvent('keydown', button_check);
-    $('User_Selector_Input').addEvent('keyup', button_up);
-    var jsonRequest = new Request.JSON({url: 'xhr/user_selector.php', onSuccess: function(result){
-    	even = true;
-    	i = 0;
-	Array.each(result.users, function(item){
-		var row = new Element('tr', {}).inject($('User_Selector_Table'));
-		if(even){
-			row.addClass('even');
-			even = false;
-		} else
-			even = true;
-		
-		new Element('td', {
-			html: item[0]
-		}).inject(row);
-		new Element('td', {}).addClass('Hidden').inject(row);
-		new Element('td', {
-			html: item[1]
-		}).inject(row);
-		new Element('td', {}).inject(row);
-		new Element('td', {
-			html: item[2]
-		}).addClass('Hidden').inject(row);
-		new Element('td', {
-			html: item[3]
-		}).addClass('Hidden').inject(row);
-		row.addEvent('click',function(){
-			xhr_set_affected_user(this.getChildren()[0].innerHTML);
-		});
-		add_available_user(i, row);
-		i++;
-		
-	});
-	if($('User_Selector_Options_Role').selectedIndex != 0)
-		eliminate_bad_matches();
-}}).get();
+	$('User_Selector_Input').addEvent('keyup', button_up);
 	
+
+	var table = jQuery('#User_Selector_Table').dataTable();
+	table.fnFilter('');
+	var table = jQuery('#User_Selector_Table').DataTable();
+	table.search('').draw();
 	this.removeEvent('focus', clear_selector_text);
 
 	document.body.addEvent('click',hide_user_selector);
@@ -271,7 +252,27 @@ jQuery(function($) {
     	var ds = new Date(dt);
     	document.location = 'admin_driver_links.php?Year='+ds.getFullYear()+'&Month='+(ds.getMonth()+1)+'&Day='+ds.getDate();
     }
-    });
+	});
+	
+	var table = $('#User_Selector_Table').DataTable({
+		"order" : [[ 1, "asc" ]],
+		"paging" : false,
+        "columnDefs": [
+            {
+                "targets": [ 2,3 ],
+                "visible": false,
+                "searchable": true
+            }
+		],
+		"dom": 't'
+	});
+
+	$('#User_Selector_Table tbody').on('click','tr',function() {
+		var data = table.row( this ).data();
+		xhr_set_affected_user( data[0] );
+	});
+	
+
 });
 
 function escapeRegExp(str) {

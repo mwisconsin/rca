@@ -19,7 +19,7 @@ $tomm_arr = getdate(time()+86400);
 <?php } ?>
 <div id="User_Selector" class="noprint">
 	
-	<input id="User_Selector_Input" type="text" tabindex="-1" value="" />
+	<input id="User_Selector_Input" type="text" tabindex="-1" value="" placeholder="Find a Person..." />
 	<?php
 		if(get_affected_user_id() != get_current_user_id()){?>
 	Currently working as 
@@ -55,14 +55,33 @@ $tomm_arr = getdate(time()+86400);
      
 	</div>
     <div class="float_clear"></div>
-	<table id="User_Selector_Table" class="Hidden">
-		<tr id="User_Selector_RW_Start" class="User_Selector_Table_Header">
-			<th>ID</th>
-            <th class="Hidden">Franchise ID</th>
-			<th>Name</th>
-			<th class="User_Selector_Table_Header_Action">Action</th>
-            <th class="Hidden">Roles</th>
-		</tr>
+	<table id="User_Selector_Table" class="Hidden" width="100%">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Phone</th>
+				<th>Roles</th>
+			</tr>
+		</thead>
+		<tbody>
+<?php
+$sql = "SELECT users.UserID, FirstName, MiddleInitial, LastName, NickName, group_concat(PhoneNumber separator ' ') as PhoneNumber, group_concat(Role separator ' ') 
+FROM (users NATURAL JOIN person_name
+		LEFT JOIN user_role ON users.UserID = user_role.UserID 
+		LEFT JOIN user_phone ON users.UserID = user_phone.UserID
+		LEFT JOIN phone ON user_phone.PhoneID = phone.PhoneID)
+WHERE users.Status != 'INACTIVE' AND users.UserID IN (SELECT UserID FROM user_role WHERE FranchiseID = '$franchise')
+GROUP BY users.UserID ORDER BY LastName, FirstName";
+
+$result = mysql_query($sql);
+while($user = mysql_fetch_array($result)) {
+	echo "<tr>";
+	echo "<td>{$user['UserID']}</td><td>{$user['FirstName']} ".($user['NickName'] != '' ? "($user[NickName]) " : "")."{$user['LastName']}</td><td>{$user[5]}</td><td>{$user[6]}</td>";
+	echo "</tr>";
+}
+?>
+		</tbody>
 	</table>
 </div>
 

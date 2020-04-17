@@ -46,27 +46,33 @@ set_franchise_timezone(2);  // TODO:  Per-user/franchise TZ
 		<link rel="icon" type="image/ico" href="/favicon.ico?v=2"/>
         <link rel="stylesheet" type="text/css" href="/css/main.css" />
         <link rel="stylesheet" type="text/css" href="/css/datepicker.css" />
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>   
+        <!-- TODO: Get Rid of MOOTools. Get all up on jQuery -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>   
 		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script> 
-    <script>jQuery.noConflict();</script>
-    <script>
-    jQuery(function($) {
-    	$('.jq_datepicker').filter(function() {
-    		var dval = $(this).val();
-    		$(this).datepicker({
-	    		language: "en",
-	    		showOtherMonths: true,
-	      	selectOtherMonths: true,
-	      	numberOfMonths: 2,
-	      	showCurrentAtPos: 0    			
-    		});
-    		var dp = $(this).datepicker().data('datepicker');
-    		if(dval !== '') dp.selectDate(new Date(dval));
-    	});
-    });	
-    </script>
+        <script>jQuery.noConflict();</script>
+        <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script>
+        jQuery(function($) {
+            $('.jq_datepicker').filter(function() {
+                var dval = $(this).val();
+                $(this).datepicker({
+                    language: "en",
+                    showOtherMonths: true,
+                selectOtherMonths: true,
+                numberOfMonths: 2,
+                showCurrentAtPos: 0    			
+                });
+                var dp = $(this).datepicker().data('datepicker');
+                if(dval !== '') dp.selectDate(new Date(dval));
+            });
+        });	
+        </script>
+
+
+
 		<script src="/js/mootools.js" type="text/javascript"></script>
 		<script src="/js/mootools-more.js" type="text/javascript"></script>
 		<script src="/js/js-cookie.js" type="text/javascript"></script>
