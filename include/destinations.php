@@ -372,7 +372,7 @@ function get_display_list_for_group_dest( $group_dest_hash, $href, $id_suffix = 
 function get_destination($destination_id) {
     $safe_dest_id = mysql_real_escape_string($destination_id);
 
-    $sql = "SELECT DestinationID, DestinationGroupID, Name, IsPublic, IsPublicApproved, destination.PhoneID, PhoneNumber,DestinationDetail,
+    $sql = "SELECT DestinationID, DestinationGroupID, Name, IsPublic, IsPublicApproved, destination.PhoneID, PhoneNumber, Ext, DestinationDetail,
                    Address1, Address2, City, State, ZIP5, ZIP4, Latitude, Longitude, AddressID, VerifySource, FranchiseID, DestinationGroupID, is_local_area_override, AdditionalMinutes
             FROM (destination NATURAL JOIN address) LEFT JOIN phone ON  destination.PhoneID = phone.PhoneID
             WHERE destination.DestinationID = $safe_dest_id";
@@ -413,10 +413,13 @@ function display_destination($destination_id) {
     }
 
     // TODO:  Make this better.
+
     echo "<p><strong>{$destination['Name']}</strong>" . ( ($destination['DestinationDetail']) ?  "<br />{$destination['DestinationDetail']}" : '' ) . "<br />{$destination['Address1']}<br />" .
          (($destination['Address2']) ? "{$destination['Address2']}<br />" : '') . 
          "{$destination['City']}, {$destination['State']}  {$destination['ZIP5']}<br>
-         {$destination['PhoneNumber']}</p>";
+         {$destination['PhoneNumber']}"
+         .($destination['Ext'] != '' ? " x".$destination['Ext'] : "")
+         ."</p>";
 }
 
 function get_destination_display_string($destination_entry) {
