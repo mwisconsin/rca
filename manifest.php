@@ -57,7 +57,7 @@ $date = '';
 if(isset($_REQUEST['date']) && $_REQUEST['date'] != '') {
   $date = $_REQUEST['date'];
 } else if(isset($_REQUEST['month']) && isset($_REQUEST['day']) && isset($_REQUEST['year'])) {
-	$date = $_REQUEST['year'] . '-' . $_REQUEST['month'] . '-' . $_REQUEST['day'];
+	$date = $_REQUEST['year'] . '-' . str_pad($_REQUEST['month'],2,"0",STR_PAD_LEFT) . '-' . str_pad($_REQUEST['day'],2,"0",STR_PAD_LEFT);
 } else {
 	#echo "got here";
 	$links = get_driver_active_links( $driver_id, 'FUTURE' );
@@ -79,7 +79,10 @@ if(isset($_REQUEST['date']) && $_REQUEST['date'] != '') {
 	}	
 	//echo $date."<BR>";
 }   
+
 if($_POST['ReleaseDriver'] != null){
+	// echo "Releasing for Driver ".$driver_info['UserID']." for date $date<BR>";
+	// exit();
 	driverreleased_all_on_date($driver_info['UserID'],$date);
 }
 	
