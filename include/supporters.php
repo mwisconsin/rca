@@ -75,7 +75,7 @@ function get_supporter_rider_support_charity_funds($supporter_user_id) {
 
 function get_supporter_rider_support_funds_with_ytd_by_yr($supporter_user_id, $year) {
     $safe_uid = mysql_real_escape_string($supporter_user_id);
-    $sql = "SELECT users.UserID, Title, FirstName, MiddleInitial, LastName, Suffix,
+    $sql = "SELECT users.UserID, Title, FirstName, MiddleInitial, LastName, NickName, Suffix,
                    City, State, AddressType, 
                    SUM(IFNULL(Cents, 0)) AS YTD_Cents,
 				   ledger.EntityType, ledger.EntityID, supporter_rider.BeginDate, supporter_rider.EndDate

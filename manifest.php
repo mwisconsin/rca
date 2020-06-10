@@ -965,14 +965,14 @@ if($foundRide)
 	    		$next_rider_link = get_rider_next_ride($link["RiderUserID"], strtotime( $link["DesiredArrivalTime"].(date('I') ? "GMT-05" : "GMT-06") ), @$link['CustomTransitionID'] );
 	    		if(isset($next_rider_link['LinkID'])) {
 	    			if(($link['CustomTransitionID'] > 0 && $link['LinkID'] == $next_rider_link['CTI_LinkID']) || $link['CustomTransitionID'] == null)
-	    				echo "<br><br>".$rider_info["FirstName"]."'s next driver will arrive at ".date('n/j g:ia',strtotime($next_rider_link['Departure Time']));
+	    				echo "<br><br>".($rider_info["NickName"]!=''?$rider_info["NickName"]:$rider_info["FirstName"])."'s next driver will arrive at ".date('n/j g:ia',strtotime($next_rider_link['Departure Time']));
 	    		}
 		    	if($rider_count > 1) {
 		    		foreach(get_additional_riders($link['LinkID']) as $rider) {
 		    			$next_rider_link = get_rider_next_ride($rider["UserID"], strtotime( $link["DesiredArrivalTime"].(date('I') ? "GMT-05" : "GMT-06") ), @$link['CustomTransitionID'] );
 			    		if(isset($next_rider_link['LinkID'])) {
 			    			if(($link['CustomTransitionID'] > 0 && $link['LinkID'] == $next_rider_link['CTI_LinkID']) || $link['CustomTransitionID'] == null)
-			    				echo "<br>".$rider["FirstName"]."'s next driver will arrive at ".date('n/j g:ia',strtotime($next_rider_link['Departure Time']));
+			    				echo "<br>".($rider["NickName"]!=''?$rider["NickName"]:$rider["FirstName"])."'s next driver will arrive at ".date('n/j g:ia',strtotime($next_rider_link['Departure Time']));
 			    		}
 		    		}
 		    	}
@@ -1383,14 +1383,14 @@ If you aren't sure that the rides will work in your schedule, you can click the 
 	    		$next_rider_link = get_rider_next_ride($link["RiderUserID"], strtotime( $link["DesiredArrivalTime"].(date('I') ? "GMT-05" : "GMT-06") ), @$link['CustomTransitionID'] );
 	    		if(isset($next_rider_link['LinkID'])) {
 	    			if(($link['CustomTransitionID'] > 0 && $link['LinkID'] == $next_rider_link['CTI_LinkID']) || $link['CustomTransitionID'] == null)
-	    				echo "<br><br>".$rider_info["FirstName"]."'s next driver will arrive at ".date('n/j g:ia',strtotime($next_rider_link['Departure Time']));
+	    				echo "<br><br>".($rider_info["NickName"]!=''?$rider_info["NickName"]:$rider_info["FirstName"])."'s next driver will arrive at ".date('n/j g:ia',strtotime($next_rider_link['Departure Time']));
 	    		}
 		    	if($rider_count > 1) {
 		    		foreach(get_additional_riders($link['LinkID']) as $rider) {
 		    			$next_rider_link = get_rider_next_ride($rider["UserID"], strtotime( $link["DesiredArrivalTime"].(date('I') ? "GMT-05" : "GMT-06") ), @$link['CustomTransitionID'] );
 			    		if(isset($next_rider_link['LinkID'])) {
 			    			if(($link['CustomTransitionID'] > 0 && $link['LinkID'] == $next_rider_link['CTI_LinkID']) || $link['CustomTransitionID'] == null)
-			    				echo "<br>".$rider["FirstName"]."'s next driver will arrive at ".date('n/j g:ia',strtotime($next_rider_link['Departure Time']));
+			    				echo "<br>".($rider["NickName"]!=''?$rider["NickName"]:$rider["FirstName"])."'s next driver will arrive at ".date('n/j g:ia',strtotime($next_rider_link['Departure Time']));
 			    		}
 		    		}
 		    	}
