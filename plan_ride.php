@@ -658,6 +658,11 @@ $href = '';
 		 	});	
 		 });	
 		 	
+         function checkOnDemand(destination_id, stop_number) {
+             jQuery.get('/xhr/checkOnDemand.php', { id: destination_id, stop_number: stop_number }, function(data) {
+                    jQuery('input[name="OnDemandFlag['+data['stop_number']+']"]').prop('checked',data['on_demand_override'] == '1' ? true : false);
+             }, 'json');
+         }
 		 </script>
 		 <!--
         <td><?php

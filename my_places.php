@@ -144,7 +144,8 @@
 				edit_destination($_POST['placeid'], $_POST['Destination'], $address, 
                                  $franchise_id, $_POST["DestinationGroup"], $_POST['DestinationPhone'], 
                                  $_POST['DestinationDetail'], $is_public, @$_POST['IsPublicApproved'] ? true: false,
-                                 $_POST['DestinationPhoneExt'], $_POST['is_local_area'] == 'on' ? TRUE : FALSE,
+								 $_POST['DestinationPhoneExt'], $_POST['is_local_area'] == 'on' ? TRUE : FALSE,
+								 $_POST['on_demand'] == 'on' ? TRUE : FALSE,
                                  @$_POST['AdditionalMinutes']);	
                 if ($should_geocode) {
                     update_address($address['id'], $address, FALSE, TRUE);
@@ -287,6 +288,9 @@
 							.(( isset($place['is_local_area_override']) && $place['is_local_area_override'] == 0 )
 								 || is_zip_out_of_area( $franchise, $db_address['ZIP5'] ) ? '' : 'checked' )
 							 .">";
+						echo "<br>On Demand? <input type=checkbox name=on_demand "
+							.(isset($place['on_demand_override']) ? ($place['on_demand_override'] == 0 ? '' : 'checked') : '' )
+							.">";
 					}
 				?></td>
 			<td class="alignright"><input type="submit" value="<?php if ($_GET['action'] == 'edit') { ?>Submit Changes<? } else { ?>Add Address<?php } ?>"></td>

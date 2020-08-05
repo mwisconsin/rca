@@ -224,9 +224,10 @@ function create_destination_for_address_id($name, $address_id, $franchise_id,
 function edit_destination($destination_id, $name, $address, 
 		$franchise_id, $destination_group_id, $destination_phone, 
 		$destination_detail, $is_public, $is_public_approved = false, 
-		$destination_phone_ext = '', $is_local_area = TRUE, $AdditionalMinutes = 0){
+		$destination_phone_ext = '', $is_local_area = TRUE, $on_demand = FALSE, $AdditionalMinutes = 0){
 	
-	$is_local_area = $is_local_area == null ? 0 : $is_local_area;
+    $is_local_area = $is_local_area == null ? 0 : $is_local_area;
+    $on_demand = $on_demand == null ? 0 : $on_demand;
 	$safe_destination_id = mysql_real_escape_string( $destination_id );
 	$safe_name = mysql_real_escape_string( $name );
 	$safe_franchise_id = mysql_real_escape_string( $franchise_id );
@@ -258,6 +259,7 @@ function edit_destination($destination_id, $name, $address,
                                    $public_clause
                                    DestinationDetail = $safe_detail,
                                    is_local_area_override = $is_local_area,
+                                   on_demand_override = $on_demand,
                                    AdditionalMinutes = $AdditionalMinutes
                                WHERE DestinationID = $safe_destination_id LIMIT 1 ;";
 
@@ -373,7 +375,7 @@ function get_destination($destination_id) {
     $safe_dest_id = mysql_real_escape_string($destination_id);
 
     $sql = "SELECT DestinationID, DestinationGroupID, Name, IsPublic, IsPublicApproved, destination.PhoneID, PhoneNumber, Ext, DestinationDetail,
-                   Address1, Address2, City, State, ZIP5, ZIP4, Latitude, Longitude, AddressID, VerifySource, FranchiseID, DestinationGroupID, is_local_area_override, AdditionalMinutes
+                   Address1, Address2, City, State, ZIP5, ZIP4, Latitude, Longitude, AddressID, VerifySource, FranchiseID, DestinationGroupID, is_local_area_override, on_demand_override, AdditionalMinutes
             FROM (destination NATURAL JOIN address) LEFT JOIN phone ON  destination.PhoneID = phone.PhoneID
             WHERE destination.DestinationID = $safe_dest_id";
 
@@ -487,7 +489,7 @@ function get_rider_destination_selector($rider_user_id, $num, $initial_prompt = 
     	$rs = mysql_fetch_array($r);
     	$phone = $rs["PhoneNumber"];
     }
-    $ret = "<select id=\"destination_selector[$num]\" name=\"destination_selector[$num]\" onChange=\"checkYourself('$phone');\">";
+    $ret = "<select id=\"destination_selector[$num]\" name=\"destination_selector[$num]\" onChange=\"checkYourself('$phone'); checkOnDemand(this.options[this.selectedIndex].value,$num); \">";
 	
     if ($initial_prompt !== FALSE) {
         $ret .= '<option value="NOTSET" >' . $initial_prompt . '</option>';
