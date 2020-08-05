@@ -33,12 +33,15 @@
 		$check = array('DestinationName','Address1','City','State','Zip5','DestinationGroup');
 		
 		$destination_error = FALSE;
-		
+
 		foreach($check as $k => $v){
-			if($_POST[$v] == '' || $_POST[$v] == NULL || $_POST[$v] == 0)
+			if($_POST[$v] == '' || $_POST[$v] == NULL || $_POST[$v] == '0') {
+				echo "$v is bad<BR>";
 				$destination_error = TRUE;
+			}
 			
 		}
+
 		if(!$destination_error){
 			unset($destination_error);
 			$address = array('Address1' => $_POST['Address1'],
@@ -398,7 +401,6 @@
 							}
 						?>
 					</select>
-					<?php echo $sql;?>
 				</td>
 			</tr>
 			<tr><td valign="top">Tags</td>
