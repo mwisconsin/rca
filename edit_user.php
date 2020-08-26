@@ -960,7 +960,7 @@
 						</select> / 
 						<select name="BirthYear">
 							<?php
-								for($i = (int)date("Y") - 16; $i >= (int)date("Y")- 109; $i--)
+								for($i = (int)date("Y") - 1; $i >= (int)date("Y")- 109; $i--)
 								{
 									echo '<option value="' . $i . '" ';
 									if($i == $date['Year'])
