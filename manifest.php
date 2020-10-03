@@ -49,7 +49,7 @@ if(get_current_user_id() == get_affected_user_id()) $ReadOnly = 0;
 
 
 
-if($_POST['CreateCustomTransition'] && $_POST['CustomTransition'] != null){
+if(array_key_exists('CreateCustomTransition',$_POST) && $_POST['CustomTransition'] != null){
 	header("Location: plan_ride.php?CustomTransDriver=$driver_id&ReleasedD=".$_POST['ReleaseDriver']."&CustomTransLinks=". implode(",",array_keys($_POST['CustomTransition'])));
 }
 	
@@ -80,14 +80,14 @@ if(isset($_REQUEST['date']) && $_REQUEST['date'] != '') {
 	//echo $date."<BR>";
 }   
 
-if($_POST['ReleaseDriver'] != null){
+if(array_key_exists('ReleaseDriver',$_POST) && $_POST['ReleaseDriver'] != null){
 	// echo "Releasing for Driver ".$driver_info['UserID']." for date $date<BR>";
 	// exit();
 	driverreleased_all_on_date($driver_info['UserID'],$date);
 }
 	
 	
-    if ($_POST['UpdateArrivals']) {
+    if (array_key_exists('UpdateArrivals',$_POST) && $_POST['UpdateArrivals'] != '') {
         $keys = array_keys($_POST['hour']);
         if (count($keys)) {
 
@@ -103,7 +103,7 @@ if($_POST['ReleaseDriver'] != null){
         }
     }
 	
-    if($_POST['CancelCustomTransition']){
+    if(array_key_exists('CancelCustomTransition',$_POST) && $_POST['CancelCustomTransition'] != ''){
     	$id = array_keys($_POST['CancelCustomTransition']);
     	$result = cancel_custom_ride_transition(get_link_custom_transition_id($id[0]));
     	
@@ -112,7 +112,7 @@ if($_POST['ReleaseDriver'] != null){
     	}
     }
     
-    if($_POST['RevertCustomTransition']){
+    if(array_key_exists('RevertCustomTransition',$_POST) && $_POST['RevertCustomTransition'] != ''){
     	$id = array_keys($_POST['RevertCustomTransition']);
     	$result = revert_custom_ride_transition(get_link_custom_transition_id($id[0]));
     	
@@ -121,7 +121,7 @@ if($_POST['ReleaseDriver'] != null){
     	}
     }
     
-    if($_POST['RequestRevertCustomTransition']){
+    if(array_key_exists('RequestRevertCustomTransition',$_POST) && $_POST['RequestRevertCustomTransition'] != ''){
     	$id = array_keys($_POST['RequestRevertCustomTransition']);
     	$CTL_result = "<form method=\"post\"><div class=\"reminder\" id=\"CTL\">Are you sure you want to revert to the original transition. This Cannot Redo This <center><input type=\"submit\" name=\"RevertCustomTransition[{$id[0]}]\" value=\"Revert\"> <input type=\"button\" onclick=\"$('CTL').setStyle('display','none');\" value=\"Cancel\"></center></div><form>";
     }
@@ -163,7 +163,7 @@ if($_POST['ReleaseDriver'] != null){
 	
 	//print_r($_SESSION['Manifest']);		
 	
-	if($_POST['location_start_or_finish']){
+	if(array_key_exists('location_start_or_finish',$_POST) && $_POST['location_start_or_finish'] != ''){
 		if($_POST['location_start_or_finish'] == 'start')
 		{
 			$_SESSION['Manifest']['StartLocation'] = usps_standardize_address(array('Address1' => $_POST['Address1'],
@@ -239,7 +239,7 @@ Thank you for using Riders Club of Cedar Rapids!";
 	}
 	
 	$take_ride_error = '';
-	if($_POST["button_take_rides"] && isset($_POST["SelectIndexPath"]) && count($_POST["SelectIndexPath"]) > 0) {
+	if(array_key_exists("button_take_rides",$_POST) && $_POST["button_take_rides"] && isset($_POST["SelectIndexPath"]) && count($_POST["SelectIndexPath"]) > 0) {
 		
 		$sql = "select CustomTransitionID, LinkID, IndexPath from link where IndexPath in ('".join("','",array_keys($_POST["SelectIndexPath"]))."')
 				and AssignedDriverUserID in (select UserID from user_role natural join users where 
@@ -293,7 +293,7 @@ Thank you for using Riders Club of Cedar Rapids!";
 #print_r($links);
 	
 	$trylinkids = [];
-	if($_POST["button_try_above"] && isset($_POST["SelectIndexPath"]) && count($_POST["SelectIndexPath"]) > 0) {
+	if(array_key_exists("button_try_above", $_POST) && $_POST["button_try_above"] != '' && isset($_POST["SelectIndexPath"]) && count($_POST["SelectIndexPath"]) > 0) {
 		$sql = "select LinkID from link where IndexPath in ('".join("','",array_keys($_POST["SelectIndexPath"]))."')";
 		$r = mysql_query($sql);
 		while($rs = mysql_fetch_array($r)) $trylinkids[] = $rs["LinkID"];
@@ -308,8 +308,9 @@ Thank you for using Riders Club of Cedar Rapids!";
 	
     if ($links) {
         // Remove any link with a status containing CANCEL
-        $cancels_removed = array_values(array_filter($links, create_function('$link_row_item', 
-                                        'return (strpos($link_row_item["LinkStatus"], "CANCEL") === FALSE);')));
+        $cancels_removed = array_values(array_filter($links, function($link_row_item) { 
+										return (strpos($link_row_item["LinkStatus"], "CANCEL") === FALSE);
+									}));
         $links = $cancels_removed;
     }
 
@@ -507,7 +508,7 @@ Thank you for using Riders Club of Cedar Rapids!";
 //	$_GET['day'] = $date2['Day'];
 //	$_GET['year'] = $date2['Year'];
 //}
-if($_GET['date']){
+if(array_key_exists('date',$_GET) && $_GET['date'] != ''){
 	$date2 = get_date($_GET['date']);
 	$_GET['month'] = $date2['Month'];
 	$_GET['day'] = $date2['Day'];
@@ -527,7 +528,7 @@ if($_GET['date']){
 ?>
 <div style="text-align:center;"><h2><?php 
     echo isset($driver_info['NickName']) && $driver_info['NickName'] != '' ? $driver_info['NickName'] : $driver_info['FirstName'] ?>'s Scheduled Riders for <?php echo $date ?></h2></div>
-    <?php echo $CTL_result; ?>
+    <?php echo @$CTL_result; ?>
 <div style="clear:both;">
 <p>
 <button name="PrintButton" class="noprint" onclick="window.print();">Print</button>
@@ -790,6 +791,9 @@ if($foundRide)
 	
 	/* total volunteer minutes */
 	$tvm = 0;
+	$minutes = 0;
+	$miles = 0;
+	$bg_class == 'odd';
 
 	foreach ($links as $link) 
     {
@@ -1010,7 +1014,7 @@ if($foundRide)
 		 
 		     	<?php 
 		     	if((current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise_id, 'Franchisee'))&& $link['LinkID'] != 0){
-         		if($link['IsHistory'] == 'HISTORY') { ?>
+         		if(array_key_exists('IsHistory',$link) && $link['IsHistory'] == 'HISTORY') { ?>
          			<td class="noprint">History</td>
          		<?php 
          		} else if($link['DriverConfirmed'] != 'Yes') { ?>
@@ -1025,7 +1029,7 @@ if($foundRide)
 					} 
 					
 					if((current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise_id, 'Franchisee'))&& $link['LinkID'] != 0){
-         	if($link['IsHistory'] == 'HISTORY'){ ?>
+         	if(array_key_exists('IsHistory',$link) && $link['IsHistory'] == 'HISTORY'){ ?>
          		<td class="noprint">History</td>
          	<?php } else if($link['CustomTransitionType'] != 'DRIVER'){ ?>
          		<td class="noprint"><center><input type="checkbox" name="CustomTransition[<?php echo $link['LinkID']; ?>]"></center></td>

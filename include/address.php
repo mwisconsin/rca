@@ -338,17 +338,17 @@ function create_html_address_table($prefix = '', $address = NULL, $verify = TRUE
 	?>
 	<table name="Address_Table" style="margin:auto; text-align:left;">
 		<tr>
-			<td colspan="3">*Street Address<br/><input id="<?php echo $prefix; ?>Address1<?php echo $postfix; ?>" name="<?php echo $prefix; ?>Address1<?php echo $postfix; ?>" type="text" value="<?php echo $address['Address1']; ?>" <?php if(current_user_has_role(1,'FullAdmin') || current_user_has_role($franchise, 'Franchisee')){?>style="width:305px;"<?php } else {?>style="width:250px;"<?php } ?> /></td>
+			<td colspan="3">*Street Address<br/><input id="<?php echo $prefix; ?>Address1<?php echo $postfix; ?>" name="<?php echo $prefix; ?>Address1<?php echo $postfix; ?>" type="text" value="<?php echo @$address['Address1']; ?>" <?php if(current_user_has_role(1,'FullAdmin') || current_user_has_role($franchise, 'Franchisee')){?>style="width:305px;"<?php } else {?>style="width:250px;"<?php } ?> /></td>
 		</tr>
 		<tr>
-			<td colspan="3">Address 2 <span style="font-size:.75em;">Apt, floor, suite, etc.</span><br><input id="<?php echo $prefix; ?>Address2<?php echo $postfix; ?>" value="<?php echo $address['Address2']; ?>" name="<?php echo $prefix; ?>Address2<?php echo $postfix; ?>" type="text" <?php if(current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise, 'Franchisee')){?>style="width:305px;"<?php } else {?>style="width:250px;"<?php } ?> /></td>
+			<td colspan="3">Address 2 <span style="font-size:.75em;">Apt, floor, suite, etc.</span><br><input id="<?php echo $prefix; ?>Address2<?php echo $postfix; ?>" value="<?php echo @$address['Address2']; ?>" name="<?php echo $prefix; ?>Address2<?php echo $postfix; ?>" type="text" <?php if(current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise, 'Franchisee')){?>style="width:305px;"<?php } else {?>style="width:250px;"<?php } ?> /></td>
 		</tr>
 		<tr>
-			<td>City<br /><input id="<?php echo $prefix; ?>City<?php echo $postfix; ?>" value="<?php echo $address['City']; ?>" name="<?php echo $prefix; ?>City<?php echo $postfix; ?>" maxlength="30" type="text" style="width:150px;" /></td>
+			<td>City<br /><input id="<?php echo $prefix; ?>City<?php echo $postfix; ?>" value="<?php echo @$address['City']; ?>" name="<?php echo $prefix; ?>City<?php echo $postfix; ?>" maxlength="30" type="text" style="width:150px;" /></td>
 			<td>State<br />
-            	<?php get_state_dropdown($prefix, $address['State'], $postfix); ?>
+            	<?php get_state_dropdown($prefix, @$address['State'], $postfix); ?>
             </td>
-			<td>Zip<br /><input id="<?php echo $prefix; ?>Zip5<?php echo $postfix; ?>"  value="<?php echo $address['ZIP5'] != '' ? sprintf("%05s", $address['ZIP5']) : ''; ?>" name="<?php echo $prefix; ?>Zip5<?php echo $postfix; ?>" maxlength="5" type="text" style="width:40px;" /><?php if(current_user_has_role($franchise, 'FullAdmin') || current_user_has_role($franchise, "Franchisee")){?> - <input type="text" id="<?php echo $prefix; ?>Zip4<?php echo $postfix; ?>" value="<?php echo $address['ZIP4'] != '' ? sprintf("%04s", $address['ZIP4']) : ''; ?>" name="<?php echo $prefix; ?>Zip4<?php echo $postfix; ?>" maxlength="4" style="width:35px;" /><?php } ?></td>
+			<td>Zip<br /><input id="<?php echo $prefix; ?>Zip5<?php echo $postfix; ?>"  value="<?php echo @$address['ZIP5'] != '' ? sprintf("%05s", @$address['ZIP5']) : ''; ?>" name="<?php echo $prefix; ?>Zip5<?php echo $postfix; ?>" maxlength="5" type="text" style="width:40px;" /><?php if(current_user_has_role($franchise, 'FullAdmin') || current_user_has_role($franchise, "Franchisee")){?> - <input type="text" id="<?php echo $prefix; ?>Zip4<?php echo $postfix; ?>" value="<?php echo @$address['ZIP4'] != '' ? sprintf("%04s", @$address['ZIP4']) : ''; ?>" name="<?php echo $prefix; ?>Zip4<?php echo $postfix; ?>" maxlength="4" style="width:35px;" /><?php } ?></td>
 		</tr>
 	</table>
 	<input type=hidden id="<?php echo $prefix; ?>Latitude<?php echo $postfix; ?>" name="<?php echo $prefix; ?>Latitude<?php echo $postfix; ?>" value="<?php echo @$address['Latitude']; ?>">

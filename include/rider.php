@@ -651,11 +651,13 @@ function rider_preferences_to_display_string($preferences_array) {
     	
 
     foreach ($preferences_array as $type => $pref) {
-        $strings = $string_refs[$type];
-        if(is_array($strings)) { 
-        	foreach($strings as $k => $v) if ($strings[$k] != '' && $k == $pref)
-	            $prefs_strings[] = $v;
-	      } else if($strings[$pref] != '') $prefs_strings[] = $strings[$pref];
+		if(array_key_exists($type,$string_refs)) {
+			$strings = $string_refs[$type];
+			if(is_array($strings)) { 
+				foreach($strings as $k => $v) if ($strings[$k] != '' && $k == $pref)
+					$prefs_strings[] = $v;
+			} else if($strings[$pref] != '') $prefs_strings[] = $strings[$pref];
+		}
 	            
     }
     return implode(', ', $prefs_strings); 
