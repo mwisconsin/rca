@@ -793,7 +793,7 @@ if($foundRide)
 	$tvm = 0;
 	$minutes = 0;
 	$miles = 0;
-	$bg_class = 'odd';
+	$bg_class = 'even';
 
 	foreach ($links as $link) 
     {
