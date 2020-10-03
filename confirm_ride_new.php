@@ -84,14 +84,14 @@ for ($i = 0; $i < count($ride_request['links']); $i++) {
 	$to_dest = get_destination($curr_link['to']);
     if (($ride_request['Type'] != 'Finish Custom Transition' 
     	&& !$service_area_zips[$to_dest['ZIP5']])
-    	|| ($to_dest['is_local_area_override'] != TRUE && $to_dest['is_local_area_override'] != NULL)) {
+    	&& ($to_dest['is_local_area_override'] != TRUE && $to_dest['is_local_area_override'] != NULL)) {
         $is_out_of_area = TRUE;
         $ride_request['links'][$i]['to_out_of_area'] = TRUE;
         $out_of_area_link = TRUE;
 	}
     if (($ride_request['Type'] != 'Finish Custom Transition' 
     	&& !$service_area_zips[$from_dest['ZIP5']])
-    	|| ($from_dest['is_local_area_override'] != TRUE && $from_dest['is_local_area_override'] != NULL)) {
+    	&& ($from_dest['is_local_area_override'] != TRUE && $from_dest['is_local_area_override'] != NULL)) {
         $is_out_of_area = TRUE;
         $ride_request['links'][$i]['from_out_of_area'] = TRUE;
         $out_of_area_link = TRUE;
