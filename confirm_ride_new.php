@@ -286,7 +286,7 @@ if (!$error_text) {
 				add_destination_for_rider($rider_info['UserID'],$from_dest_id);
 				add_destination_for_rider($rider_info['UserID'],$to_dest_id);
 			}
-			if(count($link['riders']) > 0){
+			if($link['riders'] && count($link['riders']) > 0){
 			  $rider_info['UserID'] = array_pop(array_reverse($link['riders']));
 				$link['riders'][array_pop(array_reverse(array_keys($link['riders'])))] = NULL;
 			}
@@ -650,7 +650,7 @@ JS;
 }
     $additional_riders = 0;
     foreach($ride_request['links'] as $link){
-        if(count($link['riders']) > $additional_riders)
+        if($link['riders'] && count($link['riders']) > $additional_riders)
             $additional_riders = count($link['riders']);
     }
     $additional_riders = ($additional_riders > 1) ? true : false;
