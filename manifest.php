@@ -778,7 +778,7 @@ if(array_key_exists('date',$_GET) && $_GET['date'] != ''){
         <?php } ?>
     </tr>
 <?php
-    $doing_history = ($links[0]['IsHistory'] == 'HISTORY');
+    $doing_history = (array_key_exists('IsHistory',$links[0]) && $links[0]['IsHistory'] == 'HISTORY');
     $alpha = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z');
     $indexNum = 1;
     $alphaIndex = 0;
@@ -793,7 +793,7 @@ if($foundRide)
 	$tvm = 0;
 	$minutes = 0;
 	$miles = 0;
-	$bg_class == 'odd';
+	$bg_class = 'odd';
 
 	foreach ($links as $link) 
     {
@@ -804,7 +804,7 @@ if($foundRide)
         if($link['DriverConfirmed'] == 'No' && !current_user_has_role(1, 'FullAdmin') && !current_user_has_role($franchise_id, "Franchisee"))
         	continue;
         
-        if (!$doing_history && $link['IsHistory'] == 'HISTORY') {
+        if (!$doing_history && array_key_exists('IsHistory',$link) && $link['IsHistory'] == 'HISTORY') {
             echo '<tr><td colspan="13"> HISTORY </td></tr>';
             $doing_history = TRUE;
         }
