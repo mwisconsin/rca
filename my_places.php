@@ -286,7 +286,7 @@
 					if($_GET['action'] == 'edit') {
 						echo "<br>Is In Local Area? <input type=checkbox name=is_local_area "
 							.(( isset($place['is_local_area_override']) && $place['is_local_area_override'] == 0 )
-								 || is_zip_out_of_area( $franchise, $db_address['ZIP5'] ) ? '' : 'checked' )
+								 /*|| is_zip_out_of_area( $franchise, $db_address['ZIP5'] )*/ ? '' : 'checked' )
 							 .">";
 						echo "<br>On Demand? <input type=checkbox name=on_demand "
 							.(isset($place['on_demand_override']) ? ($place['on_demand_override'] == 0 ? '' : 'checked') : '' )
