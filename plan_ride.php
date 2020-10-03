@@ -1102,7 +1102,7 @@ HTML;
     } else {
 	if(current_user_has_role(1, "FullAdmin") || current_user_has_role($franchise_id, 'Franchisee')){
 		$arrival_checkbox = '<br /><input type="checkbox" name="ArrivalTimeConfirmed[' . ($idx) . ']" ';
-		if( $cached_schedule['ArrivalTimeConfirmed'][$idx-1] == TRUE)
+		if(is_numeric($idx) && $cached_schedule['ArrivalTimeConfirmed'][$idx-1] == TRUE)
 			$arrival_checkbox .= 'checked="checked"';
 		$arrival_checkbox .= '/> Arrival Time Confirmed';
 		
