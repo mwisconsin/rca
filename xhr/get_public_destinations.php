@@ -18,8 +18,8 @@
 		$final_array[] = array('id'=>$row['DestinationID'], 'name' => $row['Name'], 'description' => $row['DestinationDetail'], 'phone' => $row['PhoneNumber'], 'groups' => $group_string, 'address' => "{$row['Address1']}, {$row['City']} {$row['State']}"); 
 	}
 	
-	for($i = 0; $i < count($sub_groups); $i++)
-		$final_array = array_merge($final_array, $sub_groups[$i]);
+	// for($i = 0; $i < count($sub_groups); $i++)
+	// 	$final_array = array_merge($final_array, $sub_groups[$i]);
 	return $final_array;
 }
 
