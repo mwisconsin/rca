@@ -1082,12 +1082,14 @@ if(count($links) > 0 && !$foundRide) {
     }
 ?>
 <table>
-    <tr><td><?php echo $miles; ?></td><td>Transport Miles</td></tr>
-    <tr><td><?php echo $minutes; ?></td><td>Transport Minutes</td></tr>
-    <tr><td><?php echo $tvm; ?></td><td>Total Volunteer Minutes</td></tr>
+    <tr><td><?php echo count($links) > 0 ? @$miles : 0; ?></td><td>Transport Miles</td></tr>
+    <tr><td><?php echo count($links) > 0 ? @$minutes : 0; ?></td><td>Transport Minutes</td></tr>
+    <tr><td><?php echo count($links) > 0 ? @$tvm : 0; ?></td><td>Total Volunteer Minutes</td></tr>
     <tr><td><?php
-        $total_minutes = ($last_time_t - $first_time_t) / 60;
-        echo $total_minutes;
+		if(count($links) > 0) {
+        	$total_minutes = ($last_time_t - $first_time_t) / 60;
+			echo $total_minutes;
+		} else echo "0";
     ?></td><td>Total Minutes start to last drop-off</td></tr>
 </table>
 

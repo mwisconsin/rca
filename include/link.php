@@ -175,7 +175,7 @@ function get_rider_active_links( $rider_user_id ) {
                    AssignedDriverUserID, VehicleID, NumberOfRiders, LinkStatus, DepartureTimeConfimed, ArrivalTimeConfirmed,
                    FromDestinationID AS F_DestinationID, ToDestinationID AS T_DestinationID,
                    F_Dest.Name AS F_Name, F_Dest.IsPublic AS F_Public,
-                   F_Dest.DestinationDetail AS F_DestinationDetail,
+                   F_Dest.DestinationDetail AS F_DestinationDetail, F_Dest.ShowOnManifest as F_ShowOnManifest,
                    F_Address.AddressID AS F_AddressID, F_Address.Address1 AS F_Address1, 
                    F_Address.Address2 AS F_Address2, F_Address.City AS F_City, 
                    F_Address.State AS F_State, F_Address.ZIP5 AS F_ZIP5, 
@@ -185,7 +185,7 @@ function get_rider_active_links( $rider_user_id ) {
                    F_Address.Longitude as F_Longitude,
                    F_Phone.PhoneNumber AS F_PhoneNumber, F_Phone.Ext AS F_Ext,
                    T_Dest.Name AS T_Name, T_Dest.IsPublic AS T_IsPublic,
-                   T_Dest.DestinationDetail AS T_DestinationDetail,
+                   T_Dest.DestinationDetail AS T_DestinationDetail, T_Dest.ShowOnManifest as T_ShowOnManifest,
                    T_Address.AddressID AS T_AddressID, T_Address.Address1 AS T_Address1, 
                    T_Address.Address2 AS T_Address2,
                    T_Address.City AS T_City, T_Address.State AS T_State, 
@@ -302,7 +302,7 @@ function get_driver_active_links( $driver_user_id, $date = 'ALLDATES' ) {
 	NumberOfRiders, CustomTransitionType, CustomTransitionID, DriverConfirmed,
                    FromDestinationID AS F_DestinationID, ToDestinationID AS T_DestinationID,
                    F_Dest.Name AS F_Name, F_Dest.IsPublic AS F_Public,
-                   F_Dest.DestinationDetail AS F_DestinationDetail,
+                   F_Dest.DestinationDetail AS F_DestinationDetail, F_Dest.ShowOnManifest AS F_ShowOnManifest,
                    F_Address.AddressID AS F_AddressID, F_Address.Address1 AS F_Address1, 
                    F_Address.Address2 AS F_Address2, F_Address.City AS F_City, 
                    F_Address.State AS F_State, F_Address.ZIP5 AS F_ZIP5, 
@@ -310,7 +310,7 @@ function get_driver_active_links( $driver_user_id, $date = 'ALLDATES' ) {
                    F_Address.VerifySource as F_VerifySource,
                    F_Address.Latitude as F_Latitude,
                    F_Address.Longitude as F_Longitude,
-                   T_Dest.Name AS T_Name, T_Dest.IsPublic AS T_IsPublic,
+                   T_Dest.Name AS T_Name, T_Dest.IsPublic AS T_IsPublic, T_Dest.ShowOnManifest as T_ShowOnManifest,
                    T_Dest.DestinationDetail AS T_DestinationDetail,
                    T_Address.AddressID AS T_AddressID, T_Address.Address1 AS T_Address1, 
                    T_Address.Address2 AS T_Address2,
@@ -318,9 +318,13 @@ function get_driver_active_links( $driver_user_id, $date = 'ALLDATES' ) {
                    T_Address.ZIP5 AS T_ZIP5, T_Address.ZIP4 AS T_ZIP4,
                    T_Address.VerifySource as T_VerifySource,
                    T_Address.Latitude as T_Latitude,
-                   T_Address.Longitude as T_Longitude, IndexPath, IndexPathUrgent
-            FROM link, destination AS F_Dest, destination AS T_Dest, 
-                 address AS F_Address, address AS T_Address
+                   T_Address.Longitude as T_Longitude, IndexPath, IndexPathUrgent,
+                   F_Phone.PhoneNumber as F_PhoneNumber, F_Phone.Ext as F_Ext,
+                   T_Phone.PhoneNumber as T_PhoneNumber, T_Phone.Ext as T_Ext
+            FROM (link, destination AS F_Dest, destination AS T_Dest, 
+                 address AS F_Address, address AS T_Address)
+            LEFT JOIN phone AS F_Phone ON F_Dest.PhoneID = F_Phone.PhoneID
+            LEFT JOIN phone AS T_Phone ON T_Dest.PhoneID = T_Phone.PhoneID
             WHERE link.AssignedDriverUserID = $safe_driver_user_id AND
                   $date_where_clause
                   (link.CustomTransitionType != 'RIDER' || link.CustomTransitionType IS NULL) AND
@@ -362,6 +366,7 @@ function get_all_driver_history_and_active_links( $driver_user_id, $date = 'ALLD
                    FromDestinationID AS F_DestinationID, ToDestinationID AS T_DestinationID,
                    F_Dest.Name AS F_Name, F_Dest.IsPublic AS F_Public,
                    F_Dest.DestinationDetail AS F_DestinationDetail,
+                   F_Dest.ShowOnManifest as F_ShowOnManifest,
                    F_Address.AddressID AS F_AddressID, F_Address.Address1 AS F_Address1, 
                    F_Address.Address2 AS F_Address2, F_Address.City AS F_City, 
                    F_Address.State AS F_State, F_Address.ZIP5 AS F_ZIP5, 
@@ -369,6 +374,7 @@ function get_all_driver_history_and_active_links( $driver_user_id, $date = 'ALLD
                    F_Address.VerifySource as F_VerifySource,
                    F_Address.Latitude as F_Latitude,
                    F_Address.Longitude as F_Longitude,
+                   T_Dest.ShowOnManifest AS T_ShowOnManifest,
                    T_Dest.Name AS T_Name, T_Dest.IsPublic AS T_IsPublic,
                    T_Dest.DestinationDetail AS T_DestinationDetail,
                    T_Address.AddressID AS T_AddressID, T_Address.Address1 AS T_Address1, 
@@ -378,9 +384,13 @@ function get_all_driver_history_and_active_links( $driver_user_id, $date = 'ALLD
                    T_Address.VerifySource as T_VerifySource,
                    T_Address.Latitude as T_Latitude,
                    T_Address.Longitude as T_Longitude,
-                   'HISTORY' AS IsHistory, IndexPath, IndexPathUrgent
-            FROM link_history, destination AS F_Dest, destination AS T_Dest, 
-                 address AS F_Address, address AS T_Address
+                   'HISTORY' AS IsHistory, IndexPath, IndexPathUrgent,
+                   F_Phone.PhoneNumber as F_PhoneNumber, F_Phone.Ext as F_Ext,
+                   T_Phone.PhoneNumber as T_PhoneNumber, T_Phone.Ext as T_Ext
+            FROM (link_history, destination AS F_Dest, destination AS T_Dest, 
+                 address AS F_Address, address AS T_Address)
+            LEFT JOIN phone AS F_Phone ON F_Dest.PhoneID = F_Phone.PhoneID
+            LEFT JOIN phone AS T_Phone ON T_Dest.PhoneID = T_Phone.PhoneID
             WHERE link_history.DriverUserID = $safe_driver_user_id AND
                   $date_where_clause
                   (link_history.CustomTransitionType != 'RIDER' OR 
@@ -720,7 +730,7 @@ function get_link_destination_table_cell_contents($dest_prefix, $link_row, $link
     $cell .= "{$link_row[$dest_prefix . 'Address1']}<br />" . $address2;
     $cell .= "{$link_row[$dest_prefix . 'City']}, {$link_row[$dest_prefix . 'State']}  {$link_row[$dest_prefix . 'ZIP5']}";
     
-    if (isset($link_row[$dest_prefix . 'PhoneNumber'])) {
+    if (isset($link_row[$dest_prefix . 'PhoneNumber']) && $link_row[$dest_prefix.'ShowOnManifest'] === '1') {
         $cell .= "<br />{$link_row[$dest_prefix . 'PhoneNumber']}";
         $cell .= $link_row[$dest_prefix. 'Ext'] != '' ? ' x'.$link_row[$dest_prefix. 'Ext'] : '';
     }

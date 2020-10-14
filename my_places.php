@@ -116,7 +116,7 @@
                                                       @$_POST['IsPublicApproved'] ? true: false, 
                                                       $_POST["DestinationGroup"], $_POST['DestinationPhone'], 
                                                       $_POST['DestinationDetail'], $_POST['DestinationPhoneExt'],
-                                                      @$_POST['AdditionalMinutes']);
+                                                      @$_POST['AdditionalMinutes'], @$_POST["ShowOnManifest"] == 'on' ? TRUE : FALSE);
 			add_destination_for_rider($rider_id,$new_destination);
 			$destination = get_destination($new_destination);
       if ($should_geocode) {
@@ -146,7 +146,7 @@
                                  $_POST['DestinationDetail'], $is_public, @$_POST['IsPublicApproved'] ? true: false,
 								 $_POST['DestinationPhoneExt'], $_POST['is_local_area'] == 'on' ? TRUE : FALSE,
 								 $_POST['on_demand'] == 'on' ? TRUE : FALSE,
-                                 @$_POST['AdditionalMinutes']);	
+                                 @$_POST['AdditionalMinutes'], @$_POST["ShowOnManifest"] == 'on' ? 1 : 0);	
                 if ($should_geocode) {
                     update_address($address['id'], $address, FALSE, TRUE);
                 }
@@ -276,10 +276,18 @@
                 } ?> />
     	</td>
     </tr>
+    <tr>
+    	<td style="padding-left: 4px;" colspan=2>Show on Manifest:
+    		<input name="ShowOnManifest" type="checkbox" <?php 
+                if ($place['ShowOnManifest'] === '1') {
+                    echo 'checked="checked" ';
+                } ?> />
+    	</td>
+    </tr>
 <?php } 
 ?>
 		<tr valign=top>
-			<td><?php if($place['Name'] != 'Default Home') { ?>
+			<td style="padding-left: 4px;"><?php if($place['Name'] != 'Default Home') { ?>
 				Share This Location <input type="checkbox"<?php if ($place['IsPublic'] == 'Yes') echo ' Checked="true"'; ?> name="Public">
 				<?php } ?>
 				<?php

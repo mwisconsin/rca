@@ -33,7 +33,7 @@ function get_destinations_by_franchise_and_group($franchise_id, $destination_gro
     $safe_destination_group_id = mysql_real_escape_string($destination_group_id);
 
     $dest_sql = "SELECT DestinationID, DestinationGroupID, Name, AddressID,
-                       IsPublic, FranchiseID, DestinationDetail, PhoneNumber, AdditionalMinutes,
+                       IsPublic, FranchiseID, DestinationDetail, PhoneNumber, AdditionalMinutes, ShowOnManifest, 
                        (SELECT GROUP_CONCAT(TagName SEPARATOR ' ') 
                         FROM destination_tag NATURAL JOIN destination_tag_list
                         WHERE destination_tag.DestinationID = destination.DestinationID
@@ -154,7 +154,7 @@ function in_add_destination_blacklist() {
  */
 function create_new_destination($name, $address, $franchise_id, $is_public, $is_public_approved = FALSE,
                                 $destination_group = -1, $destination_phone = NULL, $destination_detail = NULL, 
-                                $destination_phone_ext = NULL, $AdditionalMinutes = 0) {
+                                $destination_phone_ext = NULL, $AdditionalMinutes = 0, $ShowOnManifest = 0) {
     
     if(in_add_destination_blacklist())
         return FALSE;
@@ -168,7 +168,7 @@ function create_new_destination($name, $address, $franchise_id, $is_public, $is_
     $destination_id = create_destination_for_address_id($name, $address_id, $franchise_id,
                                                         $is_public, $is_public_approved, $destination_group,
                                                         $destination_phone, $destination_detail, $destination_phone_ext,
-                                                        $AdditionalMinutes);
+                                                        $AdditionalMinutes, $ShowOnManifest);
 
     return $destination_id;
 }
@@ -190,7 +190,7 @@ function create_destination_for_address_id($name, $address_id, $franchise_id,
                                            $is_public, $is_public_approved = FALSE,
                                            $destination_group_id , $destination_phone, 
                                            $destination_detail = NULL, $destination_phone_ext = NULL, 
-                                           $AdditionalMinutes = 0) {
+                                           $AdditionalMinutes = 0, $ShowOnManifest = 0) {
     $return = FALSE;
 
     $safe_name = mysql_real_escape_string($name);
@@ -204,10 +204,10 @@ function create_destination_for_address_id($name, $address_id, $franchise_id,
                                     "'" . mysql_real_escape_string($destination_detail) . "'"; 
 
     $sql = "INSERT INTO destination (DestinationGroupID, Name, AddressID, IsPublic, 
-                                     IsPublicApproved, FranchiseID, PhoneID, DestinationDetail, AdditionalMinutes)
+                                     IsPublicApproved, FranchiseID, PhoneID, DestinationDetail, AdditionalMinutes, ShowOnManifest)
             VALUES ($safe_destination_group_id, '$safe_name', $safe_address_id, 
                     '$safe_public', '$safe_approved', $safe_franchise_id, $safe_destination_phone,
-                    $safe_detail, $AdditionalMinutes)";
+                    $safe_detail, $AdditionalMinutes, $ShowOnManifest)";
  		#echo $sql;
     $result = mysql_query($sql);
 
@@ -224,7 +224,7 @@ function create_destination_for_address_id($name, $address_id, $franchise_id,
 function edit_destination($destination_id, $name, $address, 
 		$franchise_id, $destination_group_id, $destination_phone, 
 		$destination_detail, $is_public, $is_public_approved = false, 
-		$destination_phone_ext = '', $is_local_area = TRUE, $on_demand = FALSE, $AdditionalMinutes = 0){
+		$destination_phone_ext = '', $is_local_area = TRUE, $on_demand = FALSE, $AdditionalMinutes = 0, $ShowOnManifest = 0){
 	
     $is_local_area = $is_local_area == null ? 0 : $is_local_area;
     $on_demand = $on_demand == null ? 0 : $on_demand;
@@ -260,9 +260,10 @@ function edit_destination($destination_id, $name, $address,
                                    DestinationDetail = $safe_detail,
                                    is_local_area_override = $is_local_area,
                                    on_demand_override = $on_demand,
-                                   AdditionalMinutes = $AdditionalMinutes
+                                   AdditionalMinutes = $AdditionalMinutes, 
+                                   ShowOnManifest = $ShowOnManifest
                                WHERE DestinationID = $safe_destination_id LIMIT 1 ;";
-
+    // echo $sql."<BR>";
 	$result = mysql_query($sql) or die(mysql_error());
 	if($destination_phone == '' && $destination['PhoneID'] != NULL){
 		delete_phone_number($destination['PhoneID']);
@@ -375,7 +376,7 @@ function get_destination($destination_id) {
     $safe_dest_id = mysql_real_escape_string($destination_id);
 
     $sql = "SELECT DestinationID, DestinationGroupID, Name, IsPublic, IsPublicApproved, destination.PhoneID, PhoneNumber, Ext, DestinationDetail,
-                   Address1, Address2, City, State, ZIP5, ZIP4, Latitude, Longitude, AddressID, VerifySource, FranchiseID, DestinationGroupID, is_local_area_override, on_demand_override, AdditionalMinutes
+                   Address1, Address2, City, State, ZIP5, ZIP4, Latitude, Longitude, AddressID, VerifySource, FranchiseID, DestinationGroupID, is_local_area_override, on_demand_override, AdditionalMinutes, ShowOnManifest
             FROM (destination NATURAL JOIN address) LEFT JOIN phone ON  destination.PhoneID = phone.PhoneID
             WHERE destination.DestinationID = $safe_dest_id";
 
