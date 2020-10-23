@@ -35,15 +35,13 @@ function get_mapquest_time_and_distance($from_address, $to_address, $check_both 
 		//echo "<!-- Note: Return Zero distance due to incomplete addresses -->\n";
 		return array('distance' => $miles, 'time' => $seconds);
 	}
-	
+
 	if ($from_address['VerifySource'] == 'Geocode') {
 		$mapquest_from = address_to_geocode_string($from_address);
 	} else {
 		$mapquest_from = address_to_mapquest_api_string($from_address);
 	}
 	
-	//print($to_address);
-
 	if ($to_address['VerifySource'] == 'Geocode') {
 		$mapquest_to = address_to_geocode_string($to_address);
 	} else {
@@ -65,19 +63,19 @@ function get_mapquest_time_and_distance($from_address, $to_address, $check_both 
 function get_mapquest_time_and_distance_results($mapquest_from_string, $mapquest_to_string, $desiredArrivalTime = '') {
 //echo 'from: '.$mapquest_from_string.'<br />to: '.$mapquest_to_string;
 	global $MAPQUEST_API_MATRIX_URL;
-//echo $mapquest_from_string;
-//echo '<br>';
-//echo $mapquest_to_string;
-//echo '<br>';
-//echo '----<br>';
+// echo $mapquest_from_string;
+// echo '<br>';
+// echo $mapquest_to_string;
+// echo '<br>';
+// echo '----<br>';
 
-	$sql = "select * from mapquest_cache where mapquest_from_string = '$mapquest_from_string' and mapquest_to_string = '$mapquest_to_string' and cache_date > TIMESTAMP( DATE_SUB( NOW( ) , INTERVAL 90 DAY ) )";
-	//echo $sql;
-	$r = mysql_query($sql);
-	if(mysql_num_rows($r) > 0) {
-		$rs = mysql_fetch_array($r);
-		return array('distance' => $rs["miles"], 'time' => $rs["seconds"]);
-	}
+// 	$sql = "select * from mapquest_cache where mapquest_from_string = '$mapquest_from_string' and mapquest_to_string = '$mapquest_to_string' and cache_date > TIMESTAMP( DATE_SUB( NOW( ) , INTERVAL 90 DAY ) )";
+// 	echo $sql;
+// 	$r = mysql_query($sql);
+// 	if(mysql_num_rows($r) > 0) {
+// 		$rs = mysql_fetch_array($r);
+// 		return array('distance' => $rs["miles"], 'time' => $rs["seconds"]);
+// 	}
 	
 	echo "<!-- REQUESTING FROM MAPQUEST -->\n";
 	

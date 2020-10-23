@@ -220,14 +220,16 @@ function get_schedule_driver_links_on_date( $franchise_id, $date ) {
                    F_Address.Address2 AS F_Address2, F_Address.City AS F_City, 
                    F_Address.State AS F_State, F_Address.ZIP5 AS F_ZIP5, 
                    F_Address.ZIP4 AS F_ZIP4,
-                   F_Phone.PhoneNumber AS F_PhoneNumber,
+                   F_Phone.PhoneNumber AS F_PhoneNumber, F_Phone.Ext AS F_Ext,
+                   F_Dest.ShowOnManifest as F_ShowOnManifest,
                    T_Dest.Name AS T_Name, T_Dest.IsPublic AS T_IsPublic,
                    T_Dest.DestinationDetail AS T_DestinationDetail,
                    T_Address.AddressID AS T_AddressID, T_Address.Address1 AS T_Address1, 
                    T_Address.Address2 AS T_Address2,
                    T_Address.City AS T_City, T_Address.State AS T_State, 
                    T_Address.ZIP5 AS T_ZIP5, T_Address.ZIP4 AS T_ZIP4,
-                   T_Phone.PhoneNumber AS T_PhoneNumber,
+                   T_Phone.PhoneNumber AS T_PhoneNumber, T_Phone.Ext as T_Ext,
+                   T_Dest.ShowOnManifest as T_ShowOnManifest,
                    Last_Changed_By, Last_Changed_Date, IndexPath
             FROM (link, destination AS F_Dest, destination AS T_Dest, 
                  address AS F_Address, address AS T_Address)
