@@ -730,7 +730,9 @@ function get_link_destination_table_cell_contents($dest_prefix, $link_row, $link
     $cell .= "{$link_row[$dest_prefix . 'Address1']}<br />" . $address2;
     $cell .= "{$link_row[$dest_prefix . 'City']}, {$link_row[$dest_prefix . 'State']}  {$link_row[$dest_prefix . 'ZIP5']}";
     
-    if (isset($link_row[$dest_prefix . 'PhoneNumber']) && $link_row[$dest_prefix.'ShowOnManifest'] === '1') {
+    if (isset($link_row[$dest_prefix . 'PhoneNumber']) && 
+        ($link_row[$dest_prefix.'ShowOnManifest'] === '1'
+            || (current_user_has_role(1, 'FullAdmin') || current_user_has_role($link_row['FranchiseID'], 'Franchisee')))) {
         $cell .= "<br />{$link_row[$dest_prefix . 'PhoneNumber']}";
         $cell .= $link_row[$dest_prefix. 'Ext'] != '' ? ' x'.$link_row[$dest_prefix. 'Ext'] : '';
     }
