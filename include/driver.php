@@ -633,7 +633,7 @@ function get_user_driver_next_drives($user_id){
 	//echo $sql."<BR>";
 	$next = mysql_fetch_array(mysql_query($sql));
 	$sql = "SELECT Count(*) FROM link WHERE AssignedDriverUserID =$safe_user_id  and (CustomTransitionType = 'DRIVER' or CustomTransitionType is null) "
-		."and date_format(date('{$next[DesiredArrivalTime]}'),'%d-%m-%Y') = date_format(date(DesiredArrivalTime),'%d-%m-%Y')";
+		."and date_format(date('".$next["DesiredArrivalTime"]."'),'%d-%m-%Y') = date_format(date(DesiredArrivalTime),'%d-%m-%Y')";
 	//echo $sql."<BR>";
 	$scheduled = mysql_fetch_array(mysql_query($sql));
 	$_SESSION['DriverNextDrives'] = array('NumberOfDrives' => $scheduled[0] . " Destinations", 'NextDrive' => $next['LinkID']);
