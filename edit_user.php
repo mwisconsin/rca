@@ -1235,7 +1235,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="alignright">Has Caretaker:</td>
+						<td class="alignright">Has Additional Rider:</td>
 						<td>
 							<select name="HasCaretaker">
 								<option value="No">No</option>
@@ -1248,7 +1248,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<b>Caretaker Info</b><br><span style="font-size:11px;">*only if you checked Yes to the last question.</span><br>
+							<b>Additional Rider Info</b><br><span style="font-size:11px;">*only if you checked Yes to the Additional Rider question.</span><br>
 							<table>
 								<tr>
 									<td class="alignright" width="80px">Title</td>
@@ -1271,7 +1271,7 @@
 									<td><input type="text" name="Suffix" maxlength="10" value="<?php echo $contact_name['Suffix']; ?>" style="width:50px;" /></td>
 								</tr>
 								<tr>
-					               <td class="alignright">Caretaker Birthday</td>
+					               <td class="alignright">Additional Rider Birthday</td>
 					           <td>
 					           <?php 
 					               print_month_select("CaretakerBirthMonth");
@@ -1283,7 +1283,7 @@
 					           </td>
 					       </tr>
 					       <tr>
-					           <td class="alignright">Background Checked</td>
+					           <td class="alignright">Additional Rider Background Checked</td>
 					           <td>
 					               <select name="CaretakerBackgroundCheck">
 					                   <option value="Yes">Yes</option>
@@ -1760,7 +1760,8 @@
 			         "', `HasCaretaker` = '" . mysql_real_escape_string($_POST['HasCaretaker']) . 
 			         "', `SensitiveToSmells` = '" . mysql_real_escape_string($_POST['SensitiveToSmells']) .
 			         "', `SmokerOrPerfumeUser` = '" . mysql_real_escape_string($_POST['SmokerOrPerfumeUser']) .
-			         "', `CaretakerBirthday` = '".$care_taker_birthdate. 
+					 "', `CaretakerBirthday` = '".$care_taker_birthdate. 
+					 "', FrontSeat = '".$_POST['FrontSeat'] .
 			         "', `OtherNotes` = '" . mysql_real_escape_string($_POST['OtherNotes']) . "'" .
 			         $caretaker_mysql . " WHERE `rider_preferences`.`UserID` = '" . mysql_real_escape_string($user_id) . "' LIMIT 1;";
 			mysql_query($query) or die(mysql_error() . " : " . $query);
@@ -1967,7 +1968,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="alignright">Has Caretaker:</td>
+						<td class="alignright">Additional Rider:</td>
 						<td>
 							<select name="HasCaretaker">
 								<option value="No" <?php if($preferences['HasCaretaker'] == "No") echo 'SELECTED'; ?>>No</option>
@@ -1975,9 +1976,20 @@
 							</select>
 						</td>
 					</tr>
+					<?php if(current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise, "Franchisee")) { ?>
+					<tr>
+						<td class="alignright">Front Seat Preference:</td>
+						<td>
+							<select name="FrontSeat">
+								<option value="No" <?php if($preferences['FrontSeat'] == "No") echo 'SELECTED'; ?>>No</option>
+								<option value="Yes" <?php if($preferences['FrontSeat'] == "Yes") echo 'SELECTED'; ?>>Yes</option>								
+							</select>
+						</td>
+					</tr>
+					<?php } ?>
 					<tr>
 						<td colspan="2">
-							<b>Caretaker Name</b><br><span style="font-size:11px;">*only if you checked Yes to the last question.</span><br>
+							<b>Additional Rider Name</b><br><span style="font-size:11px;">*only if you checked Yes to the Additional Rider question.</span><br>
 							<table>
 								<tr>
 									<td class="alignright" width="80px">Title</td>
@@ -2000,7 +2012,7 @@
 									<td><input type="text" name="Suffix" maxlength="10" value="<?php echo $CareTakerName['Suffix']; ?>" style="width:50px;" /></td>
 								</tr>
 								<tr>
-					               <td class="alignright">Caretaker Birthday</td>
+					               <td class="alignright">Additional Rider Birthday</td>
 					           <td>
 					           <?php
 					               if($preferences['CaretakerBirthday'] != NULL)
@@ -2014,7 +2026,7 @@
 					           </td>
 					       </tr>
 					       <tr>
-					           <td class="alignright">Background Checked</td>
+					           <td class="alignright">Additional Rider Background Checked</td>
 					           <td>
 					               <select name="CaretakerBackgroundCheck">
 					                   <option value="Yes"<?php if($preferences['CaretakerBackgroundCheck'] == 'Yes') echo ' SELECTED'; ?>>Yes</option>

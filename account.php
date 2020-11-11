@@ -830,6 +830,12 @@ function CloneUser() {
 									<td><?php echo $preferences['HearingLevel']; ?></td>
 									<?php } ?>
                                 </tr>
+								<?php if(current_user_has_role(1, 'FullAdmin') || current_user_has_role($franchise, 'Franchisee')) { ?>
+								<tr>
+									<td class="alignright">Front Seat Preference:</td>
+									<td><?php echo $preferences['FrontSeat']; ?></td>
+								</tr>
+								<?php } ?>
 								<tr>
 								 	<td class="alignright">Other Notes:</td>
 									<td colspan="6"><?php echo $preferences['OtherNotes']; ?></td>

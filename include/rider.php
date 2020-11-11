@@ -19,9 +19,9 @@ function add_rider($rider, $user_id)
 	if(!isset($rider["CanScheduleRides"])) $rider["CanScheduleRides"] = 1;
     $safe_user_id = mysql_real_escape_string($user_id);
 
-	$sql = "INSERT INTO `rider` (`UserID`, `RiderStatus`, `EmergencyContactID`, `EmergencyContactRelationship`,`ADAQualified`, `QualificationReason`, 
-		`DateOfBirth`, `RiderWaiverReceived`, default_num_in_car, CanScheduleRides)
-	 VALUES ($safe_user_id, '" . mysql_real_escape_string($rider['RiderStatus']) . "', $safe_emergency_contact, '$safe_emergency_relation', '" . mysql_real_escape_string($rider['ADAQualified']) 
+	$sql = "INSERT INTO `rider` (`UserID`, `RiderStatus`, `EmergencyContactID`, `EmergencyContactRelationship`,`ADAQualified`, `QualificationReason`, `DateOfBirth`, `RiderWaiverReceived`, default_num_in_car, CanScheduleRides)
+	 VALUES ($safe_user_id, '" 
+	 . mysql_real_escape_string($rider['RiderStatus']) . "', $safe_emergency_contact, '$safe_emergency_relation', '" . mysql_real_escape_string($rider['ADAQualified']) 
 	 . "', '" . mysql_real_escape_string($rider['QualificationReason']) . "', '" . mysql_real_escape_string($rider['DateOfBirth']) 
 	 . "', '" . mysql_real_escape_string($rider['RiderWaiverReceived'])."', $rider[default_num_in_car], $rider[CanScheduleRides]);";
 	$result = mysql_query($sql) or die(mysql_error());
@@ -624,7 +624,8 @@ function rider_preferences_to_display_string($preferences_array) {
 		'VisionLevel' => array('VL1' => 'VL1', 'VL2' => 'VL2'),
 		'HearingLevel' => array('HL1' => 'HL1','HL2' => 'HL2','HL3' => 'HL3'),
 		'HasSmallPetInCarrier' => array('Yes' => 'SP'),
-		'HasServiceAnimal' => array('Yes' => 'SA')
+		'HasServiceAnimal' => array('Yes' => 'SA'),
+		'FrontSeat' => array('Yes' => 'FS')
     );
 
     $prefs_strings = array(); 
@@ -741,6 +742,7 @@ function get_rider_preference_key(){
 	<td>DS</td><td>Driver Side only</td>
 	<td>LV</td><td>Low Vehicle</td>
 	<td>WC2</td><td>Wheelchair (Stays)</td>
+	<td>FS</td><td>Front Seat Preference</td>
 </tr>
 <table>";
     return $html;
