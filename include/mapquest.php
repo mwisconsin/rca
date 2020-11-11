@@ -70,7 +70,7 @@ function get_mapquest_time_and_distance_results($mapquest_from_string, $mapquest
 // echo '----<br>';
 
 	$sql = "select * from mapquest_cache where mapquest_from_string = '$mapquest_from_string' and mapquest_to_string = '$mapquest_to_string' and cache_date > TIMESTAMP( DATE_SUB( NOW( ) , INTERVAL 180 DAY ) )";
-	echo $sql;
+	#echo $sql;
 	$r = mysql_query($sql);
 	if(mysql_num_rows($r) > 0) {
 		$rs = mysql_fetch_array($r);
