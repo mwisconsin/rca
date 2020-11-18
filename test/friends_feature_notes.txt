@@ -1,0 +1,16 @@
+Add profile photos to Account page
+
+New account page: Friends Management (accessible only by ClubAdmin+)
+	- List current friends
+	- Add / Delete friends
+	- All friends are listed in a table highlighted with their profile photos
+	
+During scheduling a ride, instead of selecting the number of riders, select from a list of friends (if any)
+	- All friends are listed in a popup with a table that features their profile photos
+
+Listings on the Manifest and Master Manifest will have hovers over names that show off their profile photos
+	- Friends will be listed alongside the names of the riders, with the same hover capability
+	- When the manifest(s) are printed, the profile photos are in a column.
+	
+Potential future feature: When rider and driver notifications are sent out via SMS, they're instead sent out by MMS, and include the profile photo of the rider or driver to expect.
+

@@ -65,12 +65,37 @@
 			}
 			
 		}
+
+		if(isset($_FILES['image'])) {
+			include "imgupload.config.php";
+			include "imgupload.class.php";
+
+			$img = new ImageUpload;
+
+			$result = $img->uploadImages($_FILES['image']);
+
+			if(!empty($result->error)){
+				foreach($result->error as $errMsg){
+					echo $errMsg;
+				}
+			} else {
+				if(!empty($result->ids)){
+					foreach($result->ids as $id){
+						$sql = "update person_name set profile_image = $id where PersonNameID = ". $person_name['PersonNameID'];
+						mysql_query($sql);
+					}
+				}
+				
+				
+			}
+		}
+
 		include_once 'include/header.php';
 		
 		$name = get_user_person_name($user_id);
 		?>
 			<center><h2>Edit Name</h2></center>
-			<form method="post" action="<?php echo $_SERVER['PHP_SELF'] . '?field=name' . $edit_url; ?>">
+			<form method="post" action="<?php echo $_SERVER['PHP_SELF'] . '?field=name' . $edit_url; ?>" enctype="multipart/form-data">
             <?php 
                 echo $error; 
                 print_get_name_form_part($name, '', TRUE, 'margin:auto; width:400px;'); 
@@ -1727,10 +1752,10 @@
 				$caretaker_id = NULL;
 			} else if($preferences['HasCaretaker'] == "No" && $_POST['HasCaretaker'] == "Yes"){
 				//create caretaker
-				$caretaker_id = add_person_name($_POST['Title'],$_POST['FirstName'],$_POST['MiddleInitial'],$_POST['LastName'],$_POST['Suffix']);
+				$caretaker_id = add_person_name($_POST['Title'],$_POST['FirstName'],$_POST['MiddleInitial'],$_POST['LastName'],$_POST['Suffix'],$_POST['NickName']);
 			} else if($preferences['HasCaretaker'] == "Yes" && $_POST['HasCaretaker'] == "Yes") {
 				//update caretaker
-				$caretaker_id = update_person_name($preferences['CaretakerID'],$_POST['Title'],$_POST['FirstName'],$_POST['MiddleInitial'],$_POST['LastName'],$_POST['Suffix']);
+				$caretaker_id = update_person_name($preferences['CaretakerID'],$_POST['Title'],$_POST['FirstName'],$_POST['MiddleInitial'],$_POST['LastName'],$_POST['Suffix'],$_POST['NickName']);
 			}
 			
 			if($caretaker_id != NULL)
@@ -1998,6 +2023,10 @@
 								<tr>
 									<td class="alignright">First Name</td>
 									<td><input type="text" name="FirstName" maxlength="30" value="<?php echo $CareTakerName['FirstName']; ?>" style="width:200px;" /></td>
+								</tr>
+								<tr>
+									<td class="alignright">NickName</td>
+									<td><input type="text" name="NickName" maxlength="30" value="<?php echo $CareTakerName['NickName']; ?>" style="width:200px;" /></td>
 								</tr>
 								<tr>
 									<td class="alignright">Middle Initial</td>

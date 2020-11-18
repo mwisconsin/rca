@@ -118,7 +118,15 @@ echo <<<HTML
         <td class="alignright">Nickname</td>
         <td><input type="text" name="{$form_name_prefix}Nickname" value="{$person_name['NickName']}" style="width:200px;" /></td>
     </tr>
+	<tr><td colspan=2><Br>Profile Image</td></tr>
+	<tr><td colspan=2><input type="file" name="image[]"></td></tr>
 HTML;
+	echo "<tr><td colspan=2>";
+	if($person_name['profile_image'] != "0") { 
+		echo "<img src=/image.php?id=" . $person_name['profile_image'] ." width=100 height=100>";
+	}
+	echo "</td></tr>";
+
 
     if ($show_submit) {
 echo <<<SUBMIT

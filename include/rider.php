@@ -1087,8 +1087,8 @@ function createRiderPrefs($user_id, $post_vars) {
          $caretaker_id = NULL;
 			if($post_vars['HasCaretaker'] == 'Yes')
 			{
-				$query = "INSERT INTO `person_name` (`PersonNameID` ,`Title` ,`FirstName` ,`MiddleInitial` ,`LastName` ,`Suffix`)
-				VALUES (NULL , '" . mysql_real_escape_string($post_vars['Title']) . "', '" . mysql_real_escape_string($post_vars['FirstName']) . "', '" . mysql_real_escape_string($post_vars['MiddleInitial']) . "', '" . mysql_real_escape_string($post_vars['LastName']) . "', '" . mysql_real_escape_string($post_vars['Suffix']) . "');"; 
+				$query = "INSERT INTO `person_name` (`PersonNameID` ,`Title` ,`FirstName` ,`MiddleInitial` ,`LastName` ,`Suffix`, `NickName`)
+				VALUES (NULL , '" . mysql_real_escape_string($post_vars['Title']) . "', '" . mysql_real_escape_string($post_vars['FirstName']) . "', '" . mysql_real_escape_string($post_vars['MiddleInitial']) . "', '" . mysql_real_escape_string($post_vars['LastName']) . "', '" . mysql_real_escape_string($post_vars['Suffix']) . "', '" . mysql_real_escape_string($post_vars['NickName']) . "');"; 
 				mysql_query($query) or die(mysql_error());
 				$caretaker_id = mysql_insert_id();
 				$caretaker_mysql = "'" . mysql_real_escape_string($caretaker_id) . "'";

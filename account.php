@@ -142,6 +142,11 @@ function CloneUser() {
 		}
 	
 	} ?></span>
+	<?php
+		if($Person_name["profile_image"] != "0") {
+			echo "<br><img src=/image.php?id=" . $person_name['profile_image'] ." width=100 height=100>";
+		}
+	?>
 </div>
 <div class="account_subject">
 	<span class="account_subject_text">Addresses </span><br>

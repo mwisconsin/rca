@@ -281,7 +281,7 @@ function get_user_person_name( $user_id ) {
 #    }
 
     $safe_uid = mysql_real_escape_string($user_id);
-    $sql = "SELECT PersonNameID, Title, FirstName, MiddleInitial, LastName, Suffix, NickName 
+    $sql = "SELECT PersonNameID, Title, FirstName, MiddleInitial, LastName, Suffix, NickName, profile_image 
             FROM `users` NATURAL JOIN `person_name`  
             WHERE `UserID` = $safe_uid";
     $result = mysql_query($sql);
