@@ -18,8 +18,8 @@
 	} else {
 		$user_id = get_affected_user_id();
 	}
-	
-	if(@$_GET['new_destination_from_addressid']) {
+
+	if(isset($_GET['new_destination_from_addressid'])) {
 		/* If address destination exists, refresh the page in edit mode for that destination */
 		$sql = "select DestinationID from destination where AddressID = $_GET[new_destination_from_addressid]";
 		$r = mysql_query($sql);
@@ -116,7 +116,7 @@
                                                       @$_POST['IsPublicApproved'] ? true: false, 
                                                       $_POST["DestinationGroup"], $_POST['DestinationPhone'], 
                                                       $_POST['DestinationDetail'], $_POST['DestinationPhoneExt'],
-                                                      @$_POST['AdditionalMinutes'], @$_POST["ShowOnManifest"] == 'on' ? TRUE : FALSE);
+                                                      @$_POST['AdditionalMinutes'], @$_POST["ShowOnManifest"] == 'on' ? 1 : 0);
 			add_destination_for_rider($rider_id,$new_destination);
 			$destination = get_destination($new_destination);
       if ($should_geocode) {
