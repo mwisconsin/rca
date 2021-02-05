@@ -206,10 +206,16 @@ openCharityPopup();
 <p>Non-Charitable Funds (may not be deducted from taxes)<p>
 You may add a rider to your support list by selecting this <a href="request_to_support_rider.php">Add a Rider to my Support List</a> link.
 <br />
+<style>
+#table_riders th {
+    padding: 0 5px 0 5px;
+    text-align: center;
+}
+</style>
 <table class=btable id=table_riders>
 <tr><?php 
     if ($show_checkbox) { echo '<th>&nbsp;</th>'; } 
-?><th>Gift (in dollars)</th><th>to</th><th>Current $ available for rides</th><th>YTD Amounts</th><th><?php echo date('Y', strtotime('last year')); ?> Amounts</th><th><?php echo date('Y', strtotime('2 years ago')); ?> Amounts</th></tr>
+?><th>Gift (in dollars)</th><th>to</th><th>Current $ available for rides</th><th>YTD Amounts</th><th><?php echo date('Y', strtotime('last year')); ?> Amounts</th><th><?php echo date('Y', strtotime('2 years ago')); ?> Amounts</th><th>Action</th></tr>
 
 <?php 
     if ($show_checkbox) { // Driver Reimbursement is a special case
@@ -272,7 +278,7 @@ You may add a rider to your support list by selecting this <a href="request_to_s
 
             $dollars = "<input type=\"text\" size=\"3\" name=\"RiderDollars[{$non_charity['UserID']}]\" id=\"RiderDollars[{$non_charity['UserID']}]\" value=\"{$dollar_amount}\" placeholder=\"0\" />";
 
-            echo "<tr>{$checkbox}<td>\${$dollars}.00</td><td>{$disp_name}</td><td>{$available_balance}</td><td>{$ytd_amount}</td><td>{$ytd_amount2}</td><td>{$ytd_amount3}</td></tr>";
+            echo "<tr>{$checkbox}<td>\${$dollars}.00</td><td>{$disp_name}</td><td>{$available_balance}</td><td>{$ytd_amount}</td><td>{$ytd_amount2}</td><td>{$ytd_amount3}</td><td><button onClick=\"removeNoncharity(".$non_charity["UserID"]."); return false;\">Remove</button></td></tr>";
         }
     }
 
@@ -289,6 +295,11 @@ if ($show_checkbox) { ?>
 </form>
 
 <script>
+function removeNoncharity(ncid) {
+    jQuery.post("/xhr/removenoncharity.php",{ userid: <?php echo $user_id; ?>, ncid: ncid },function() {
+        window.location.reload();
+    });
+}
 function confirmSubmission(f) {
 	$outstring = '';
 	if(jQuery('#table_charities input[name^="Dollars"]').length > 0) {

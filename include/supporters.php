@@ -327,6 +327,19 @@ function connect_supporter_to_rider($supporter_uid, $rider_uid) {
     return FALSE;
 }
 
+function disconnect_supporter_from_rider($supporter_uid, $rider_uid) {
+    $sql = "DELETE FROM supporter_rider where SupporterUserID = $supporter_uid AND RiderUserID = $rider_uid";
+    echo $sql;
+    $result = mysql_query($sql);
+    if ($result) {
+        return TRUE;
+    } else {
+        rc_log_db_error(PEAR_LOG_ERR, mysql_error(),
+                        "Unable to connect supporter $supporter_uid to rider $rider_uid", $sql);
+    }
+    return FALSE;   
+}
+
 function delete_supporter_rider_request($request_id) {
     $safe_rid = mysql_real_escape_string($request_id);
 
