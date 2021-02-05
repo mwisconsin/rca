@@ -327,7 +327,7 @@ if (user_has_role($user_id, $franchise, 'RIDER')) { ?>
 <?php 
 //if (user_has_role($user_id, $franchise, 'RIDER')) { 
 ?>
-<div style="border:1px solid #666666;box-shadow:4px 4px 4px rgba(0, 0, 0, .6);padding:10px;display:block;float:right;margin-left:20px;width:410px">
+<div style="border:1px solid #666666;box-shadow:4px 4px 4px rgba(0, 0, 0, .6);padding:10px;display:block;float:left;margin-left:20px;width:320px">
 <h2>Recharge Information</h2>
 <form name="test" method="post">
 <table border="1">
