@@ -726,7 +726,7 @@ function get_link_destination_table_cell_contents($dest_prefix, $link_row, $link
     	. " - $rider_name"
     	. (($link) ? '</a>' : '') . '<br />';
     $cell .= ((is_null($link_row[$dest_prefix . 'DestinationDetail'])) ? 
-                '' : "{$link_row[$dest_prefix . 'DestinationDetail']}<br />");
+                '' : preg_replace("/[\n\r]+/","<br>",$link_row[$dest_prefix . 'DestinationDetail'])."<br />");
     $cell .= "{$link_row[$dest_prefix . 'Address1']}<br />" . $address2;
     $cell .= "{$link_row[$dest_prefix . 'City']}, {$link_row[$dest_prefix . 'State']}  {$link_row[$dest_prefix . 'ZIP5']}";
     

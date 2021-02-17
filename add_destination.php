@@ -29,7 +29,7 @@
 		<tr>
 			<td style="padding-left:4px;" colspan="2">
 				Destination Details<br>
-				<input type="text" name="DestinationDetail" value="<?php echo $_POST['DestinationDetail']; ?>" style="width:250px;">
+				<textarea name="DestinationDetail" style="width:250px;"><?php echo $_POST['DestinationDetail']; ?></textarea>
 			</td>
 		</tr>
 		<tr>

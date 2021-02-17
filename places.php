@@ -158,7 +158,7 @@
 				while($row2 = mysql_fetch_array($secondResult)){
 					$phone = get_phone_number($row2['PhoneID']);
 					echo '<li title="' . $phone['PhoneNumber'] . '">';
-					echo $row2['Name'] . ' - ' . $row2['DestinationDetail'] . ' - Place ' . "<a href=\"#\" onclick=\"delete_destination({$row2['DestinationID']},'Destination')\">Delete</a>";
+					echo $row2['Name'] . ' - ' . preg_replace("/[\n\r]+/","<br>",$row2['DestinationDetail']) . ' - Place ' . "<a href=\"#\" onclick=\"delete_destination({$row2['DestinationID']},'Destination')\">Delete</a>";
 					echo " <a href=\"?destination={$row2['DestinationID']}\">Edit</a>";
 					echo '</li>';
 				}
@@ -280,7 +280,7 @@
 				<td>Destination Detail:</td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="text" name="DestinationDetail" value="<?php echo $destination['DestinationDetail']; ?>" style="width:300px;"></td>
+				<td colspan="2"><textarea name="DestinationDetail" style="width:300px;"><?php echo $destination['DestinationDetail']; ?></textarea></td>
 			</tr>
 			<tr>
 				<td>Destination Phone Number:</td>
@@ -376,7 +376,7 @@
 				<td>Destination Detail:</td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="text" name="DestinationDetail" style="width:300px;"></td>
+				<td colspan="2"><textarea name="DestinationDetail" style="width:300px;"></textarea></td>
 			</tr>
 			<tr>
 				<td>Destination Phone Number:</td>
@@ -497,7 +497,7 @@
 		while($row = mysql_fetch_array($result)){
 		      $phone = get_phone_number($row['PhoneID']);
 			echo '<tr>';
-			echo "<td>{$row['Name']}<br>{$row['DestinationDetail']}</td>";
+			echo "<td>{$row['Name']}<br>".preg_replace("/[\n\r]+/","<br>",$row['DestinationDetail'])."</td>";
 			echo "<td>{$phone['PhoneNumber']}</td>";
 			echo "<td>";
 				create_html_display_address($row['AddressID']);

@@ -155,8 +155,8 @@ function strip_apt_unit_etc($address_line_1)
 			<?php  foreach(get_additional_riders($link['LinkID']) as $rider){
                echo "<tr> <td> Additional Rider - </td><td>" . get_displayable_person_name_string($rider) . "</td> </tr>";
 			   }?>
-			<tr><td  nowrap="nowrap"> From&nbsp;- </td><td><?php echo $link['F_Name'] . " " . $link['F_DestinationDetail'] . ", " . $link['F_Address1'] . " " . $link['F_Address2'] . ", " . $link['F_City'] ; ?> </tr></td>
-			<tr><td nowrap="nowrap"> To&nbsp;- </td><td><?php echo $link['T_Name'] . " " . $link['T_DestinationDetail'] . ", " . $link['T_Address1'] . " " . $link['T_Address2'] . ", " . $link['T_City'] ; ?> </tr></td>
+			<tr><td  nowrap="nowrap"> From&nbsp;- </td><td><?php echo $link['F_Name'] . " " . preg_replace("/[\n\r]+/","<br>",$link['F_DestinationDetail']) . ", " . $link['F_Address1'] . " " . $link['F_Address2'] . ", " . $link['F_City'] ; ?> </tr></td>
+			<tr><td nowrap="nowrap"> To&nbsp;- </td><td><?php echo $link['T_Name'] . " " . preg_replace("/[\n\r]+/","<br>",$link['T_DestinationDetail']) . ", " . $link['T_Address1'] . " " . $link['T_Address2'] . ", " . $link['T_City'] ; ?> </tr></td>
 			<tr><td> Notes&nbsp;- </td><td><?php echo $link['LinkNote'] . " " . $rider_settings['OtherNotes']; ?></td> </tr></div></h3>
 		<?php } else { ?>
 			<tr><td>From&nbsp;- </td><td><?php echo $from["Address1"]. " " . $from["Address2"] . ", " . $from["City"] ; ?></td> </tr>

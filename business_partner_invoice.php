@@ -132,7 +132,7 @@
                 $destinations[$bp_link['FromDestinationID']] = $from_destination;
                 $location_names[$bp_link['FromDestinationID']] = $raw_destination['Name'] . 
                                                                  (($raw_destination['DestinationDetail'] ?
-                                                                  "<br />{$raw_destination['DestinationDetail']}" :
+                                                                  "<br />".preg_replace("/[\n\r]+/","<br>",$raw_destination['DestinationDetail']) :
                                                                   ''));
             }
 
@@ -155,7 +155,7 @@
                 $destinations[$bp_link['ToDestinationID']] = $to_destination;
                 $location_names[$bp_link['ToDestinationID']] = $raw_destination['Name'] . 
                                                                (($raw_destination['DestinationDetail'] ?
-                                                                "<br />{$raw_destination['DestinationDetail']}" :
+                                                                "<br />".preg_replace("/[\n\r]+/","<br>",$raw_destination['DestinationDetail']) :
                                                                 ''));
             }
 

@@ -15,7 +15,7 @@
 	$sql = "SELECT * FROM (destination NATURAL JOIN address) LEFT JOIN phone ON destination.PhoneID = phone.PhoneID WHERE IsPublicApproved = 'Yes' AND IsPublic = 'Yes'  AND FranchiseID = $safe_franchise;";
 	$result = mysql_query($sql);
 	while($row = mysql_fetch_array($result)){
-		$final_array[] = array('id'=>$row['DestinationID'], 'name' => $row['Name'], 'description' => $row['DestinationDetail'], 'phone' => $row['PhoneNumber'], 'groups' => $group_string, 'address' => "{$row['Address1']}, {$row['City']} {$row['State']}"); 
+		$final_array[] = array('id'=>$row['DestinationID'], 'name' => $row['Name'], 'description' => preg_replace("/[\n\r]+/","<br>",$row['DestinationDetail']), 'phone' => $row['PhoneNumber'], 'groups' => $group_string, 'address' => "{$row['Address1']}, {$row['City']} {$row['State']}"); 
 	}
 	
 	// for($i = 0; $i < count($sub_groups); $i++)

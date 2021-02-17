@@ -208,7 +208,7 @@
 		<tr>
 			<td style="padding-left:4px;" colspan="2">
 				Destination Details<br>
-				<input type="text" name="DestinationDetail" value="<?php echo $place['DestinationDetail']; ?>" style="width:250px;">
+				<textarea name="DestinationDetail" style="width:250px;"><?php echo $place['DestinationDetail']; ?></textarea>
 			</td>
 		</tr>
 		<tr>
@@ -349,7 +349,7 @@
 			<td><?php 
                     echo $destinations[$i]['Name']; 
                     if (!is_null($destinations[$i]['DestinationDetail'])) {
-                       echo "<br />{$destinations[$i]['DestinationDetail']}";
+                       echo "<br />".preg_replace("/[\n\r]+/","<br>",$destinations[$i]['DestinationDetail']);
                     }
                 ?></td>
 			<td>
