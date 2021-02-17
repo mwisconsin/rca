@@ -1303,7 +1303,7 @@
 					               echo " / ";
 					               print_day_select("CaretakerBirthDay");
 					               echo " / ";
-					               print_year_select(date("Y") - 110, 92, "CaretakerBirthYear");
+					               print_year_select(date("Y") - 110, 110, "CaretakerBirthYear");
 					           ?>
 					           </td>
 					       </tr>
@@ -2050,7 +2050,7 @@
 					               echo " / ";
 					               print_day_select("CaretakerBirthDay", FALSE, $date['Day']);
 					               echo " / ";
-					               print_year_select(date("Y") - 110, 92, "CaretakerBirthYear", FALSE, $date['Year']);
+					               print_year_select(date("Y") - 110, 110, "CaretakerBirthYear", FALSE, $date['Year']);
 					           ?>
 					           </td>
 					       </tr>
