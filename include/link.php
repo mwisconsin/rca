@@ -140,11 +140,11 @@ function add_rider_link_request( $rider_user_id, $from_destination_id, $to_desti
 	$safe_departure_time = ($departure_time !== FALSE) ? "'" . date('Y-m-d H:i:0', $departure_time) . "'" : 'NULL';
     $sql = "INSERT INTO link (RiderUserID, FromDestinationID, ToDestinationID,
                               DesiredArrivalTime, Distance, EstimatedMinutes, QuotedCents, FranchiseID,
-                              NumberOfRiders, DepartureTimeConfimed, ArrivalTimeConfirmed, LinkStatus, LinkNote, LinkFlexFlag, DriverConfirmed, PrePadding, PostPadding, DesiredDepartureTime, Last_Changed_By, Last_Changed_Date, Created_By, Created_Date) 
+                              NumberOfRiders, DepartureTimeConfimed, ArrivalTimeConfirmed, LinkStatus, LinkNote, LinkFlexFlag, DriverConfirmed, DriverConfirmedDTS, PrePadding, PostPadding, DesiredDepartureTime, Last_Changed_By, Last_Changed_Date, Created_By, Created_Date) 
             VALUES ($safe_rider_user_id, $safe_from_destination_id, $safe_to_destination_id,
                     '$safe_arrival_time', $safe_distance, $safe_minutes, $safe_quoted_cents,
                         $safe_franchise_id,
-                    $safe_num_riders, '$safe_dtc', '$safe_atc', 'UNKNOWN', $safe_note, $link_flex_flag, '$safe_DC', 
+                    $safe_num_riders, '$safe_dtc', '$safe_atc', 'UNKNOWN', $safe_note, $link_flex_flag, '$safe_DC', ".($safe_DC == 'Yes' ? 'CURRENT_TIMESTAMP()' : 'NULL').",
 					'$safe_prePadding', '$safe_postPadding', $safe_departure_time, $last_changed_by, '$last_changed_date', $created_by, '$created_date')";
 
     $result = mysql_query($sql) or die($sql);
@@ -2210,7 +2210,7 @@ function set_driver_confirm($link_id, $bool_confirmed){
     $safe_link_id = mysql_real_escape_string($link_id);
     $safe_bool_confirmed = $bool_confirmed ? 'Yes' : 'No';
     
-    $sql = "UPDATE `link` SET DriverConfirmed = '$safe_bool_confirmed' WHERE LinkID = $safe_link_id LIMIT 1;";
+    $sql = "UPDATE `link` SET DriverConfirmed = '$safe_bool_confirmed'".($bool_confirmed == 'Yes' ? ', DriverConfirmedDTS = CURRENT_TIMESTAMP() ' : '')." WHERE LinkID = $safe_link_id LIMIT 1;";
     $result = mysql_query($sql);    
     if($result){
         return true;

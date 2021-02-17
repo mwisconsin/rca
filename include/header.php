@@ -101,6 +101,11 @@ set_franchise_timezone(2);  // TODO:  Per-user/franchise TZ
 		  ga('send', 'pageview');
 		
 		</script>
+    <?php 
+    
+    if(isset($ADDITIONAL_HEADER_ENTRIES))
+        echo $ADDITIONAL_HEADER_ENTRIES;
+    ?>
     </head>
     <body <?php echo ($page=='login.php') ? ' onload="document.getElementById(\'txt_user_name\').focus();"' : ''; ?>>
     <div id="fb-root"></div>

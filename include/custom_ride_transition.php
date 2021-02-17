@@ -73,7 +73,7 @@ function driverreleased_all_on_date($userid, $dateupdating){
 	$safe_userid = mysql_real_escape_string($userid);
 	$safe_dateupdating = mysql_real_escape_string($dateupdating);
 	
-	$sql = "UPDATE link SET DriverConfirmed = 'Yes' WHERE AssignedDriverUserID = $userid and DATE_FORMAT(DesiredArrivalTime,'%Y-%m-%d') = '$dateupdating'";
+	$sql = "UPDATE link SET DriverConfirmed = 'Yes', DriverConfirmedDTS = CURRENT_TIMESTAMP() WHERE AssignedDriverUserID = $userid and DATE_FORMAT(DesiredArrivalTime,'%Y-%m-%d') = '$dateupdating'";
 
 	$result = mysql_query($sql);
 	

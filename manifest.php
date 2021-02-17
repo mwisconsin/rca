@@ -80,6 +80,15 @@ if(isset($_REQUEST['date']) && $_REQUEST['date'] != '') {
 	//echo $date."<BR>";
 }   
 
+// Enter Visit data into manifest_log
+// If not an Admin
+if(!current_user_has_role(1, 'FullAdmin') && !current_user_has_role($franchise_id, "Franchisee")) {
+	$sql = "insert into manifest_log (UserID, DateViewed) values ($driver_id, '$date')";
+	// echo $sql."<BR>";
+	$r = mysql_query($sql);
+	if(!$r) echo mysql_error();
+} 
+
 if(array_key_exists('ReleaseDriver',$_POST) && $_POST['ReleaseDriver'] != null){
 	// echo "Releasing for Driver ".$driver_info['UserID']." for date $date<BR>";
 	// exit();

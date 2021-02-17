@@ -109,6 +109,7 @@
     <li><a href="donation_reports.php">View Donation Reports</a></li>
     <li><a href="driver_payout_report.php">View Driver Payout Reports</a></li>
     <li><a href="admin_driver_availability.php">View Driver Availability Reports</a></li>
+	<li><a href="admin_driver_manifest_logs.php">View Driver Manifest Logs</a></li>
 </ul>
 <span id="Places" style="font-size:1.2em">+ Work With Places ( <?php echo $result[0]; ?> )</span><br>
 <ul id="Places_collapse">

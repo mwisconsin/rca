@@ -203,6 +203,7 @@ function get_admin_drop_down($franchise, $update = FALSE){
 											  'Donation' => 'donation_reports.php',
 											  'Driver&nbsp;Payout' => 'driver_payout_report.php',
 											  'Driver&nbsp;Availability' => 'driver_availability_report.php',
+											  'Driver Manifest Logs' => 'admin_driver_manifest_logs.php',
 											  'ACH to Process' => 'ACHtoProcess.php',
 											  'Traffic Study' => 'reportTrafficStudy.php'
 											  ));
