@@ -334,6 +334,16 @@ function confirmSubmission(f) {
 		});
 	}
 }	
+jQuery(function($) {
+    $(document).on('keyup keypress', 'form input[type="text"]', function(e) {
+        var keyCode = e.keyCode || e.which;
+        if(keyCode === 13) {
+            e.preventDefault();
+            if($(this).is("[name^='RiderDollars']")) $('input[name="SubmitDollars"]').trigger('click');
+            return false;
+        }
+    })
+})
 </script>
 <div style="clear:both">&nbsp;</div>
 
